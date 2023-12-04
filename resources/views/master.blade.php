@@ -21,6 +21,7 @@
 
     @include('frontend.partials.custom')
 
+
 </body>
 
 </html>

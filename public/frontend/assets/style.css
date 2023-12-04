@@ -38,7 +38,13 @@ header.header .nav > li > a:focus {
     background-color: transparent;
     color: #000;
 }
-
+.form-control:focus{
+    outline: none;
+    box-shadow: none;
+}
+.dropdown-item.nav-link{
+    color: rgb(255, 222, 22);
+}
 header.header .sign_up {
     position: absolute;
     right: 0;
@@ -1006,7 +1012,9 @@ footer.footer .footer_last_icon i {
 }
 
 #profile .card {
-    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+    /* box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%); */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border: none;
 }
 
 #profile .card .card-header {
@@ -1020,8 +1028,11 @@ footer.footer .footer_last_icon i {
 #profile .card-header {
     padding: 1rem 1.35rem;
     margin-bottom: 0;
-    background-color: rgba(33, 40, 50, 0.03);
-    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+    background-color: white;
+    border-bottom: none;
+    font-size: 18px;
+    /* background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125); */
 }
 
 #profile .form-control,
@@ -1050,6 +1061,10 @@ footer.footer .footer_last_icon i {
     border-right: none;
     border-left: none;
 }
+#profile .form-control, #profile .form-control:focus, #profile .form-control:hover {
+    outline: none;
+    box-shadow: none;
+}
 
 #profile .nav-borders .nav-link {
     color: #69707a;
@@ -1075,4 +1090,8 @@ footer.footer .footer_last_icon i {
     border-right: none;
     border-left: none;
     
+}
+#profile .btn-yellow {
+    background-color: rgb(255, 222, 22);
+    color: white;
 }

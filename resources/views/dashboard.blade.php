@@ -191,7 +191,7 @@
     <div class="container px-4 mt-4" id="profile">
         <!-- Account page navigation-->
         <nav class="nav nav-borders">
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <div class="nav nav-tabs border border-0" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
                     role="tab" aria-controls="nav-home" aria-selected="true">Profile</button>
                 <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
@@ -203,74 +203,96 @@
                     aria-selected="false">Notifications</button>
             </div>
         </nav>
-        <hr class="mt-0 mb-4">
-        <div class="tab-content" id="nav-tabContent">
+        <hr class="mt-0">
+        <div class="tab-content my-4" id="nav-tabContent">
             <div class=" tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
                 tabindex="0">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <!-- Profile picture card-->
                         <div class="card mb-4 mb-xl-0">
                             <div class="card-header">Profile Picture</div>
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
                                 <img class="img-account-profile rounded-circle mb-2"
-                                    src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                    src="{{ $user->photo != null ? 'frontend/assets/img/user/'.$user->photo : 'http://bootdey.com/img/Content/avatar/avatar1.png' }}" alt="" id="profile-picture">
                                 <!-- Profile picture help block-->
                                 <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                                 <!-- Profile picture upload button-->
-                                <button class="btn btn-primary" type="button">Upload new image</button>
+                                <div class="input-group d-flex align-items-center justify-content-center">
+                                    <form action="{{ url('photoUpload') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                    <div class="custom-file mb-3">
+                                        
+                                        <input type="file" class="custom-file-input" id="inputProfileImage"
+                                            accept="image/*" onchange="previewImage()" name="photo">
+                                        @error('photo')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-yellow" type="submit">Upload new
+                                            image</button>
+                                    </div>
+                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-lg-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
                             <div class="card-header">Account Details</div>
                             <div class="card-body">
-                                <form>
+                                <form method="POST" action="{{ url('updateUser') }}">
+                                    @csrf
                                     <!-- Form Group (username)-->
                                     <div class="mb-3">
-                                        <label class="small mb-1" for="inputUsername">Username (how your name will appear to
-                                            other users on the site)</label>
+                                        <label class="small mb-1" for="inputUsername">Full Name <span class="text-danger">*</span></label>
                                         <input class="form-control" id="inputUsername" type="text"
-                                            placeholder="Enter your username" value="username">
+                                            placeholder="Enter your name" name="name" value="{{ $user->name }}">
+                                            @error('name')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                     <!-- Form Row-->
                                     <div class="row gx-3 mb-3">
-                                        <!-- Form Group (first name)-->
+                                        <!-- Form Group (Email)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputFirstName">First name</label>
-                                            <input class="form-control" id="inputFirstName" type="text"
-                                                placeholder="Enter your first name" value="Valerie">
+                                            <label class="small mb-1" for="inputFirstName">Email <span class="text-danger">*</span></label>
+                                            <input class="form-control" id="inputFirstName" type="email"
+                                                placeholder="Enter your Email" readonly value="{{ $user->email }}">   
                                         </div>
-                                        <!-- Form Group (last name)-->
+                                        <!-- Form Group (number)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Last name</label>
+                                            <label class="small mb-1" for="inputLastName">Mobile <span class="text-danger">*</span></label>
                                             <input class="form-control" id="inputLastName" type="text"
-                                                placeholder="Enter your last name" value="Luna">
+                                                placeholder="Enter your number" name="number" value="{{ $user->number }}">
+                                                @error('number')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <!-- Form Row        -->
                                     <div class="row gx-3 mb-3">
-                                        <!-- Form Group (organization name)-->
+                                        <!-- Form Group (nid)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputOrgName">Organization name</label>
+                                            <label class="small mb-1" for="inputOrgName">NID <span class="text-danger">*</span></label>
                                             <input class="form-control" id="inputOrgName" type="text"
-                                                placeholder="Enter your organization name" value="Start Bootstrap">
+                                                placeholder="Enter your NID Number" readonly value="{{ $user->nid }}">
+                                                
                                         </div>
                                         <!-- Form Group (location)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLocation">Location</label>
+                                            <label class="small mb-1" for="inputLocation">Address</label>
                                             <input class="form-control" id="inputLocation" type="text"
-                                                placeholder="Enter your location" value="San Francisco, CA">
+                                                placeholder="Enter your address" name="address" value="{{ $user->address }}">
                                         </div>
                                     </div>
-                                    <!-- Form Group (email address)-->
+                                    {{-- <!-- Form Group (email address)-->
                                     <div class="mb-3">
                                         <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                        <input class="form-control" id="inputEmailAddress" type="email"
-                                            placeholder="Enter your email address" value="name@example.com">
+                                        <input class="form-control" id="inputEmailAddress" type="email" value="name@example.com">
                                     </div>
                                     <!-- Form Row-->
                                     <div class="row gx-3 mb-3">
@@ -286,9 +308,9 @@
                                             <input class="form-control" id="inputBirthday" type="text"
                                                 name="birthday" placeholder="Enter your birthday" value="06/10/1988">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!-- Save changes button-->
-                                    <button class="btn btn-primary" type="button">Save changes</button>
+                                    <button class="btn btn-yellow" type="button">Save changes</button>
                                 </form>
                             </div>
                         </div>
@@ -464,77 +486,33 @@
                         <div class="card mb-4">
                             <div class="card-header">Change Password</div>
                             <div class="card-body">
-                                <form>
+                                <form method="POST" action="{{ url('/changePassword') }}">
+                                    @csrf
                                     <!-- Form Group (current password)-->
                                     <div class="mb-3">
                                         <label class="small mb-1" for="currentPassword">Current Password</label>
                                         <input class="form-control" id="currentPassword" type="password"
-                                            placeholder="Enter current password">
+                                            placeholder="Enter current password" name="password">
                                     </div>
                                     <!-- Form Group (new password)-->
                                     <div class="mb-3">
                                         <label class="small mb-1" for="newPassword">New Password</label>
                                         <input class="form-control" id="newPassword" type="password"
-                                            placeholder="Enter new password">
+                                            placeholder="Enter new password" name="newPassword">
                                     </div>
                                     <!-- Form Group (confirm password)-->
                                     <div class="mb-3">
                                         <label class="small mb-1" for="confirmPassword">Confirm Password</label>
                                         <input class="form-control" id="confirmPassword" type="password"
-                                            placeholder="Confirm new password">
+                                            placeholder="Confirm new password" name="confirmPassword">
                                     </div>
-                                    <button class="btn btn-primary" type="button">Save</button>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Security preferences card-->
-                        <div class="card mb-4">
-                            <div class="card-header">Security Preferences</div>
-                            <div class="card-body">
-                                <!-- Account privacy optinos-->
-                                <h5 class="mb-1">Account Privacy</h5>
-                                <p class="small text-muted">By setting your account to private, your profile information
-                                    and posts will not be visible to users outside of your user groups.</p>
-                                <form>
-                                    <div class="form-check">
-                                        <input class="form-check-input" id="radioPrivacy1" type="radio"
-                                            name="radioPrivacy" checked="">
-                                        <label class="form-check-label" for="radioPrivacy1">Public (posts are available to
-                                            all users)</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" id="radioPrivacy2" type="radio"
-                                            name="radioPrivacy">
-                                        <label class="form-check-label" for="radioPrivacy2">Private (posts are available
-                                            to only users in your groups)</label>
-                                    </div>
-                                </form>
-                                <hr class="my-4">
-                                <!-- Data sharing options-->
-                                <h5 class="mb-1">Data Sharing</h5>
-                                <p class="small text-muted">Sharing usage data can help us to improve our products and
-                                    better serve our users as they navigation through our application. When you agree to
-                                    share usage data with us, crash reports and usage analytics will be automatically sent
-                                    to our development team for investigation.</p>
-                                <form>
-                                    <div class="form-check">
-                                        <input class="form-check-input" id="radioUsage1" type="radio"
-                                            name="radioUsage" checked="">
-                                        <label class="form-check-label" for="radioUsage1">Yes, share data and crash
-                                            reports with app developers</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" id="radioUsage2" type="radio"
-                                            name="radioUsage">
-                                        <label class="form-check-label" for="radioUsage2">No, limit my data sharing with
-                                            app developers</label>
-                                    </div>
+                                    <button class="btn btn-yellow" type="submit">Save</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <!-- Two factor authentication card-->
+                        {{-- <!-- Two factor authentication card-->
                         <div class="card mb-4">
                             <div class="card-header">Two-Factor Authentication</div>
                             <div class="card-body">
@@ -559,14 +537,14 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- Delete account card-->
                         <div class="card mb-4">
                             <div class="card-header">Delete Account</div>
                             <div class="card-body">
                                 <p>Deleting your account is a permanent action and cannot be undone. If you are sure you
                                     want to delete your account, select the button below.</p>
-                                <button class="btn btn-danger-soft text-danger" type="button">I understand, delete my
+                                <button class="btn btn-danger-soft text-danger" type="button"  data-bs-toggle="modal" data-bs-target="#deleteModal">I understand, delete my
                                     account</button>
                             </div>
                         </div>
@@ -720,4 +698,45 @@
             </div>
         </div>
     </div>
+
+
+
+    {{-- ///////////////////////////////Modal////////////////////// --}}
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header border border-0">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Account?</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{{ url('deleteUser') }}">
+                @csrf
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Re-enter Password:</label>
+                  <input type="password" class="form-control" id="recipient-name" name="passowrd">
+                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger">Confirm</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script>
+        function previewImage() {
+            const inputProfileImage = document.getElementById('inputProfileImage');
+            const profilePicture = document.getElementById('profile-picture');
+            const file = inputProfileImage.files[0];
+    
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    profilePicture.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 @endsection
