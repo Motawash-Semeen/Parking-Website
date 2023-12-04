@@ -1,4 +1,4 @@
-<section class="contact_area mt-5">
+<section class="contact_area mt-5" id="contact">
   <div class="text">
       <h2>Contact Us</h2>
       <p>We are here to help and answer any question you might have. We look forward to hearing from you.</p>

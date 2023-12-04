@@ -17,4 +17,7 @@ class HomeController extends Controller
         $user = User::find($id);
         return view('dashboard', compact('user'));
     }
+    public function service(){
+        return view('service');
+    }
 }

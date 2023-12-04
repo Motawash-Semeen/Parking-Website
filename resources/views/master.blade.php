@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="loading">
+<body class="loading" style="width: 100vw">
     <div class="wrapper">
 
         @yield('frontend.content')

@@ -11,16 +11,16 @@
             <div class=" collapse navbar-collapse" id="navbarNavDropdown header-menu">
               <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                  <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link mx-2" aria-current="page" href="#home">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-2" href="#">Services</a>
+                  <a class="nav-link mx-2" href="{{ url('service') }}">Services</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-2" href="#">About</a>
+                  <a class="nav-link mx-2" href="#about">About</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-2" href="#">Conatct & Help</a>
+                  <a class="nav-link mx-2" href="#contact">Conatct & Help</a>
                 </li>
                 
               </ul>
