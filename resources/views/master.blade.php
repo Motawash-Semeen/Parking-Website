@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="loading" style="width: 100vw">
+<body class="loading" style="width: 100vw; overflow-x: hidden;;">
     <div class="wrapper">
 
         @yield('frontend.content')

@@ -11,8 +11,8 @@
 
         #map {
             /* position: absolute;
-                                top: 0;
-                                bottom: 0; */
+                                    top: 0;
+                                    bottom: 0; */
             width: 100vw;
             height: 100vh;
         }
@@ -33,6 +33,22 @@
             max-width: 400px;
             font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         }
+
+        #custom-geolocate {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        #custom-geolocate:hover {
+            background-color: #2980b9;
+        }
     </style>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
@@ -40,6 +56,11 @@
     <div id="map"></div>
 
     <div id="geocoder" class="geocoder"></div>
+
+    {{-- <div id="custom-geolocate" class="custom-geolocate">
+        <!-- Add your custom geolocate button content here -->
+        <span>&#x1F4CD;</span> <!-- This is just an example, you can replace it with your own content -->
+    </div> --}}
 
     <script>
         //////////////////////////////////////////////////////////////////*css*/
@@ -63,18 +84,22 @@
             mapboxgl: mapboxgl
         });
 
-        // Add geolocate control to the map.
-        map.addControl(
-            new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true
-                },
-                // When active the map will receive updates to the device's location as it changes.
-                trackUserLocation: true,
-                // Draw an arrow next to the location dot to indicate which direction the device is heading.
-                showUserHeading: true
-            })
-        );
+
+        // const customGeolocate = document.getElementById('custom-geolocate');
+        const geolocate = new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        });
+
+        // customGeolocate.addEventListener('click', () => {
+        //     geolocate.trigger();
+        // });
+
+        map.addControl(geolocate);
+        map.addControl(new mapboxgl.NavigationControl());
+
 
         //////////////////////////////////////////////////////////////////*css*/
         //////////////////////////////////Add space marker/////////////////////////////////////////
@@ -90,56 +115,51 @@
                     'features': [{
                             'type': 'Feature',
                             'properties': {
-                                'description': '<strong>Make it Mount Pleasant</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
-                                'icon': 'theatre'
+                                'description': '<b><p>Book Now</p></b><p style="text-align: center;">120tk/hr</p><button style="margin: auto;">Select</button>',
                             },
                             'geometry': {
                                 'type': 'Point',
-                                'coordinates': [-77.038659, 38.931567]
+                                'coordinates': [90.30, 23.81]
                             }
                         },
                         {
                             'type': 'Feature',
                             'properties': {
-                                'description': '<strong>Mad Men Season Five Finale Watch Party</strong><p>Head to Lounge 201 (201 Massachusetts Avenue NE) Sunday for a <a href="http://madmens5finale.eventbrite.com/" target="_blank" title="Opens in a new window">Mad Men Season Five Finale Watch Party</a>, complete with 60s costume contest, Mad Men trivia, and retro food and drink. 8:00-11:00 p.m. $10 general admission, $20 admission and two hour open bar.</p>',
-                                'icon': 'theatre'
+                                'description': '<strong><h5>Book Now</h5></strong><p>180tk/hr</p><button>Select</button>',
                             },
                             'geometry': {
                                 'type': 'Point',
-                                'coordinates': [-77.003168, 38.894651]
+                                'coordinates': [90.35, 23.81]
                             }
                         },
                         {
                             'type': 'Feature',
                             'properties': {
-                                'description': '<strong>Big Backyard Beach Bash and Wine Fest</strong><p>EatBar (2761 Washington Boulevard Arlington VA) is throwing a <a href="http://tallulaeatbar.ticketleap.com/2012beachblanket/" target="_blank" title="Opens in a new window">Big Backyard Beach Bash and Wine Fest</a> on Saturday, serving up conch fritters, fish tacos and crab sliders, and Red Apron hot dogs. 12:00-3:00 p.m. $25.grill hot dogs.</p>',
-                                'icon': 'bar'
+                                'description': '<strong><h5>Book Now</h5></strong><p>100tk/hr</p><button>Select</button>',
                             },
                             'geometry': {
                                 'type': 'Point',
-                                'coordinates': [-77.090372, 38.881189]
+                                'coordinates': [90.358, 23.8090]
                             }
                         },
                         {
                             'type': 'Feature',
                             'properties': {
-                                'description': '<strong>Ballston Arts & Crafts Market</strong><p>The <a href="http://ballstonarts-craftsmarket.blogspot.com/" target="_blank" title="Opens in a new window">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p>',
-                                'icon': 'art-gallery'
+                                'description': '<strong><h5>Book Now</h5></strong><p>80tk/hr</p><button>Select</button>',
                             },
                             'geometry': {
                                 'type': 'Point',
-                                'coordinates': [-77.111561, 38.882342]
+                                'coordinates': [90.3600, 23.80]
                             }
                         },
                         {
                             'type': 'Feature',
                             'properties': {
-                                'description': '<strong>Seersucker Bike Ride and Social</strong><p>Feeling dandy? Get fancy, grab your bike, and take part in this year\'s <a href="http://dandiesandquaintrelles.com/2012/04/the-seersucker-social-is-set-for-june-9th-save-the-date-and-start-planning-your-look/" target="_blank" title="Opens in a new window">Seersucker Social</a> bike ride from Dandies and Quaintrelles. After the ride enjoy a lawn party at Hillwood with jazz, cocktails, paper hat-making, and more. 11:00-7:00 p.m.</p>',
-                                'icon': 'bicycle'
+                                'description': '<strong><h5>Book Now</h5></strong><p>150tk/hr</p><button>Select</button>',
                             },
                             'geometry': {
                                 'type': 'Point',
-                                'coordinates': [-77.052477, 38.943951]
+                                'coordinates': [90.359, 23.8020]
                             }
                         },
 

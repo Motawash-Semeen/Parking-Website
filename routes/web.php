@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\LocationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/service', [HomeController::class,'service'])->name('service');
+
+Route::get('/service2', [LocationController::class, 'inputPage']);
+Route::get('/result', [LocationController::class, 'resultPage']);
+Route::get('/payment', [HomeController::class, 'paymentPage']);
+Route::get('/direction', [LocationController::class, 'directionPage']);
+Route::get('/addParking', [LocationController::class, 'addParking']);
+
+
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');

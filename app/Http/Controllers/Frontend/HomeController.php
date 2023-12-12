@@ -20,4 +20,7 @@ class HomeController extends Controller
     public function service(){
         return view('service');
     }
+    public function paymentPage(){
+        return view('payments');
+    }
 }
