@@ -304,3 +304,42 @@
         font-size: 13px;
     }
 }
+
+@media (min-width: 576px) {
+
+    /* Small devices (576px and up) */
+    #addParking .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+
+    /* Medium devices (768px and up) */
+    #addParking .grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+
+    /* Large devices (992px and up) */
+    #addParking .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1400px) {
+
+    /* Extra large devices (1200px and up) */
+    #addParking .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 1500px) {
+
+    /* Extra large devices (1200px and up) */
+    #addParking .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

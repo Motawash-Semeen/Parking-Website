@@ -3,7 +3,7 @@
       <div class="row nav-design">
         <nav class="navbar navbar-expand-lg navbar-dark bg-transparent p-3">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="{{ asset('frontend') }}/assets/landowner/img/logo.png" alt="Logo" height="60"></a>
+            <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('frontend') }}/assets/landowner/img/logo.png" alt="Logo" height="60"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon navbar-inverse "></span>
             </button>
@@ -11,7 +11,7 @@
             <div class=" collapse navbar-collapse" id="navbarNavDropdown header-menu">
               <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                  <a class="nav-link mx-2" aria-current="page" href="#home">Home</a>
+                  <a class="nav-link mx-2" aria-current="page" href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link mx-2" href="{{ url('service') }}">Services</a>
@@ -60,7 +60,6 @@
               <div class="banner-img">
                   <a href="#"><img src="{{ asset('frontend') }}/assets/img/driver.jpg"
                           alt="Driver image" class="w-100"></a>
-                  <!-- <iframe src="https://www.youtube.com/embed/bM4G1Toe3h0" frameborder="0" allowfullscreen></iframe> -->
               </div>
           </div>
           <div class="col-md-6 ps-lg-5 px-4">
@@ -70,8 +69,8 @@
                       <p>Fed up of overpaying for parking and getting tickets for parking violations? </p>
                       <p>Get directions to the nearest parking space.</p>
                   </h6>
-                  <a class="button white" href="#">F A Q <sub>s</sub></a>
-                  <a class="button" href="signup">Get Started</a>
+                  <a class="button white" href="{{ url('/faq') }}">F A Q <sub>s</sub></a>
+                  <a class="button" href="{{ url('/service') }}">Get Started</a>
               </div>
           </div>
       </div>
@@ -81,7 +80,6 @@
               <div class="banner-img">
                   <a href="#"><img src="{{ asset('frontend') }}/assets/landowner/img/park_1.jpg"
                           alt="Parking space image" class="w-100"></a>
-                  <!-- <iframe src="https://www.youtube.com/embed/bM4G1Toe3h0" frameborder="0" allowfullscreen></iframe> -->
               </div>
           </div>
           <div class="col-md-6 ps-lg-5 px-4">
@@ -92,8 +90,8 @@
                       <p>Earn a thousands of rupees a year by renting out your empty land as a parking space
                       </p>
                   </h6>
-                  <a class="button white" href="#">F A Q <sub>s</sub></a>
-                  <a class="button" href="signup" background-color="yellow">Get Started</a>
+                  <a class="button white" href="{{ url('/faq') }}">F A Q <sub>s</sub></a>
+                  <a class="button" href="{{ url('/service') }}" background-color="yellow">Get Started</a>
               </div>
           </div>
       </div>

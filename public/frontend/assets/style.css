@@ -1095,3 +1095,429 @@ footer.footer .footer_last_icon i {
     background-color: rgb(255, 222, 22);
     color: white;
 }
+
+
+
+
+
+/* /////////////////////////add parking page design//////////////////// */
+
+
+
+#addParking #addParkingForm {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#addParking .header-text , #inputLocation .header-text {
+    font-family: "Raleway", sans-serif;
+    font-size: 55px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 65px;
+    text-transform: uppercase;
+}
+
+#addParking .form-group {
+    margin-bottom: 20px;
+}
+
+#addParking input[type='checkbox'] {
+    accent-color: #ffde16;
+}
+
+#addParking .btn-primary {
+    background-color: #ffde16;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#addParking .btn-primary:hover {
+    background-color: #ffde16;
+}
+
+#addParking .mapboxgl-ctrl-geocoder, #inputLocation .mapboxgl-ctrl-geocoder {
+    min-width: 100% !important;
+    margin: 0px;
+    border-radius: 0.375rem;
+    -webkit-border-radius: 0.375rem;
+    -moz-border-radius: 0.375rem;
+    -ms-border-radius: 0.375rem;
+    -o-border-radius: 0.375rem;
+}
+
+
+
+#addParking .card {
+    --background: #fff;
+    --background-checkbox: #0082ff;
+    --background-image: #fff, rgba(0, 107, 175, 0.2);
+    --text-color: #666;
+    --text-headline: #000;
+    --card-shadow: #0082ff;
+    --card-height: 190px;
+    --card-width: 190px;
+    --card-radius: 12px;
+    --header-height: 47px;
+    --blend-mode: overlay;
+    --transition: 0.15s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#addParking .card:nth-child(odd) .card__body-cover-image {
+    --x-y1: 100% 90%;
+    --x-y2: 67% 83%;
+    --x-y3: 33% 90%;
+    --x-y4: 0% 85%;
+}
+
+#addParking .card:nth-child(even) .card__body-cover-image {
+    --x-y1: 100% 85%;
+    --x-y2: 73% 93%;
+    --x-y3: 25% 85%;
+    --x-y4: 0% 90%;
+}
+
+#addParking .card__input {
+    position: absolute;
+    display: block;
+    outline: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    -webkit-appearance: none;
+}
+.mapboxgl-ctrl-geocoder--icon{
+    display: none !important;
+}
+#addParking .card__input:checked~.card__body {
+    --shadow: 0 0 0 3px var(--card-shadow);
+}
+
+#addParking .card__input:checked~.card__body .card__body-cover-checkbox {
+    --check-bg: var(--background-checkbox);
+    --check-border: #fff;
+    --check-scale: 1;
+    --check-opacity: 1;
+}
+
+#addParking .card__input:checked~.card__body .card__body-cover-checkbox--svg {
+    --stroke-color: #fff;
+    --stroke-dashoffset: 0;
+}
+
+#addParking .card__input:checked~.card__body .card__body-cover:after {
+    --opacity-bg: 0;
+}
+
+#addParking .card__input:checked~.card__body .card__body-cover-image {
+    --filter-bg: grayscale(0);
+}
+
+#addParking .card__input:disabled~.card__body {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+#addParking .card__input:disabled~.card__body:active {
+    --scale: 1;
+}
+
+#addParking .card__body {
+    display: grid;
+    grid-auto-rows: calc(var(--card-height) - var(--header-height)) auto;
+    background: var(--background);
+    height: var(--card-height);
+    width: var(--card-width);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    box-shadow: var(--shadow, 0 4px 4px 0 rgba(0, 0, 0, 0.02));
+    -webkit-transition: box-shadow var(--transition), -webkit-transform var(--transition);
+    transition: box-shadow var(--transition), -webkit-transform var(--transition);
+    transition: transform var(--transition), box-shadow var(--transition);
+    transition: transform var(--transition), box-shadow var(--transition), -webkit-transform var(--transition);
+    -webkit-transform: scale(var(--scale, 1)) translateZ(0);
+    transform: scale(var(--scale, 1)) translateZ(0);
+}
+
+#addParking .card__body:active {
+    --scale: 0.96;
+}
+
+#addParking .card__body-cover {
+    --c-border: var(--card-radius) var(--card-radius) 0 0;
+    --c-width: 100%;
+    --c-height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#addParking .card__body-cover:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--c-width);
+    height: var(--c-height);
+    border-radius: var(--c-border);
+    background: -webkit-gradient(linear, left top, right bottom, from(var(--background-image)));
+    background: linear-gradient(to bottom right, var(--background-image));
+    mix-blend-mode: var(--blend-mode);
+    opacity: var(--opacity-bg, 1);
+    -webkit-transition: opacity var(--transition) linear;
+    transition: opacity var(--transition) linear;
+}
+
+#addParking .card__body-cover-image {
+    width: var(--c-width);
+    height: var(--c-height);
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: var(--c-border);
+    -webkit-filter: var(--filter-bg, grayscale(1));
+    filter: var(--filter-bg, grayscale(1));
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, var(--x-y1, 100% 90%), var(--x-y2, 67% 83%), var(--x-y3, 33% 90%), var(--x-y4, 0% 85%));
+    clip-path: polygon(0% 0%, 100% 0%, var(--x-y1, 100% 90%), var(--x-y2, 67% 83%), var(--x-y3, 33% 90%), var(--x-y4, 0% 85%));
+}
+
+#addParking .card__body-cover-checkbox {
+    background: var(--check-bg, var(--background-checkbox));
+    border: 2px solid var(--check-border, #fff);
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    opacity: var(--check-opacity, 0);
+    transition: transform var(--transition), opacity calc(var(--transition) * 1.2) linear, -webkit-transform var(--transition) ease;
+    -webkit-transform: scale(var(--check-scale, 0));
+    transform: scale(var(--check-scale, 0));
+}
+
+#addParking .card__body-cover-checkbox--svg {
+    width: 13px;
+    height: 11px;
+    display: inline-block;
+    vertical-align: top;
+    fill: none;
+    margin: 7px 0 0 5px;
+    stroke: var(--stroke-color, #fff);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: var(--stroke-dashoffset, 16px);
+    -webkit-transition: stroke-dashoffset 0.4s ease var(--transition);
+    transition: stroke-dashoffset 0.4s ease var(--transition);
+}
+
+#addParking .card__body-header {
+    height: var(--header-height);
+    background: var(--background);
+    padding: 0 10px 10px 10px;
+}
+
+#addParking .card__body-header-title {
+    color: var(--text-headline);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+#addParking .card__body-header-subtitle {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+
+#addParking .grid {
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-gap: 1rem;
+}
+
+
+
+#addParking .upload__inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#addParking .upload__img-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+#addParking .upload__img-box {
+    width: 200px;
+    padding: 0 10px;
+    margin-bottom: 12px;
+}
+
+#addParking .upload__btn {
+    display: inline-block;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    min-width: 116px;
+    padding: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid;
+    background-color: #4045ba;
+    border-color: #4045ba;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+#addParking .upload__btn:hover {
+    background-color: unset;
+    color: #fff;
+    background-color: #4045ba;
+    border-color: #4045ba;
+    transition: all 0.3s ease;
+}
+
+#addParking .upload__img-close {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    line-height: 24px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#addParking .upload__img-close:after {
+    content: "✖";
+    font-size: 14px;
+    color: white;
+}
+
+#addParking .img-bg {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    padding-bottom: 100%;
+}
+
+
+
+
+
+
+#addParking .step-container {
+    position: relative;
+    text-align: center;
+    transform: translateY(-43%);
+}
+
+#addParking .step-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: black;
+    border: 2px solid #ffde16;
+    line-height: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    /* Added cursor pointer */
+}
+
+#addParking .step-line {
+    position: absolute;
+    top: 16px;
+    left: 50px;
+    width: calc(100% - 100px);
+    height: 2px;
+    background-color: #ffde16;
+    z-index: -1;
+}
+
+#addParking #multi-step-form {
+    overflow-x: hidden;
+}
+
+#addParking .progress-bar {
+    background-color: #ffde16;
+}
+
+
+/* ///////////////////////////////Service Page//////////////////////////// */
+
+#inputLocation #geocoder {
+    z-index: 1;
+    margin: 20px;
+}
+
+#inputLocation .mapboxgl-ctrl-geocoder {
+    min-width: 100%;
+}
+
+#inputLocation {
+    max-width: 900px;
+    margin: auto;
+}
+#inputLocation .service-btn{
+    background-color: #ffde16;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+
+
+/* ///////////////////////////////Payment Page//////////////////////////// */
+
+#payment-page .rounded {
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+
+#payment-page .nav-pills .nav-link {
+    color: #555
+}
+
+#payment-page .nav-pills .nav-link.active {
+    color: white}input[type="radio"] {
+        margin-right: 5px
+    }
+
+    #payment-page .bold {
+        font-weight: bold
+    }

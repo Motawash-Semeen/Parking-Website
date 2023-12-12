@@ -2,7 +2,7 @@
       <div class="nav-design w-100">
         <nav class="navbar navbar-expand-lg navbar-dark bg-yellow py-3">
           <div class="container-lg">
-            <a class="navbar-brand" href="#"><img src="{{ asset('frontend') }}/assets/landowner/img/logo.png" alt="Logo" height="60"></a>
+            <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('frontend') }}/assets/landowner/img/logo.png" alt="Logo" height="60"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon navbar-inverse "></span>
             </button>
@@ -10,10 +10,10 @@
             <div class=" collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                  <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link mx-2 active" aria-current="page" href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-2" href="#">Services</a>
+                  <a class="nav-link mx-2" href="{{ url('/service') }}">Services</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link mx-2" href="#">About</a>

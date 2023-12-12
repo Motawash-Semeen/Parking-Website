@@ -8,6 +8,7 @@
           <div class="col md-12">
               <div class="form_area">
                   <form action="/" method="post">
+                    @csrf
                       <div class="input_area">
                           <input type="text" name="first_name" placeholder="First Name">
                           <input type="text" name="last_name" placeholder="Last Name">

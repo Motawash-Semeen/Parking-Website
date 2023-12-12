@@ -9,7 +9,7 @@ class LocationController extends Controller
 {
     public function inputPage()
     {
-        return view('service2');
+        return view('allservice');
     }
 
     public function resultPage(Request $request)

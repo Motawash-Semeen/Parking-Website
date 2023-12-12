@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <p class="button"><a class="button" href="signup">Get started</a></p>
+                <p class="button"><a class="button" href="{{ url('/register') }}">Get started</a></p>
             </div>
         </div>
     </div>

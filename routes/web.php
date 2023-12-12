@@ -18,16 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class,'index'])->name('home');
-Route::get('/service', [HomeController::class,'service'])->name('service');
-
-Route::get('/service2', [LocationController::class, 'inputPage']);
-Route::get('/result', [LocationController::class, 'resultPage']);
-Route::get('/payment', [HomeController::class, 'paymentPage']);
-Route::get('/direction', [LocationController::class, 'directionPage']);
-Route::get('/addParking', [LocationController::class, 'addParking']);
-
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/service', [LocationController::class, 'inputPage']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -35,15 +27,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/changePassword', [DashboardController::class, 'changePassword'])->name('password.change');
     Route::post('/deleteUser', [DashboardController::class, 'deleteUser'])->name('user.delete');
     Route::post('/photoUpload', [DashboardController::class, 'photoUpload'])->name('user.photoUpload');
+    Route::get('/result', [LocationController::class, 'resultPage']);
+    Route::get('/payment', [HomeController::class, 'paymentPage']);
+    Route::get('/direction', [LocationController::class, 'directionPage']);
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/addParking', [LocationController::class, 'addParking']);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');

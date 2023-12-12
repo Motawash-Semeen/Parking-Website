@@ -1,25 +1,8 @@
 @extends('master')
 @section('frontend.content')
     @include('frontend.partials.secondHead')
-    <style>
-        .rounded {
-            border-radius: 1rem
-        }
 
-        .nav-pills .nav-link {
-            color: #555
-        }
-
-        .nav-pills .nav-link.active {
-            color: white}input[type="radio"] {
-                margin-right: 5px
-            }
-
-            .bold {
-                font-weight: bold
-            }
-    </style>
-    <div class="container py-5" style="width: 100vw;">
+    <div class="container py-5" style="width: 100vw;" id="payment-page">
         <!-- For demo purpose -->
         <div class="row mb-4">
             <div class="col-lg-8 mx-auto text-center">
