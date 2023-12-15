@@ -17,10 +17,10 @@
                   <a class="nav-link mx-2" href="{{ url('service') }}">Services</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-2" href="#about">About</a>
+                  <a class="nav-link mx-2" href="{{ url('/#about') }}">About</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-2" href="#contact">Conatct & Help</a>
+                  <a class="nav-link mx-2" href="{{ url('/#contact') }}">Conatct & Help</a>
                 </li>
                 
               </ul>

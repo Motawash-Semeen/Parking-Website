@@ -6,8 +6,7 @@
                 <nav class="navbar navbar-expand-lg navbar-dark bg-transparent p-3">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="{{ url('/') }}"><img
-                                src="{{ asset('frontend') }}/assets/landowner/img/logo.png" alt="Logo"
-                                height="60"></a>
+                                src="{{ asset('frontend') }}/assets/landowner/img/logo.png" alt="Logo" height="60"></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -23,10 +22,10 @@
                                     <a class="nav-link mx-2" href="{{ url('service') }}">Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link mx-2" href="#about">About</a>
+                                    <a class="nav-link mx-2" href="{{ url('/#about') }}">About</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link mx-2" href="#contact">Conatct & Help</a>
+                                    <a class="nav-link mx-2" href="{{ url('/#contact') }}">Conatct & Help</a>
                                 </li>
 
                             </ul>
@@ -52,7 +51,8 @@
                                         <a class="nav-link text-dark h5 btn-nav " href="{{ url('login') }}">Login</a>
                                     </li>
                                     <li class="nav-item mx-lg-2 top-btn">
-                                        <a class="nav-link text-dark h5 btn-nav" href="{{ url('register') }}">Signup</i></a>
+                                        <a class="nav-link text-dark h5 btn-nav"
+                                            href="{{ url('register') }}">Signup</i></a>
                                     </li>
                                 @endif
 
@@ -82,17 +82,30 @@
                             <div class="step-circle" onclick="displayStep(4)">4</div>
                         </div>
 
-                        <form id="multi-step-form" method="POST" action="dfsd">
+                        <form id="multi-step-form" method="POST" action="{{ url('/addParking') }}" enctype="multipart/form-data">
+                            @csrf
                             <div class="step step-1">
                                 <!-- Step 1 form fields here -->
                                 <h3>Area Information</h3>
                                 <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="location">Name:</label>
-                                        <input type="text" class="form-control">
+                                    <div class="form-group col-md-3">
+                                        <label for="location">Building Name</label>
+                                        <input type="text" class="form-control" name="building_name"
+                                            placeholder="Apon House">
+                                        @error('building_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="location">Building Number</label>
+                                        <input type="text" class="form-control" name="building_number"
+                                            placeholder="123/1">
+                                        @error('building_number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-6" id="customGeocoder">
-                                        <label for="location">Location or Cordinates:</label>
+                                        <label for="location">Location or Cordinates</label>
                                         {{-- <input type="text" class="form-control" id="geocoder" required> --}}
                                         <div id="geocoder" class="w-100 position-relative z-2">
                                             <button type="button"
@@ -106,13 +119,37 @@
                                     <div class="form-group d-none" id="map-box">
                                         <div id="map" style="height: 500px"></div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="inputCity" class="form-label">City</label>
-                                        <input type="text" class="form-control" id="inputCity">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputCity" class="form-label">Mobile</label>
+                                        <input type="number" class="form-control" id="inputCity" name="number"
+                                            placeholder="01xxxxxxxxx" max="01999999999">
+                                        @error('number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputCity" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="inputCity" name="city"
+                                            placeholder="Mirpur">
+                                        @error('city')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputZip" class="form-label">Post Area</label>
+                                        <input type="text" class="form-control" id="inputZip" name="post_area"
+                                            placeholder="Kafrul">
+                                        @error('post_area')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-3">
                                         <label for="inputZip" class="form-label">Zip</label>
-                                        <input type="text" class="form-control" id="inputZip">
+                                        <input type="number" class="form-control" id="inputZip" name="zip"
+                                            placeholder="1234">
+                                        @error('zip')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -124,30 +161,42 @@
                                 <h3>Prking Information</h3>
                                 <div class="row">
                                     <div class="form-group col-sm-6">
-                                        <label>Price:</label>
+                                        <label>Price per hour</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control">
+                                            <input type="number" class="form-control" name="price" placeholder="123">
                                             <div class="input-group-text">৳</div>
+                                            @error('price')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="form-group col-sm-6">
-                                        <label for="slotNumber">Slot Numbers: <small
-                                                style="color: rgb(177, 177, 177);">Separeted by
+                                        <label for="slotNumber">Slot Numbers <small
+                                            style="font-size: 10px; color:rgba(255, 255, 255, 0.493)">Separeted by
                                                 comma(,)</small></label>
-                                        <input type="text" class="form-control" id="slotNumber">
+                                        <input type="text" class="form-control" id="slotNumber" name="slot_numbers"
+                                            placeholder="D1,D2,G1,G2,G3">
+                                        @error('slot_numbers')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-sm-6">
-                                        <label>Opening Time:</label>
+                                        <label>Opening Time</label>
                                         <div class="input-group">
-                                            <input type="time" class="form-control" value="05:00">
+                                            <input type="time" class="form-control" value="05:00" name="open_time">
+                                            @error('open_time')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                        <div class="upload__img-wrap"></div>
                                     </div>
                                     <div class="form-group col-sm-6">
-                                        <label>Closing Time:</label>
+                                        <label>Closing Time</label>
                                         <div class="input-group">
-                                            <input type="time" class="form-control" value="00:00">
+                                            <input type="time" class="form-control" value="00:00" name="close_time">
+                                            @error('close_time')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -161,11 +210,13 @@
                                 <h3>Images and Types</h3>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label class="mb-4">Vehicle Type:</label>
-                                        <input class="card__input" type="checkbox">
+                                        <label class="mb-4">Vehicle Type</label>
+                                        {{-- <input class="card__input" type="checkbox" name="type"> --}}
+
                                         <div class="grid">
                                             <label class="card">
-                                                <input class="card__input" type="checkbox">
+                                                <input class="card__input" type="checkbox" name="type[]"
+                                                    value="car">
                                                 <div class="card__body">
                                                     <div class="card__body-cover"><img class="card__body-cover-image"
                                                             src="{{ asset('frontend/assets/img/car.png') }}"><span
@@ -180,7 +231,8 @@
                                                 </div>
                                             </label>
                                             <label class="card">
-                                                <input class="card__input" type="checkbox">
+                                                <input class="card__input" type="checkbox" name="type[]"
+                                                    value="bike">
                                                 <div class="card__body">
                                                     <div class="card__body-cover"><img class="card__body-cover-image"
                                                             src="{{ asset('frontend/assets/img/bike.jpg') }}"><span
@@ -195,7 +247,8 @@
                                                 </div>
                                             </label>
                                             <label class="card">
-                                                <input class="card__input" type="checkbox">
+                                                <input class="card__input" type="checkbox" name="type[]"
+                                                    value="truck">
                                                 <div class="card__body">
                                                     <div class="card__body-cover"><img class="card__body-cover-image"
                                                             src="{{ asset('frontend/assets/img/truck.jpg') }}"><span
@@ -210,7 +263,8 @@
                                                 </div>
                                             </label>
                                             <label class="card">
-                                                <input class="card__input" type="checkbox">
+                                                <input class="card__input" type="checkbox" name="type[]"
+                                                    value="bus">
                                                 <div class="card__body">
                                                     <div class="card__body-cover"><img class="card__body-cover-image"
                                                             src="{{ asset('frontend/assets/img/bus.jpg') }}"><span
@@ -225,7 +279,8 @@
                                                 </div>
                                             </label>
                                             <label class="card">
-                                                <input class="card__input" type="checkbox">
+                                                <input class="card__input" type="checkbox" name="type[]"
+                                                    value="cng">
                                                 <div class="card__body">
                                                     <div class="card__body-cover"><img class="card__body-cover-image"
                                                             src="{{ asset('frontend/assets/img/cng.png') }}"><span
@@ -240,15 +295,22 @@
                                                 </div>
                                             </label>
                                         </div>
+                                        @error('type')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group col-md-6">
+                                        <label class="mb-4">Preview image<small style="font-size: 10px; color:rgba(255, 255, 255, 0.493)"> (max 5 image, and 2mb)</small></label>
                                         <div class="upload__box">
                                             <div class="upload__btn-box text-center">
                                                 <label class="upload__btn">
                                                     <p class="mb-0">Upload images</p>
-                                                    <input type="file" multiple="" data-max_length="20"
-                                                        class="upload__inputfile">
+                                                    <input type="file" multiple=""
+                                                        class="upload__inputfile" name="images[]">
+                                                    @error('images')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </label>
                                             </div>
                                             <div class="upload__img-wrap mt-3"></div>
@@ -265,19 +327,19 @@
                                 <h3>Features</h3>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                        <input type="checkbox" id="vehicle1" name="cctv" value="1">
                                         <label for="vehicle1"> CCTV</label><br>
-                                        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                        <input type="checkbox" id="vehicle2" name="security" value="1">
                                         <label for="vehicle2"> Security</label><br>
-                                        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                        <input type="checkbox" id="vehicle2" name="guest" value="1">
                                         <label for="vehicle2"> Guest Room</label><br>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                        <input type="checkbox" id="vehicle1" name="extinguisher" value="1">
                                         <label for="vehicle1"> Fire Extinguisher</label><br>
-                                        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                        <input type="checkbox" id="vehicle2" name="water" value="1">
                                         <label for="vehicle2"> Unlimited Water Supply</label><br>
-                                        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                        <input type="checkbox" id="vehicle2" name="mainroad" value="1">
                                         <label for="vehicle2"> Located beside main road</label><br>
                                     </div>
                                 </div>
@@ -302,6 +364,14 @@
         });
 
         geocoder.addTo('#geocoder');
+        geocoder.on('result', (e) => {
+            const coordinates = e.result.center[0];
+            var geocoderInput = document.querySelector('.mapboxgl-ctrl-geocoder--input');
+            // Log the coordinates to the console.
+            console.log('Coordinates:', coordinates);
+
+            geocoderInput.value = '[' + e.result.center[0] + ', ' + e.result.center[1] + ']';
+        });
 
         function showMap() {
             console.log('show map')

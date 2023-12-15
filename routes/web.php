@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/service', [LocationController::class, 'inputPage']);
+Route::get('/faq', [HomeController::class, 'faqPage']);
+Route::get('/privacy', [HomeController::class, 'privacyPage']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -37,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/addParking', [LocationController::class, 'addParking']);
+    Route::post('/addParking', [LocationController::class, 'storeParking']);
 });
 
 require __DIR__ . '/auth.php';

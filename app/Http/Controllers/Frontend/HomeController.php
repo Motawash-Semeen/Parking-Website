@@ -23,4 +23,10 @@ class HomeController extends Controller
     public function paymentPage(){
         return view('payments');
     }
+    public function faqPage(){
+        return view('faqPage');
+    }
+    public function privacyPage(){
+        return view('privacy');
+    }
 }

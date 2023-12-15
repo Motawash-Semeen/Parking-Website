@@ -12,11 +12,10 @@
                   <div class="row">
                       <div class="col-md-12 col-sm-12">
                           <ul>
-                              <li><a href="home">Home</a></li>
-                              <li><a href="services">Service</a></li>
-                              <li><a href="privacy_policy">Privacy Policy</a></li>
-                              <li><a href="pricing">Pricing</a></li>
-                              <li><a href="help">Help</a></li>
+                              <li><a href="{{ url('/') }}">Home</a></li>
+                              <li><a href="{{ url('/service') }}">Service</a></li>
+                              <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>
+                              <li><a href="{{ url('/faq') }}">Help</a></li>
                           </ul>
                       </div>
                   </div>
