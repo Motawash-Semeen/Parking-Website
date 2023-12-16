@@ -11,4 +11,13 @@ class ParkingSlots extends Model
 
     protected $table = 'parking_slots';
     protected $primaryKey = 'id';
+
+    public function users()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+    public function multimg()
+    {
+        return $this->hasMany(ParkingImage::class, 'parking_id', 'id');
+    }
 }

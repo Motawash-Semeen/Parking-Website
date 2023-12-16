@@ -15,12 +15,14 @@
 
         @yield('frontend.content')
 
-        @include('frontend.partials.footer')
-
+        @if (request()->is('login') || request()->is('register'))
+        @else      
+        @include('frontend.partials.footer')      
+        @endif
+        
     </div>
 
     @include('frontend.partials.custom')
-
 
 </body>
 

@@ -1,76 +1,5 @@
-{{-- <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
-
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/owl.carousel.min.css">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <!-- Style -->
-    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/style.css">
-
-    <title>Login #6</title>
-</head>
-
-<body>
+@extends('master')
+@section('frontend.content')
 
     <div class="d-lg-flex half">
         <div class="bg order-1 order-md-2" style="background-image: url('frontend/assets/img/bg_1.jpg');"></div>
@@ -130,8 +59,7 @@
                                 <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
 
                                 <div class="social-login">
-                                    <a href="#"
-                                        class="google btn d-flex justify-content-center align-items-center">
+                                    <a href="#" class="google btn d-flex justify-content-center align-items-center">
                                         <span class="icon-google me-3"></span> Login with Google
                                     </a>
                                 </div>
@@ -203,8 +131,7 @@
                                 <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
 
                                 <div class="social-login">
-                                    <a href="#"
-                                        class="google btn d-flex justify-content-center align-items-center">
+                                    <a href="#" class="google btn d-flex justify-content-center align-items-center">
                                         <span class="icon-google me-3"></span> Signup with Google
                                     </a>
                                 </div>
@@ -222,15 +149,7 @@
 
 
     </div>
-
-
-
     <script src="{{ asset('frontend') }}/assets/js/jquery-3.1.1.min.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
     <script src="{{ asset('frontend') }}/assets/js/login.js"></script>
-</body>
-
-</html>
+@endsection

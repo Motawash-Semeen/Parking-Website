@@ -179,5 +179,4 @@
         <!-- #/ container -->
     </div>
 
-    <script></script>
 @endsection

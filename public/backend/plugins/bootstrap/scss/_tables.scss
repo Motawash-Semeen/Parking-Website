@@ -143,11 +143,11 @@
     border: 0;
   }
 
-  &.table-striped {
-    tbody tr:nth-of-type(odd) {
-      background-color: $table-dark-accent-bg;
-    }
-  }
+  // &.table-striped {
+  //   tbody tr:nth-of-type(odd) {
+  //     background-color: $table-dark-accent-bg;
+  //   }
+  // }
 
   &.table-hover {
     tbody tr {

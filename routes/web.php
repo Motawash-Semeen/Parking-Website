@@ -45,7 +45,16 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
-    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
     Route::post('/user/updateProfile', [AdminController::class, 'updateProfile'])->name('admin.updateProfile');
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+        Route::get('/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+        
+        Route::get('/all-slots', [AdminController::class, 'AllSlots'])->name('admin.slots');
+        Route::get('/update-satus/{id}', [AdminController::class, 'UpdateStatus'])->name('admin.slots.status');
+        Route::get('/delete-slot/{id}', [AdminController::class, 'DeleteSlots'])->name('admin.slots.delete');
+        Route::get('/edit-slot/{id}', [AdminController::class, 'EditSlots'])->name('admin.slots.edit');
+        Route::post('/edit-slot/{id}', [AdminController::class, 'UpdateSlots'])->name('admin.slots.update');
+        Route::get('/slot/delete-img/{id}', [AdminController::class, 'ImageDelete'])->name('admin.slots.img-delete');
+    });
 });

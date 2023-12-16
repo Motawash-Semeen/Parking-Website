@@ -26,6 +26,22 @@
                     <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
                 </ul>
             </li>
+            <li class="mega-menu mega-menu-sm">
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Parking Slots</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('admin/all-slots') }}">Manage Slots</a></li>
+                </ul>
+            </li>
+            <li class="mega-menu mega-menu-sm">
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Transaction</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('admin/all-slots') }}">Show Transaction</a></li>
+                </ul>
+            </li>
             <li class="nav-label">Apps</li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
