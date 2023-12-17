@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\SlotController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LocationController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +34,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/result', [LocationController::class, 'resultPage']);
     Route::get('/payment', [HomeController::class, 'paymentPage']);
     Route::get('/direction', [LocationController::class, 'directionPage']);
+    Route::get('/slot-value/{id}', [LocationController::class, 'getSlotValue']);
+    Route::post('/paymemt', [PaymentController::class, 'paymentPage']);
+    Route::post('/stripe/payment', [PaymentController::class, 'makePayment'])->name('stripe.payment');
 });
 
 Route::middleware('auth')->group(function () {
@@ -50,11 +55,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
         Route::get('/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
         
-        Route::get('/all-slots', [AdminController::class, 'AllSlots'])->name('admin.slots');
-        Route::get('/update-satus/{id}', [AdminController::class, 'UpdateStatus'])->name('admin.slots.status');
-        Route::get('/delete-slot/{id}', [AdminController::class, 'DeleteSlots'])->name('admin.slots.delete');
-        Route::get('/edit-slot/{id}', [AdminController::class, 'EditSlots'])->name('admin.slots.edit');
-        Route::post('/edit-slot/{id}', [AdminController::class, 'UpdateSlots'])->name('admin.slots.update');
-        Route::get('/slot/delete-img/{id}', [AdminController::class, 'ImageDelete'])->name('admin.slots.img-delete');
+        Route::get('/all-slots', [SlotController::class, 'AllSlots'])->name('admin.slots');
+        Route::get('/update-satus/{id}', [SlotController::class, 'UpdateStatus'])->name('admin.slots.status');
+        Route::get('/delete-slot/{id}', [SlotController::class, 'DeleteSlots'])->name('admin.slots.delete');
+        Route::get('/edit-slot/{id}', [SlotController::class, 'EditSlots'])->name('admin.slots.edit');
+        Route::post('/edit-slot/{id}', [SlotController::class, 'UpdateSlots'])->name('admin.slots.update');
+        Route::get('/slot/delete-img/{id}', [SlotController::class, 'ImageDelete'])->name('admin.slots.img-delete');
     });
 });

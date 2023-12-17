@@ -4,7 +4,6 @@
 
 
     <style>
-
         .geocoder {
             position: absolute;
             z-index: 1;
@@ -71,40 +70,71 @@
         <hr>
         <div class="offcanvas-body">
             <div class="text-center">
-                <p style="font-size: 24px; margin-bottom: 0px"><strong>120tk/hr</strong></p>
-                <p style="font-size: 16px">24 slots</p>
+                <p style="font-size: 24px; margin-bottom: 10px"><strong id="price-slot">120tk/hr</strong></p>
             </div>
-            <p><i class="bi bi-geo"></i> <strong style="color: #999999">Specify Location</strong></p>
-            <p><i class="bi bi-telephone"></i> <strong style="color: #999999">Specify Location</strong></p>
+            <p><i class="bi bi-geo"></i> <strong style="color: #999999" id="location-slot">Specify Location</strong></p>
+            <p><i class="bi bi-telephone"></i> <strong style="color: #999999" id="number-slot">Specify Location</strong></p>
             <hr>
-            <div class="features">
+            <div class="features" id="feature-slot">
                 <p><strong>Features</strong></p>
-                <p style="color: #999999"><i class="bi bi-geo-alt"></i> Specify Location</p>
-                <p style="color: #999999"><i class="bi bi-telephone"></i> Specify Location</p>
-                <p style="color: #999999"><i class="bi bi-clock"></i> Specify Location</p>
-                <p style="color: #999999"><i class="bi bi-people"></i> Specify Location</p>
-                <p style="color: #999999"><i class="bi bi-credit-card"></i> Specify Location</p>
+                <p style="color: #999999;" id="slot-cctv"></p>
+                <p style="color: #999999;" id="slot-security"></p>
+                <p style="color: #999999;" id="slot-guest"></p>
+                <p style="color: #999999;" id="slot-extinguisher"></p>
+                <p style="color: #999999;" id="slot-water"></p>
+                <p style="color: #999999;" id="slot-mainroad"></p>
+            </div>
+            <hr>
+            <div id="carouselExampleIndicators" class="carousel slide">
+                
+                <div class="carousel-inner" id="carousel-slot">
+                    <div class="carousel-item active">
+                        <img src="https://placehold.co/600x400" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://placehold.co/600x401" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://placehold.co/600x402" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
             <hr>
             <div class="text-center mt-3">
-                <button class="btn btn-primary" type="button">Show More Details</button>
-                <button class="btn btn-primary" type="button" onclick="toggleDateTimeFields()">Book</button>
+                <button class="btn btn-primary" type="button" onclick="toggleDateTimeFields()"
+                    style="background-color: #ffde16; border: none;">Book</button>
             </div>
             <hr>
             <div id="dateTimeFields" style="display: none; margin-top: 20px;">
+                <form action="{{ url('/paymemt') }}" method="POST">
+                    @csrf
                 <div class="row justify-content-center">
+                    <input type="text" name="slot_id" id="slot-id" hidden>
+                    <input type="text" name="coordinates_send" id="coordinates-send" hidden>
+                    <input type="text" name="coordinates_start" id="coordinates-start" hidden>
                     <div class="col-md-6">
-                        <label for="arriveDateTime" class="form-label">Arrive Date and Time:</label>
+                        <label for="arriveDateTime" class="form-label">Arrive Time:</label>
                         <input type="datetime-local" class="form-control" id="arriveDateTime" name="arriveDateTime">
                     </div>
                     <div class="col-md-6">
-                        <label for="leavingDateTime" class="form-label">Leaving Date and Time:</label>
+                        <label for="leavingDateTime" class="form-label">Leaving Time:</label>
                         <input type="datetime-local" class="form-control" id="leavingDateTime" name="leavingDateTime">
                     </div>
                 </div>
                 <div class="text-center mt-3">
-                    <button class="btn btn-primary" type="button" id="payments">Proceed To payment</button>
+                    <button class="btn btn-primary" type="submit" id="payments">Proceed To payment</button>
                 </div>
+                </form>
                 <hr>
             </div>
 
@@ -136,7 +166,7 @@
             </div>
         </div>
     </div>
-
+    <script src="{{ asset('frontend') }}/assets/js/jquery-3.1.1.min.js"></script>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoidG9ubW95eiIsImEiOiJjbG93bnozdGUweW5uMmlxMGxqMGRzdWN0In0.jaSCOUFd35sJJdAQ4uSgFQ';
 
@@ -179,56 +209,30 @@
                 'type': 'geojson',
                 'data': {
                     'type': 'FeatureCollection',
-                    'features': [{
-                            'type': 'Feature',
-                            'properties': {
-                                'description': '<div><b><p>Book Now</p></b><p style="text-align: center;">120tk/hr</p><div style="margin: auto; text-align: center;"><button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="border: none;">Select</button></div></div>',
+                    'features': [
+                        @foreach ($slots as $slot)
+                            @php
+                                // Assuming $slot->coordinates is a JSON string like '["90.3663240601033", "23.81239422167468"]'
+                                $coordinates = json_decode($slot->coordinates);
+                                $coordinateValue = [
+                                    'lng' => $coordinates[0],
+                                    'lat' => $coordinates[1],
+                                ];
+                            @endphp
+
+                            {
+                                'type': 'Feature',
+                                'properties': {
+                                    'description': '<div><b><p>Book Now</p></b><p style="text-align: center;">{{ $slot->price }}tk/hr</p><div style="margin: auto; text-align: center;"><button id={{ $slot->id }} class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="border: none; background-color: #ffde16" onclick="showValue(this.id)">Select</button></div></div>',
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [{{ $coordinateValue['lng'] }},
+                                        {{ $coordinateValue['lat'] }}
+                                    ]
+                                }
                             },
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [90.30, 23.81]
-                            }
-                        },
-                        {
-                            'type': 'Feature',
-                            'properties': {
-                                'description': '<div><b><p>Book Now</p></b><p style="text-align: center;">80tk/hr</p><div style="margin: auto; text-align: center;"><button style="border: none;">Select</button></div></div>',
-                            },
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [90.35, 23.81]
-                            }
-                        },
-                        {
-                            'type': 'Feature',
-                            'properties': {
-                                'description': '<div><b><p>Book Now</p></b><p style="text-align: center;">100tk/hr</p><div style="margin: auto; text-align: center;"><button style="border: none;">Select</button></div></div>',
-                            },
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [90.358, 23.8090]
-                            }
-                        },
-                        {
-                            'type': 'Feature',
-                            'properties': {
-                                'description': '<div><b><p>Book Now</p></b><p style="text-align: center;">170tk/hr</p><div style="margin: auto; text-align: center;"><button style="border: none;">Select</button></div></div>',
-                            },
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [90.3600, 23.80]
-                            }
-                        },
-                        {
-                            'type': 'Feature',
-                            'properties': {
-                                'description': '<div><b><p>Book Now</p></b><p style="text-align: center;">150tk/hr</p><div style="margin: auto; text-align: center;"><button style="border: none;">Select</button></div></div>',
-                            },
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [90.359, 23.8020]
-                            }
-                        },
+                        @endforeach
 
                     ]
                 }
@@ -311,6 +315,7 @@
             // Set the map center and add a marker
             map.setCenter(coordinates);
             addMarker(coordinates);
+            document.getElementById('coordinates-start').value = coordinates;
         }
         // Check if areaName is present before proceeding
         else if (areaName) {
@@ -366,6 +371,75 @@
             } else {
                 dateTimeFields.style.display = 'none';
             }
+        }
+    </script>
+    <script>
+        function showValue(id) {
+            console.log(id);
+            $.ajax({
+                type: 'GET',
+                url: '/slot-value/' + id,
+                success: function(data) {
+                    console.log(data);
+                    document.getElementById('slot-id').value = data.slots.id;
+                    document.getElementById('coordinates-send').value = data.slots.coordinates;
+                    document.getElementById('offcanvasRightLabel').innerHTML = data.slots.building_name;
+                    document.getElementById('price-slot').innerHTML = data.slots.price + 'tk/hr';
+                    document.getElementById('location-slot').innerHTML = data.slots.building_number + ', ' +
+                        data.slots.building_name + ', ' + data.slots.post_area + ', ' + data.slots.zip + ', ' +
+                        data.slots.city;
+
+                    document.getElementById('number-slot').innerHTML = data.slots.mobile;
+
+
+                    var carouselInner = $('#carousel-slot');
+                    carouselInner.empty();
+
+                    // Append images to the carousel
+                    $.each(data.slots.multimg, function(index, image) {
+                        console.log(image.image)
+                        var activeClass = index === 0 ? 'active' : '';
+                        var imgHtml = '<div class="carousel-item ' + activeClass + '">';
+                        imgHtml += '<img class="d-block w-100" src="frontend/assets/img/previewSlot/' + image.image + '") alt="Image ' + (
+                            index + 1) + '">';
+                        imgHtml += '</div>';
+                        carouselInner.append(imgHtml);
+                    });
+
+                    if (data.slots.cctv == 1) {
+                        document.getElementById('slot-cctv').innerHTML =
+                            `<i class="bi bi-webcam  me-2"></i>CCTV Coverage`;
+
+                    }
+                    if (data.slots.security == 1) {
+                        document.getElementById('slot-security').innerHTML =
+                            `<i class="bi bi-shield-lock  me-2"></i>High Security`;
+
+                    }
+                    if (data.slots.guest == 1) {
+                        document.getElementById('slot-guest').innerHTML =
+                            `<i class="bi bi-person-check-fill  me-2"></i>Guest Allowed`;
+
+                    }
+                    if (data.slots.extinguisher == 1) {
+                        document.getElementById('slot-extinguisher').innerHTML =
+                            `<i class="bi bi-fire  me-2"></i>Fire Extinguisher`;
+
+                    }
+                    if (data.slots.water == 1) {
+                        document.getElementById('slot-water').innerHTML =
+                            `<i class="bi bi-droplet  me-2"></i>Unlimited Water Supply`;
+
+                    }
+                    if (data.slots.mainroad == 1) {
+                        document.getElementById('slot-mainroad').innerHTML =
+                            `<i class="bi bi-sign-turn-right me-2"></i>Beside Main Road`;
+
+                    }
+                    // document.getElementById('payments').innerHTML = 'Proceed To payment';
+
+                }
+            })
         }
     </script>
 @endsection

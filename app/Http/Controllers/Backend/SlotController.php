@@ -1,39 +1,78 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\ParkingImage;
 use App\Models\ParkingSlots;
 use App\Models\Slots;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Image;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Image;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class LocationController extends Controller
+class SlotController extends Controller
 {
-    public function inputPage()
+    public function AllSlots()
     {
-        return view('allservice');
+        $slots = ParkingSlots::latest()->get();
+        return view('admin.all_slots', compact('slots'));
     }
-
-    public function resultPage(Request $request)
+    public function UpdateStatus($id)
     {
-        $location = $request->input('location');
-        $slots = ParkingSlots::where('status', 1)->get();
-        return view('result', compact('location','slots'));
+        $slot = ParkingSlots::find($id);
+        if ($slot->status == 0) {
+            $slot->status = 1;
+        } else {
+            $slot->status = 0;
+        }
+        $slot->update();
+        $notification = array(
+            'message' => 'Slot Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
-    public function directionPage()
+    public function DeleteSlots($id)
     {
-        return view('direction');
+        $slot = ParkingSlots::with('multimg')->find($id);
+        //return $slot;
+        if ($slot->multimg != '') {
+            foreach ($slot->multimg as $img) {
+                unlink('frontend/assets/img/previewSlot/' . $img->image);
+                ParkingImage::find($img->id)->delete();
+            }
+        }
+        $slot->delete();
+        $slot_number = Slots::where('slot_id', $id)->get();
+        foreach ($slot_number as $slot) {
+            $slot->delete();
+        }
+        $notification = array(
+            'message' => 'Slot Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
-    public function addParking()
+    public function EditSlots($id)
     {
-        return view('addparking');
+        $slot = ParkingSlots::with('multimg')->find($id);
+        return view('admin.edit_slot', compact('slot'));
     }
-    public function storeParking(Request $request)
+    public function ImageDelete($id)
+    {
+        $img = ParkingImage::find($id);
+        unlink('frontend/assets/img/previewSlot/' . $img->image);
+        $img->delete();
+        $notification = array(
+            'message' => 'Image Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function UpdateSlots($id, Request $request)
     {
         $validation = Validator::make($request->all(), [
             'building_name' => 'required',
@@ -49,8 +88,8 @@ class LocationController extends Controller
             'close_time' => 'required',
             'type' => 'required|array',
             'type.*' => 'in:cng,bus,truck,bike,car',
-            'images' => 'required|array',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'array',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ], [
             'building_name.required' => 'Building name is required',
             'building_number.required' => 'Building number is required',
@@ -76,8 +115,7 @@ class LocationController extends Controller
             );
             return redirect()->back()->with($notification)->withErrors($validation)->withInput();
         }
-
-        $slot = new ParkingSlots;
+        $slot = ParkingSlots::find($id);
         $slot->building_name = $request->building_name;
         $slot->building_number = $request->building_number;
         $slot->coordinates = $request->locationSearch;
@@ -97,22 +135,30 @@ class LocationController extends Controller
         $request->extinguisher ? $slot->extinguisher = $request->extinguisher : '';
         $request->water ? $slot->water = $request->water : '';
         $request->mainroad ? $slot->mainroad = $request->mainroad : '';
-        $slot->user_id = Auth::user()->id;
-        $slot->save();
+        $slot->update();
 
-        $slot_numbers = explode(',', $request->slot_numbers);
-        foreach ($slot_numbers as $slot_number) {
-            $slot_num = new Slots;
-            $slot_num->slot_id = $slot->id;
-            $slot_num->slot_number = $slot_number;
-            $slot_num->save();
+        $slot_numbers = Slots::where('slot_id', $id)->get();
+        $slots_nums = explode(',', $request->slot_numbers);
+        if(count($slot_numbers) > 0){
+            foreach($slot_numbers as $slot_number){
+                $slot_number->delete();
+            }
+            
         }
+        foreach ($slots_nums as $slot_num) {
+            $slot_number = new Slots;
+            $slot_number->slot_id = $id;
+            $slot_number->slot_number = $slot_num;
+            $slot_number->save();
+        }
+
+
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {
                 $name = time() . '-' . $slot->id . '-' . Str::random(10) . '.' . $image->getClientOriginalExtension();
 
                 $success = $image->move('frontend/assets/img/previewSlot/', $name);
-                $multipleImages = new ParkingImage;
+                $multipleImages = new ParkingImage();
                 $multipleImages->parking_id = $slot->id;
 
                 // Check if the image was successfully uploaded
@@ -124,8 +170,7 @@ class LocationController extends Controller
 
                     // Update the brand's image attribute
                     $multipleImages->image = $name;
-                }
-                else {
+                } else {
                     // Log an error or print a message to help identify the issue
                     \Log::error('Failed to move image: ' . $name);
                 }
@@ -134,22 +179,10 @@ class LocationController extends Controller
         }
 
         $notification = array(
-            'message' => 'Waiting for admin approval',
-            'alert-type' => 'warning'
+            'message' => 'Slot Updated Successfully',
+            'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
-        // return $slot_type;
-    }
-    public function getSlotValue($id)
-    {
-        $slot = ParkingSlots::with('multimg')->where('id', $id)->first();
-        $cctv = $slot->cctv == 1 ? 'Yes' : null;
-        $security = $slot->security == 1? 'Yes' : null;
-        $guest = $slot->guest == 1? 'Yes' : null;
-        $extinguisher = $slot->extinguisher == 1? 'Yes' : null;
-        $water = $slot->water == 1? 'Yes' : null;
-        $mainroad = $slot->mainroad == 1? 'Yes' : null;
-
-        return response()->json(['slots'=>$slot, 'cctv'=>$cctv, 'security'=>$security, 'guest'=>$guest, 'extinguisher'=>$extinguisher, 'water'=>$water, 'mainroad'=>$mainroad]);
+        return redirect('admin/all-slots')->with($notification);
+        //return $request->all();
     }
 }
