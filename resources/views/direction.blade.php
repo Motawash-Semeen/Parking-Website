@@ -67,6 +67,14 @@
             center: [90.30, 23.81], // Replace with your start coordinates
             zoom: 12
         });
+        const geolocate = new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                trackUserLocation: true
+            });
+
+            map.addControl(geolocate, 'top-left');
 
         map.on('load', () => {
             if (typeof MapboxDirections === 'undefined') {
@@ -83,9 +91,13 @@
                 map.addControl(directions, 'top-left');
 
                 // Set the end coordinates for directions
-                const endCoordinates = [90.374565, 23.805381]; // Replace with your end coordinates
+                const endCoordinates = @php echo $slot->slots->coordinates; @endphp; // Replace with your end coordinates
                 directions.setDestination(endCoordinates);
                 directions.setOrigin([90.30, 23.81]);
+                geolocate.on('geolocate', (event) => {
+            const startCoordinates = [event.coords.longitude, event.coords.latitude];
+            directions.setOrigin(startCoordinates);
+        });
             }
         });
     </script>

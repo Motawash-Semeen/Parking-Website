@@ -113,7 +113,9 @@ class PaymentController extends Controller
 
                 $updateSlot->update();
 
-                return redirect('/service')->with($notification);
+                session()->put('id', $transation->id);
+
+                return redirect('/congratulation')->with($notification);
             } catch (\Exception $e) {
                 dd($e->getMessage());
             }
@@ -125,5 +127,9 @@ class PaymentController extends Controller
             return redirect('/')->with($notification);
         }
         //return $charge;
+    }
+    public function congrtsPage(Request $request)
+    {
+        return view('afterpayment')->with('delay', 5000);
     }
 }

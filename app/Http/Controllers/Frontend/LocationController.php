@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ParkingImage;
 use App\Models\ParkingSlots;
 use App\Models\Slots;
+use App\Models\TransationInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
@@ -25,9 +26,11 @@ class LocationController extends Controller
         $slots = ParkingSlots::where('status', 1)->get();
         return view('result', compact('location','slots'));
     }
-    public function directionPage()
+    public function directionPage($id)
     {
-        return view('direction');
+        $slot = TransationInfo::with('slots')->where('id', $id)->first();
+        //return $slot;
+        return view('direction', compact('slot'));
     }
     public function addParking()
     {

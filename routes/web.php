@@ -36,10 +36,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/photoUpload', [DashboardController::class, 'photoUpload'])->name('user.photoUpload');
     Route::get('/result', [LocationController::class, 'resultPage']);
     Route::get('/payment', [HomeController::class, 'paymentPage']);
-    Route::get('/direction', [LocationController::class, 'directionPage']);
+    Route::get('/direction/{id}', [LocationController::class, 'directionPage']);
     Route::get('/slot-value/{id}', [LocationController::class, 'getSlotValue']);
     Route::get('/slot-available/{id}', [LocationController::class, 'getAvailableSlot']);
     Route::post('/paymemt', [PaymentController::class, 'paymentPage']);
+    Route::get('/congratulation', [PaymentController::class, 'congrtsPage']);
     Route::post('/stripe/payment', [PaymentController::class, 'makePayment'])->name('stripe.payment');
 });
 
