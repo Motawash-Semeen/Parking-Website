@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\InvoiceController;
 use App\Http\Controllers\Backend\SlotController;
+use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LocationController;
@@ -35,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/payment', [HomeController::class, 'paymentPage']);
     Route::get('/direction', [LocationController::class, 'directionPage']);
     Route::get('/slot-value/{id}', [LocationController::class, 'getSlotValue']);
+    Route::get('/slot-available/{id}', [LocationController::class, 'getAvailableSlot']);
     Route::post('/paymemt', [PaymentController::class, 'paymentPage']);
     Route::post('/stripe/payment', [PaymentController::class, 'makePayment'])->name('stripe.payment');
 });
@@ -45,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/addParking', [LocationController::class, 'addParking']);
     Route::post('/addParking', [LocationController::class, 'storeParking']);
+    Route::get('invoice_download/{id}',[TransactionController::class,'downloadInvoice'])->name('invoice.download');
 });
 
 require __DIR__ . '/auth.php';
@@ -61,5 +65,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/edit-slot/{id}', [SlotController::class, 'EditSlots'])->name('admin.slots.edit');
         Route::post('/edit-slot/{id}', [SlotController::class, 'UpdateSlots'])->name('admin.slots.update');
         Route::get('/slot/delete-img/{id}', [SlotController::class, 'ImageDelete'])->name('admin.slots.img-delete');
+        Route::get('/all-transaction', [TransactionController::class, 'showTransaction'])->name('admin.show.transaction');
     });
 });

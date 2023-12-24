@@ -12386,6 +12386,18 @@ table.dataTable thead .sorting::after {
       grid-template-columns: repeat(1, 1fr);
   }
 }
+@media (max-width: 768px) {
+.custom_img{
+    width: 100% !important;
+    height: 34px !important;
+
+}
+.nav-header .brand-logo a {
+  padding: 10px 15px;
+  display: block;
+}
+  
+}
 
 @media (min-width: 992px) {
 

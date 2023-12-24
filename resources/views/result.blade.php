@@ -110,33 +110,40 @@
                 </button>
             </div>
             <hr>
-            <div class="text-center mt-3">
-                <button class="btn btn-primary" type="button" onclick="toggleDateTimeFields()"
-                    style="background-color: #ffde16; border: none;">Book</button>
-            </div>
-            <hr>
-            <div id="dateTimeFields" style="display: none; margin-top: 20px;">
-                <form action="{{ url('/paymemt') }}" method="POST">
-                    @csrf
-                <div class="row justify-content-center">
-                    <input type="text" name="slot_id" id="slot-id" hidden>
-                    <input type="text" name="coordinates_send" id="coordinates-send" hidden>
-                    <input type="text" name="coordinates_start" id="coordinates-start" hidden>
-                    <div class="col-md-6">
-                        <label for="arriveDateTime" class="form-label">Arrive Time:</label>
-                        <input type="datetime-local" class="form-control" id="arriveDateTime" name="arriveDateTime">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="leavingDateTime" class="form-label">Leaving Time:</label>
-                        <input type="datetime-local" class="form-control" id="leavingDateTime" name="leavingDateTime">
-                    </div>
-                </div>
+            <div class="d-block" id="show-book">
                 <div class="text-center mt-3">
-                    <button class="btn btn-primary" type="submit" id="payments">Proceed To payment</button>
+                    <button class="btn btn-primary" type="button" onclick="toggleDateTimeFields()"
+                        style="background-color: #ffde16; border: none;">Book</button>
                 </div>
-                </form>
                 <hr>
+                <div id="dateTimeFields" style="display: none; margin-top: 20px;">
+                    <form action="{{ url('/paymemt') }}" method="POST">
+                        @csrf
+                    <div class="row justify-content-center">
+                        <input type="text" name="slot_id" id="slot-id" hidden>
+                        <input type="text" id="slot-number" hidden>
+                        <input type="text" name="coordinates_send" id="coordinates-send" hidden>
+                        <input type="text" name="coordinates_start" id="coordinates-start" hidden>
+                        <div class="col-md-6">
+                            <label for="arriveDateTime" class="form-label">Arrive Time:</label>
+                            <input type="datetime-local" class="form-control" id="arriveDateTime" name="arriveDateTime">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="leavingDateTime" class="form-label">Leaving Time:</label>
+                            <input type="datetime-local" class="form-control" id="leavingDateTime" name="leavingDateTime">
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-primary" type="submit" id="payments">Proceed To payment</button>
+                    </div>
+                    </form>
+                    <hr>
+                </div>
             </div>
+            <div class="d-none" id="hide-book">
+                <p class="text-danger text-center" style="font-size: 16px">No Slots Avaiable</p>
+            </div>
+            
 
             <div class="features">
                 <p><strong>Review</strong></p>
@@ -308,6 +315,7 @@
 
             // Add a new marker at the specified coordinates
             marker = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
+            document.getElementById('coordinates-start').value = coordinates;
         }
         if (coordinatesParam) {
             const coordinates = coordinatesParam.split(',').map(Number);
@@ -342,6 +350,7 @@
                         // Set the map center and add a marker
                         map.setCenter(feature.center);
                         addMarker(feature.center);
+                        document.getElementById('coordinates-start').value = feature.center;
                     } else {
                         console.error('Invalid response:');
                         console.error(response);
@@ -360,6 +369,7 @@
             // Update the map center and add a marker
             map.setCenter(coordinates);
             addMarker(coordinates);
+            document.getElementById('coordinates-start').value = coordinates;
         });
 
         function toggleDateTimeFields() {
@@ -375,7 +385,6 @@
     </script>
     <script>
         function showValue(id) {
-            console.log(id);
             $.ajax({
                 type: 'GET',
                 url: '/slot-value/' + id,
@@ -440,6 +449,28 @@
 
                 }
             })
+            $.ajax({
+                type: 'GET',
+                url: '/slot-available/' + id,
+                success: function(data) {
+                    if(data.$isHave == 0){
+                        document.getElementById('show-book').classList.remove('d-block');
+                        document.getElementById('show-book').classList.add('d-none');
+                        document.getElementById('hide-book').classList.remove('d-none');
+                        document.getElementById('hide-book').classList.add('d-block');
+                        
+                    }
+                    else{
+                        document.getElementById('show-book').classList.remove('d-none');
+                        document.getElementById('show-book').classList.add('d-block');
+                        document.getElementById('hide-book').classList.remove('d-block');
+                        document.getElementById('hide-book').classList.add('d-none');
+                        document.getElementById('slot-number').value = data.single_slot;
+                        document.getElementById('slot-number').name = 'slot_number';
+                    }
+                },
+            })
+            
         }
     </script>
 @endsection

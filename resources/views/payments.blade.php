@@ -29,7 +29,7 @@
                             <strong>Price:</strong> {{ $price }} tk
                         </div>
                         <div class="mb-2">
-                            <strong>Parking Slot:</strong> A1
+                            <strong>Parking Slot:</strong> {{ $request->slot_number }}
                         </div>
                         <div class="mb-2">
                             <strong>Location:</strong>
@@ -105,7 +105,8 @@
                                     data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" class="require-validation"
                                     data-cc-on-file="false" id="payment-form">
                                     @csrf
-                                    <input type="text" name="slot_id" id="slot-id" hidden>
+                                    <input type="text" name="slot_number" id="slot-number" hidden value={{ $request->slot_number }}>
+                                    <input type="text" name="slot_id" id="slot-id" hidden value={{ $request->slot_id }}>
                                     <input type="text" name="coordinates_send" id="coordinates-send" hidden
                                         value="{{ $request->coordinates_send }}">
                                     <input type="text" name="coordinates_start" id="coordinates-start" hidden
@@ -116,8 +117,7 @@
                                         value="{{ $request->leavingDateTime }}">
                                     <input type="text" name="price" id="coordinates-start" hidden
                                         value="{{ $price }}">
-                                    <input type="text" name="slot_id" id="coordinates-start" hidden
-                                        value="{{ $request->slot_id }}">
+                                    
                                     <div class="form-group my-3 required">
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Name on Card</label> <input class='form-control card_name'

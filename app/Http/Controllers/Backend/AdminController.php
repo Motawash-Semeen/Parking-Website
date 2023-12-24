@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\ParkingImage;
 use App\Models\ParkingSlots;
+use App\Models\Slots;
+use App\Models\TransationInfo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +19,17 @@ class AdminController extends Controller
     public function AdminDashboard()
     {
         $user = Auth::user();
-        return view('admin.admin_dashboard', compact('user'));
+        $total_slots = Slots::count();
+        $total_price = TransationInfo::sum('amount');
+        $total_user = User::count();
+        $total_empty = Slots::where('occupied','no')->count();
+        $top_transaction = TransationInfo::orderBy('id','desc')->take(5)->get();
+        $total_trans = TransationInfo::count();
+        $percentage_card = (TransationInfo::where('payment_method','Stripe')->count()/ $total_trans) * 100;
+        $percentage_cash = (TransationInfo::where('payment_method','Cash')->count()/  $total_trans) * 100;
+        $percentage_online = (TransationInfo::where('payment_method','Online')->count()/ $total_trans) * 100;
+
+        return view('admin.admin_dashboard', compact('user','total_slots','total_price','total_user','total_empty','top_transaction','percentage_card','percentage_cash','percentage_online'));
     }
     public function AdminProfile()
     {

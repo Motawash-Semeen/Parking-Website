@@ -137,21 +137,24 @@ class SlotController extends Controller
         $request->mainroad ? $slot->mainroad = $request->mainroad : '';
         $slot->update();
 
-        $slot_numbers = Slots::where('slot_id', $id)->get();
-        $slots_nums = explode(',', $request->slot_numbers);
-        if(count($slot_numbers) > 0){
-            foreach($slot_numbers as $slot_number){
-                $slot_number->delete();
-            }
-            
-        }
-        foreach ($slots_nums as $slot_num) {
-            $slot_number = new Slots;
-            $slot_number->slot_id = $id;
-            $slot_number->slot_number = $slot_num;
-            $slot_number->save();
-        }
 
+
+
+        $slot_numbers = Slots::where('slot_id', $id)->pluck('slot_number')->toArray();
+        $slots_nums = explode(',', $request->slot_numbers);
+
+        // Slots to delete
+        $slotsToDelete = array_diff($slot_numbers, $slots_nums);
+        Slots::where('slot_id', $id)->whereIn('slot_number', $slotsToDelete)->delete();
+
+        // Slots to insert
+        $slotsToInsert = array_diff($slots_nums, $slot_numbers);
+        foreach ($slotsToInsert as $slot_num) {
+            $slot = new Slots;
+            $slot->slot_id = $id;
+            $slot->slot_number = $slot_num;
+            $slot->save();
+        }
 
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {

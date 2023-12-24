@@ -10,4 +10,10 @@ class TransationInfo extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $table = 'transation_infos';   
+    public function users(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+    public function slots(){
+        return $this->hasOne(ParkingSlots::class, 'id', 'slot_id');
+    }
 }

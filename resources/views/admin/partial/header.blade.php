@@ -1,13 +1,12 @@
 <!--**********************************
             Nav header start
         ***********************************-->
-<div class="nav-header">
-    <div class="brand-logo">
+<div class="nav-header" style="background-color: #fff">
+    <div class="brand-logo"   style="text-align: center">
         <a href="index.html">
-            <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-            <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+            <img src="{{ asset('backend') }}/images/pk-logo.png" alt="Logo" style="width: 35%; height: 53px" class="custom_img">
             <span class="brand-title">
-                <img src="{{ asset('backend') }}/images/logo-text.png" alt="">
+                <img src="{{ asset('backend') }}/images/pk-logo.png" alt="Logo" style="width: 100%; height: 50px" >
             </span>
         </a>
     </div>

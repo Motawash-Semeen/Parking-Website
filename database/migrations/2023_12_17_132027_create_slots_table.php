@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('slot_id');
             $table->string('slot_number');
             $table->enum('occupied',['yes','no'])->default('no');
+            $table->string('end_time')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });

@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <h3 class="card-title text-white">Total Slots</h3>
                             <div class="d-inline-block">
-                                <h2 class="text-white">4565</h2>
+                                <h2 class="text-white">{{ $total_slots }}</h2>
                             </div>
                             <span class="float-right display-5 opacity-5"><i class="fa-solid fa-map-location-dot"></i></span>
                         </div>
@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h3 class="card-title text-white">Net Profit</h3>
                             <div class="d-inline-block">
-                                <h2 class="text-white">$ 8541</h2>
+                                <h2 class="text-white">$ {{ $total_price }}</h2>
                             </div>
                             <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <h3 class="card-title text-white">Total Customers</h3>
                             <div class="d-inline-block">
-                                <h2 class="text-white">4565</h2>
+                                <h2 class="text-white">{{ $total_user }}</h2>
                             </div>
                             <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
                         </div>
@@ -40,9 +40,9 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="card gradient-4">
                         <div class="card-body">
-                            <h3 class="card-title text-white">Customer Satisfaction</h3>
+                            <h3 class="card-title text-white">Empty Slot</h3>
                             <div class="d-inline-block">
-                                <h2 class="text-white">99%</h2>
+                                <h2 class="text-white">{{ $total_empty }}</h2>
                             </div>
                             <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
                         </div>
@@ -64,32 +64,32 @@
                     <div class="card card-widget">
                         <div class="card-body">
                             <h5 class="text-muted">Order Overview </h5>
-                            <h2 class="mt-4">5680</h2>
+                            <h2 class="mt-4">{{ $total_price }}</h2>
                             <span>Total Revenue</span>
                             <div class="mt-4">
-                                <h4>30</h4>
-                                <h6>Online Order <span class="pull-right">30%</span></h6>
+                                <h4>{{ $percentage_card }}</h4>
+                                <h6>Card Order <span class="pull-right">{{ $percentage_card }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-primary" style="width: 30%;" role="progressbar"><span
-                                            class="sr-only">30% Order</span>
+                                    <div class="progress-bar bg-primary" style="width: {{ $percentage_card }}%;" role="progressbar"><span
+                                            class="sr-only">{{ $percentage_card }}% Order</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <h4>50</h4>
-                                <h6 class="m-t-10 text-muted">Offline Order <span class="pull-right">50%</span></h6>
+                                <h4>{{ $percentage_online }}</h4>
+                                <h6 class="m-t-10 text-muted">Online Order <span class="pull-right">{{ $percentage_online }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-success" style="width: 50%;" role="progressbar"><span
-                                            class="sr-only">50% Order</span>
+                                    <div class="progress-bar bg-success" style="width: {{ $percentage_online }}%;" role="progressbar"><span
+                                            class="sr-only">{{ $percentage_online }}% Order</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <h4>20</h4>
-                                <h6 class="m-t-10 text-muted">Cash On Develery <span class="pull-right">20%</span></h6>
+                                <h4>{{ $percentage_cash }}</h4>
+                                <h6 class="m-t-10 text-muted">Cash On Develery <span class="pull-right">{{ $percentage_cash }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-warning" style="width: 20%;" role="progressbar"><span
-                                            class="sr-only">20% Order</span>
+                                    <div class="progress-bar bg-warning" style="width: {{ $percentage_cash }}%;" role="progressbar"><span
+                                            class="sr-only">{{ $percentage_cash }}% Order</span>
                                     </div>
                                 </div>
                             </div>
@@ -135,126 +135,39 @@
                                 <div class="table-responsive">
                                     <table class="table table-xs mb-0">
                                         <thead>
-                                            <tr>
-                                                <th>Customers</th>
-                                                <th>Product</th>
-                                                <th>Country</th>
+                                            <tr style="background-color: rgba(0, 0, 0, 0.05);">
+                                                <th>Invoice</th>
+                                                <th>Book Date</th>
+                                                <th>Contact Name</th>
+                                                <th>Contact Number</th>
+                                                <th>Slots Number</th>
+                                                <th>Price</th>
                                                 <th>Status</th>
-                                                <th>Payment Method</th>
-                                                <th>Activity</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><img src="{{ asset('backend') }}/images/avatar/1.jpg"
-                                                        class=" rounded-circle mr-3" alt="">Sarah Smith</td>
-                                                <td>iPhone X</td>
-                                                <td>
-                                                    <span>United States</span>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('backend') }}/images/avatar/2.jpg"
-                                                        class=" rounded-circle mr-3" alt="">Walter R.</td>
-                                                <td>Pixel 2</td>
-                                                <td><span>Canada</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">50 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('backend') }}/images/avatar/3.jpg"
-                                                        class=" rounded-circle mr-3" alt="">Andrew D.</td>
-                                                <td>OnePlus</td>
-                                                <td><span>Germany</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-warning  mr-2"></i> Pending</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('backend') }}/images/avatar/6.jpg"
-                                                        class=" rounded-circle mr-3" alt=""> Megan S.</td>
-                                                <td>Galaxy</td>
-                                                <td><span>Japan</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('backend') }}/images/avatar/4.jpg"
-                                                        class=" rounded-circle mr-3" alt=""> Doris R.</td>
-                                                <td>Moto Z2</td>
-                                                <td><span>England</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('backend') }}/images/avatar/5.jpg"
-                                                        class=" rounded-circle mr-3" alt="">Elizabeth W.</td>
-                                                <td>Notebook Asus</td>
-                                                <td><span>China</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-warning  mr-2"></i> Pending</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
+                                            @foreach ($top_transaction as $tran)
+                                                <tr>
+                                                    <td>{{ $tran->invoice_number }}</td>
+                                                    <td>{{ date('Y-m-d H:i:s', $tran->order_date) }}</td>
+                                                    <td>{{ $tran->name }}</td>
+                                                    <td>{{ $tran->phone }}</td>
+                                                    <td>{{ $tran->slot_number }}</td>
+                                                    <td>{{ $tran->amount }}</td>
+                                                    <td>
+                                                        @php
+                                                            $tran->status != 'confirmed' ? $value = 'Pending' : $value = '  Confirmed'
+                                                        @endphp
+                                                        <span class="badge {{ $value == 'Confirmed' ? 'badge-primary':'badge-danger' }} px-2">{{ $value }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span><a href="{{ url('admin/edit-transaction/'.$tran->id) }}" data-toggle="tooltip" data-placement="top"
+                                                                title="View" data-original-title="View"><i
+                                                                    class="fa-regular fa-file color-muted m-r-5"></i> </a></span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
