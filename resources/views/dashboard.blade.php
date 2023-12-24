@@ -1,176 +1,25 @@
-
 @extends('master')
 @section('frontend.content')
     @include('frontend.partials.secondHead')
     <style>
+        .badge-danger {
+            background-color: #dc3545;
+            border-radius: 5px;
+        }
 
+        .badge-primary {
+            background-color: #ffde16;
+            border-radius: 5px;
+        }
+        a{
+            text-decoration: none;
+
+        }
+        td{
+            color: #69707a !important;
+        }
     </style>
-    {{-- <div class="container">
-        <div class="row dashboard">
-            <div class="col-12">
-                <!-- Page title -->
-                <div class="my-5">
-                    <h3>My Profile</h3>
-                    <hr>
-                </div>
-                <!-- Form START -->
-                <form class="file-upload">
-                    <div class="row mb-5 gx-5">
-                        <!-- Contact detail -->
-                        <div class="col-xxl-8 mb-5 mb-xxl-0">
-                            <div class="bg-secondary-soft px-4 py-5 rounded">
-                                <div class="row g-3">
-                                    <h4 class="mb-4 mt-0">Contact detail</h4>
-                                    <!-- First Name -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">First Name *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="First name"
-                                            value="Scaralet">
-                                    </div>
-                                    <!-- Last name -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Last Name *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Last name"
-                                            value="Doe">
-                                    </div>
-                                    <!-- Phone number -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Phone number *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Phone number"
-                                            value="(333) 000 555">
-                                    </div>
-                                    <!-- Mobile number -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Mobile number *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Phone number"
-                                            value="+91 9852 8855 252">
-                                    </div>
-                                    <!-- Email -->
-                                    <div class="col-md-6">
-                                        <label for="inputEmail4" class="form-label">Email *</label>
-                                        <input type="email" class="form-control" id="inputEmail4"
-                                            value="example@homerealty.com">
-                                    </div>
-                                    <!-- Skype -->
-                                    <div class="col-md-6">
-                                        <label class="form-label">Skype *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Phone number"
-                                            value="Scaralet D">
-                                    </div>
-                                </div> <!-- Row END -->
-                            </div>
-                        </div>
-                        <!-- Upload profile -->
-                        <div class="col-xxl-4">
-                            <div class="bg-secondary-soft px-4 py-5 rounded">
-                                <div class="row g-3">
-                                    <h4 class="mb-4 mt-0">Upload your profile photo</h4>
-                                    <div class="text-center">
-                                        <!-- Image upload -->
-                                        <div class="square position-relative display-2 mb-3">
-                                            <i
-                                                class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
-                                        </div>
-                                        <!-- Button -->
-                                        <input type="file" id="customFile" name="file" hidden="">
-                                        <label class="btn btn-success-soft btn-block" for="customFile">Upload</label>
-                                        <button type="button" class="btn btn-danger-soft">Remove</button>
-                                        <!-- Content -->
-                                        <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size
-                                            300px
-                                            x 300px</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- Row END -->
-
-                    <!-- Social media detail -->
-                    <div class="row mb-5 gx-5">
-                        <div class="col-xxl-6 mb-5 mb-xxl-0">
-                            <div class="bg-secondary-soft px-4 py-5 rounded">
-                                <div class="row g-3">
-                                    <h4 class="mb-4 mt-0">Social media detail</h4>
-                                    <!-- Facebook -->
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i
-                                                class="fab fa-fw fa-facebook me-2 text-facebook"></i>Facebook *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Facebook"
-                                            value="http://www.facebook.com">
-                                    </div>
-                                    <!-- Twitter -->
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i
-                                                class="fab fa-fw fa-twitter text-twitter me-2"></i>Twitter *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Twitter"
-                                            value="http://www.twitter.com">
-                                    </div>
-                                    <!-- Linkedin -->
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i
-                                                class="fab fa-fw fa-linkedin-in text-linkedin me-2"></i>Linkedin *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Linkedin"
-                                            value="http://www.linkedin.com">
-                                    </div>
-                                    <!-- Instragram -->
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i
-                                                class="fab fa-fw fa-instagram text-instagram me-2"></i>Instagram *</label>
-                                        <input type="text" class="form-control" placeholder=""
-                                            aria-label="Instragram" value="http://www.instragram.com">
-                                    </div>
-                                    <!-- Dribble -->
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i
-                                                class="fas fa-fw fa-basketball-ball text-dribbble me-2"></i>Dribble
-                                            *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Dribble"
-                                            value="http://www.dribble.com">
-                                    </div>
-                                    <!-- Pinterest -->
-                                    <div class="col-md-6">
-                                        <label class="form-label"><i
-                                                class="fab fa-fw fa-pinterest text-pinterest"></i>Pinterest *</label>
-                                        <input type="text" class="form-control" placeholder="" aria-label="Pinterest"
-                                            value="http://www.pinterest.com">
-                                    </div>
-                                </div> <!-- Row END -->
-                            </div>
-                        </div>
-
-                        <!-- change password -->
-                        <div class="col-xxl-6">
-                            <div class="bg-secondary-soft px-4 py-5 rounded">
-                                <div class="row g-3">
-                                    <h4 class="my-4">Change Password</h4>
-                                    <!-- Old password -->
-                                    <div class="col-md-6">
-                                        <label for="exampleInputPassword1" class="form-label">Old password *</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
-                                    </div>
-                                    <!-- New password -->
-                                    <div class="col-md-6">
-                                        <label for="exampleInputPassword2" class="form-label">New password *</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword2">
-                                    </div>
-                                    <!-- Confirm password -->
-                                    <div class="col-md-12">
-                                        <label for="exampleInputPassword3" class="form-label">Confirm Password *</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword3">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- Row END -->
-                    <!-- button -->
-                    <div class="gap-3 d-md-flex justify-content-md-end text-center">
-                        <button type="button" class="btn btn-danger btn-lg">Delete profile</button>
-                        <button type="button" class="btn btn-primary btn-lg">Update profile</button>
-                    </div>
-                </form> <!-- Form END -->
-            </div>
-        </div>
-    </div> --}}
+    <script src="https://kit.fontawesome.com/4a3cf85510.js" crossorigin="anonymous"></script>
 
     <div class="container px-4 mt-4" id="profile">
         <!-- Account page navigation-->
@@ -183,8 +32,7 @@
                 <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
                     type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Security</button>
                 <button class="nav-link" id="nav-notification-tab" data-bs-toggle="tab" data-bs-target="#nav-notification"
-                    type="button" role="tab" aria-controls="nav-notification"
-                    aria-selected="false">Notifications</button>
+                    type="button" role="tab" aria-controls="nav-notification" aria-selected="false">Slots</button>
             </div>
         </nav>
         <hr class="mt-0">
@@ -199,26 +47,27 @@
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
                                 <img class="img-account-profile rounded-circle mb-2"
-                                    src="{{ $user->photo != null ? 'frontend/assets/img/user/'.$user->photo : 'http://bootdey.com/img/Content/avatar/avatar1.png' }}" alt="" id="profile-picture">
+                                    src="{{ $user->photo != null ? 'frontend/assets/img/user/' . $user->photo : 'http://bootdey.com/img/Content/avatar/avatar1.png' }}"
+                                    alt="" id="profile-picture">
                                 <!-- Profile picture help block-->
                                 <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                                 <!-- Profile picture upload button-->
                                 <div class="input-group d-flex align-items-center justify-content-center">
                                     <form action="{{ url('photoUpload') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                    <div class="custom-file mb-3">
-                                        
-                                        <input type="file" class="custom-file-input" id="inputProfileImage"
-                                            accept="image/*" onchange="previewImage()" name="photo">
-                                        @error('photo')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-yellow" type="submit">Upload new
-                                            image</button>
-                                    </div>
-                                </form>
+                                        <div class="custom-file mb-3">
+
+                                            <input type="file" class="custom-file-input" id="inputProfileImage"
+                                                accept="image/*" onchange="previewImage()" name="photo">
+                                            @error('photo')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-yellow" type="submit">Upload new
+                                                image</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -232,27 +81,31 @@
                                     @csrf
                                     <!-- Form Group (username)-->
                                     <div class="mb-3">
-                                        <label class="small mb-1" for="inputUsername">Full Name <span class="text-danger">*</span></label>
+                                        <label class="small mb-1" for="inputUsername">Full Name <span
+                                                class="text-danger">*</span></label>
                                         <input class="form-control" id="inputUsername" type="text"
                                             placeholder="Enter your name" name="name" value="{{ $user->name }}">
-                                            @error('name')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                        @error('name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <!-- Form Row-->
                                     <div class="row gx-3 mb-3">
                                         <!-- Form Group (Email)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputFirstName">Email <span class="text-danger">*</span></label>
+                                            <label class="small mb-1" for="inputFirstName">Email <span
+                                                    class="text-danger">*</span></label>
                                             <input class="form-control" id="inputFirstName" type="email"
-                                                placeholder="Enter your Email" readonly value="{{ $user->email }}">   
+                                                placeholder="Enter your Email" readonly value="{{ $user->email }}">
                                         </div>
                                         <!-- Form Group (number)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputLastName">Mobile <span class="text-danger">*</span></label>
+                                            <label class="small mb-1" for="inputLastName">Mobile <span
+                                                    class="text-danger">*</span></label>
                                             <input class="form-control" id="inputLastName" type="text"
-                                                placeholder="Enter your number" name="number" value="{{ $user->number }}">
-                                                @error('number')
+                                                placeholder="Enter your number" name="number"
+                                                value="{{ $user->number }}">
+                                            @error('number')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -261,16 +114,18 @@
                                     <div class="row gx-3 mb-3">
                                         <!-- Form Group (nid)-->
                                         <div class="col-md-6">
-                                            <label class="small mb-1" for="inputOrgName">NID <span class="text-danger">*</span></label>
+                                            <label class="small mb-1" for="inputOrgName">NID <span
+                                                    class="text-danger">*</span></label>
                                             <input class="form-control" id="inputOrgName" type="text"
                                                 placeholder="Enter your NID Number" readonly value="{{ $user->nid }}">
-                                                
+
                                         </div>
                                         <!-- Form Group (location)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="inputLocation">Address</label>
                                             <input class="form-control" id="inputLocation" type="text"
-                                                placeholder="Enter your address" name="address" value="{{ $user->address }}">
+                                                placeholder="Enter your address" name="address"
+                                                value="{{ $user->address }}">
                                         </div>
                                     </div>
                                     {{-- <!-- Form Group (email address)-->
@@ -309,37 +164,25 @@
                         <!-- Billing card 1-->
                         <div class="card h-100 border-start-lg border-start-primary">
                             <div class="card-body">
-                                <div class="small text-muted">Current monthly bill</div>
-                                <div class="h3">$20.00</div>
-                                <a class="text-arrow-icon small" href="#!">
-                                    Switch to yearly billing
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-arrow-right">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </a>
+                                <div class="small text-muted">Spend</div>
+                                <div class="h3">${{ number_format($trans_amount, 2, '.', ',') }}</div>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 mb-4">
                         <!-- Billing card 2-->
+                        @php
+                        $total_slot =0;
+                            foreach($slots as $slot){
+                                $total_slot += count(explode(',', $slot->slot_numbers));
+                            }
+                        @endphp
                         <div class="card h-100 border-start-lg border-start-secondary">
                             <div class="card-body">
-                                <div class="small text-muted">Next payment due</div>
-                                <div class="h3">July 15</div>
-                                <a class="text-arrow-icon small text-secondary" href="#!">
-                                    View payment history
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-arrow-right">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </a>
+                                <div class="small text-muted">Total Slots</div>
+                                <div class="h3">{{  $total_slot }}</div>
+
                             </div>
                         </div>
                     </div>
@@ -347,24 +190,30 @@
                         <!-- Billing card 3-->
                         <div class="card h-100 border-start-lg border-start-success">
                             <div class="card-body">
-                                <div class="small text-muted">Current plan</div>
-                                <div class="h3 d-flex align-items-center">Freelancer</div>
-                                <a class="text-arrow-icon small text-success" href="#!">
-                                    Upgrade plan
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-arrow-right">
+                                <div class="small text-muted">Net Profit</div>
+                                @if ($has_slot)
+                                <div class="h3">{{ number_format($profit, 2, '.', ',') }}</div>
+                                @else
+                                <div class="h3 d-flex align-items-center"><a class="text-arrow-icon small text-success"
+                                    href="{{ url('service') }}">
+                                    List Slot Now
+                                    <svg xmlns="" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-arrow-right">
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                         <polyline points="12 5 19 12 12 19"></polyline>
                                     </svg>
                                 </a>
                             </div>
+                                @endif
+                                
+
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Payment methods card-->
-                <div class="card card-header-actions mb-4">
+                {{-- <div class="card card-header-actions mb-4">
                     <div class="card-header">
                         Payment Methods
                         <button class="btn btn-sm btn-primary" type="button">Add Payment Method</button>
@@ -415,8 +264,58 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- Billing history card-->
+                <div class="card mb-4">
+                    <div class="card-header">Active Books</div>
+                    <div class="card-body p-0">
+                        <!-- Billing history table-->
+                        <div class="table-responsive table-billing-history">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr style="background-color: rgba(0, 0, 0, 0.05); ">
+                                        <th>Invoice</th>
+                                        <th>Book Date</th>
+                                        <th>Slots Number</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Invoice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($active_books as $tran)
+                                    
+                                        <tr>
+                                            <td style="color: #69707a;">{{ $tran->info->invoice_number }}</td>
+                                            <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}</td>
+                                            <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}</td>
+                                            <td style="color: #69707a;">{{ $tran->info->amount }}</td>
+                                            <td>
+                                                @php
+                                                    $tran->info->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
+                                                @endphp
+                                                <span
+                                                    class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span><a href="{{ url('direction/' . $tran->info->id) }}"
+                                                        data-toggle="tooltip" data-placement="top" title="Direction"
+                                                        data-original-title="Direction"><i
+                                                            class="fa-solid fa-route color-muted m-r-5"
+                                                            style="color:#69707a"></i> </a></span>
+                                                <span class="ms-3"><a href="{{ url('invoice_download/' . $tran->info->id) }}"
+                                                        data-toggle="tooltip" data-placement="top" title="View"
+                                                        data-original-title="View"><i
+                                                            class="fa-solid fa-file-arrow-down color-muted m-r-5"
+                                                            style="color:#69707a"></i> </a></span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
                 <div class="card mb-4">
                     <div class="card-header">Billing History</div>
                     <div class="card-body p-0">
@@ -424,38 +323,38 @@
                         <div class="table-responsive table-billing-history">
                             <table class="table mb-0">
                                 <thead>
-                                    <tr>
-                                        <th class="border-gray-200" scope="col">Transaction ID</th>
-                                        <th class="border-gray-200" scope="col">Date</th>
-                                        <th class="border-gray-200" scope="col">Amount</th>
-                                        <th class="border-gray-200" scope="col">Status</th>
+                                    <tr style="background-color: rgba(0, 0, 0, 0.05); ">
+                                        <th>Invoice</th>
+                                        <th>Book Date</th>
+                                        <th>Slots Number</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Invoice</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>#39201</td>
-                                        <td>06/15/2021</td>
-                                        <td>$29.99</td>
-                                        <td><span class="badge bg-light text-dark">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#38594</td>
-                                        <td>05/15/2021</td>
-                                        <td>$29.99</td>
-                                        <td><span class="badge bg-success">Paid</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#38223</td>
-                                        <td>04/15/2021</td>
-                                        <td>$29.99</td>
-                                        <td><span class="badge bg-success">Paid</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#38125</td>
-                                        <td>03/15/2021</td>
-                                        <td>$29.99</td>
-                                        <td><span class="badge bg-success">Paid</span></td>
-                                    </tr>
+                                    @foreach ($trans as $tran)
+                                        <tr>
+                                            <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
+                                            <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}</td>
+                                            <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}</td>
+                                            <td style="color: #69707a;">{{ $tran->amount }}</td>
+                                            <td>
+                                                @php
+                                                    $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
+                                                @endphp
+                                                <span
+                                                    class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span><a href="{{ url('invoice_download/' . $tran->id) }}"
+                                                        data-toggle="tooltip" data-placement="top" title="View"
+                                                        data-original-title="View"><i
+                                                            class="fa-solid fa-file-arrow-down color-muted m-r-5"
+                                                            style="color:#69707a"></i> </a></span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -528,7 +427,8 @@
                             <div class="card-body">
                                 <p>Deleting your account is a permanent action and cannot be undone. If you are sure you
                                     want to delete your account, select the button below.</p>
-                                <button class="btn btn-danger-soft text-danger" type="button"  data-bs-toggle="modal" data-bs-target="#deleteModal">I understand, delete my
+                                <button class="btn btn-danger-soft text-danger" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal">I understand, delete my
                                     account</button>
                             </div>
                         </div>
@@ -538,143 +438,62 @@
             <div class="tab-pane fade" id="nav-notification" role="tabpanel" aria-labelledby="nav-notification-tab"
                 tabindex="0">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <!-- Email notifications preferences card-->
-                        <div class="card card-header-actions mb-4">
-                            <div class="card-header">
-                                Email Notifications
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox"
-                                        checked="">
-                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Your Listed Slots</h4>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered zero-configuration">
+                                                <thead>
+                                                    <tr style="background-color: rgba(0, 0, 0, 0.05);">
+                                                        <th width="300px">Address</th>
+                                                        <th>Contact Number</th>
+                                                        <th>Slots Number</th>
+                                                        <th>Price/hr</th>
+                                                        <th>Status</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($slots as $slot)
+                                                        <tr>
+                                                            <td>{{ $slot->building_number . ',' . $slot->building_name . ',' . $slot->post_area . ',' . $slot->city }}
+                                                            </td>
+                                                            <td>{{ $slot->mobile }}</td>
+                                                            <td>{{ $slot->slot_numbers }}
+                                                                ({{ count(explode(',', $slot->slot_numbers)) }})
+                                                            </td>
+                                                            <td>{{ $slot->price }}</td>
+                                                            @php
+                                                                $slot_type = explode(',', $slot->slot_type);
+                                                            @endphp
+
+                                                            <td>
+                                                                @php
+                                                                    $slot->status != 0 ? ($value = 'Active') : ($value = 'Inactive');
+                                                                @endphp
+                                                                <a href="{{ url('user/update-satus/' . $slot->id) }}"
+                                                                    class="badge {{ $value == 'Active' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
+                                                            </td>
+                                                            <td>
+                                                                <span><a href="{{ url('user/edit-slot/' . $slot->id) }}"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title="" data-original-title="Edit"><i
+                                                                            class="fa fa-pencil color-muted m-r-5"></i>
+                                                                    </a><a href="{{ url('user/delete-slot/' . $slot->id) }}"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title="" data-original-title="Close"><i
+                                                                            class="fa fa-close color-danger"></i></a></span>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <!-- Form Group (default email)-->
-                                    <div class="mb-3">
-                                        <label class="small mb-1" for="inputNotificationEmail">Default notification
-                                            email</label>
-                                        <input class="form-control" id="inputNotificationEmail" type="email"
-                                            value="name@example.com" disabled="">
-                                    </div>
-                                    <!-- Form Group (email updates checkboxes)-->
-                                    <div class="mb-0">
-                                        <label class="small mb-2">Choose which types of email updates you receive</label>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkAccountChanges" type="checkbox"
-                                                checked="">
-                                            <label class="form-check-label" for="checkAccountChanges">Changes made to your
-                                                account</label>
-                                        </div>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkAccountGroups" type="checkbox"
-                                                checked="">
-                                            <label class="form-check-label" for="checkAccountGroups">Changes are made to
-                                                groups you're part of</label>
-                                        </div>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkProductUpdates" type="checkbox"
-                                                checked="">
-                                            <label class="form-check-label" for="checkProductUpdates">Product updates for
-                                                products you've purchased or starred</label>
-                                        </div>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkProductNew" type="checkbox"
-                                                checked="">
-                                            <label class="form-check-label" for="checkProductNew">Information on new
-                                                products and services</label>
-                                        </div>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkPromotional" type="checkbox">
-                                            <label class="form-check-label" for="checkPromotional">Marketing and
-                                                promotional offers</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" id="checkSecurity" type="checkbox"
-                                                checked="" disabled="">
-                                            <label class="form-check-label" for="checkSecurity">Security alerts</label>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- SMS push notifications card-->
-                        <div class="card card-header-actions mb-4">
-                            <div class="card-header">
-                                Push Notifications
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" id="smsToggleSwitch" type="checkbox" checked="">
-                                    <label class="form-check-label" for="smsToggleSwitch"></label>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <!-- Form Group (default SMS number)-->
-                                    <div class="mb-3">
-                                        <label class="small mb-1" for="inputNotificationSms">Default SMS number</label>
-                                        <input class="form-control" id="inputNotificationSms" type="tel"
-                                            value="123-456-7890" disabled="">
-                                    </div>
-                                    <!-- Form Group (SMS updates checkboxes)-->
-                                    <div class="mb-0">
-                                        <label class="small mb-2">Choose which types of push notifications you
-                                            receive</label>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkSmsComment" type="checkbox"
-                                                checked="">
-                                            <label class="form-check-label" for="checkSmsComment">Someone comments on your
-                                                post</label>
-                                        </div>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkSmsShare" type="checkbox">
-                                            <label class="form-check-label" for="checkSmsShare">Someone shares your
-                                                post</label>
-                                        </div>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkSmsFollow" type="checkbox"
-                                                checked="">
-                                            <label class="form-check-label" for="checkSmsFollow">A user follows your
-                                                account</label>
-                                        </div>
-                                        <div class="form-check mb-2">
-                                            <input class="form-check-input" id="checkSmsGroup" type="checkbox">
-                                            <label class="form-check-label" for="checkSmsGroup">New posts are made in
-                                                groups you're part of</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" id="checkSmsPrivateMessage" type="checkbox"
-                                                checked="">
-                                            <label class="form-check-label" for="checkSmsPrivateMessage">You receive a
-                                                private message</label>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <!-- Notifications preferences card-->
-                        <div class="card">
-                            <div class="card-header">Notification Preferences</div>
-                            <div class="card-body">
-                                <form>
-                                    <!-- Form Group (notification preference checkboxes)-->
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" id="checkAutoGroup" type="checkbox"
-                                            checked="">
-                                        <label class="form-check-label" for="checkAutoGroup">Automatically subscribe to
-                                            group notifications</label>
-                                    </div>
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" id="checkAutoProduct" type="checkbox">
-                                        <label class="form-check-label" for="checkAutoProduct">Automatically subscribe to
-                                            new product notifications</label>
-                                    </div>
-                                    <!-- Submit button-->
-                                    <button class="btn btn-danger-soft text-danger">Unsubscribe from all
-                                        notifications</button>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -689,34 +508,34 @@
 
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header border border-0">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Account?</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form method="post" action="{{ url('deleteUser') }}">
-                @csrf
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Re-enter Password:</label>
-                  <input type="password" class="form-control" id="recipient-name" name="passowrd">
+            <div class="modal-content">
+                <div class="modal-header border border-0">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Account?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-danger">Confirm</button>
-              </form>
+                <div class="modal-body">
+                    <form method="post" action="{{ url('deleteUser') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Re-enter Password:</label>
+                            <input type="password" class="form-control" id="recipient-name" name="passowrd">
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
     <script>
         function previewImage() {
             const inputProfileImage = document.getElementById('inputProfileImage');
             const profilePicture = document.getElementById('profile-picture');
             const file = inputProfileImage.files[0];
-    
+
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     profilePicture.src = e.target.result;
                 };
                 reader.readAsDataURL(file);

@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LocationController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\UserSlotController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,7 +49,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/addParking', [LocationController::class, 'addParking']);
     Route::post('/addParking', [LocationController::class, 'storeParking']);
-    Route::get('invoice_download/{id}',[TransactionController::class,'downloadInvoice'])->name('invoice.download');
+    Route::get('invoice_download/{id}', [TransactionController::class, 'downloadInvoice'])->name('invoice.download');
+
+});
+
+Route::middleware(['checkUserId', 'auth'])->group(function () {
+    Route::get('user/update-satus/{id}', [UserSlotController::class, 'UpdateStatus'])->name('user.slots.status');
+    Route::get('user/delete-slot/{id}', [UserSlotController::class, 'DeleteSlots'])->name('user.slots.delete');
+    Route::get('user/edit-slot/{id}', [UserSlotController::class, 'EditSlots'])->name('user.slots.edit');
+    Route::post('user/edit-slot/{id}', [UserSlotController::class, 'UpdateSlots'])->name('user.slots.update');
+    Route::get('user/slot/delete-img/{id}/{img_id}', [UserSlotController::class, 'ImageDelete'])->name('user.slots.img-delete');
 });
 
 require __DIR__ . '/auth.php';
@@ -58,7 +68,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
         Route::get('/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
-        
+
         Route::get('/all-slots', [SlotController::class, 'AllSlots'])->name('admin.slots');
         Route::get('/update-satus/{id}', [SlotController::class, 'UpdateStatus'])->name('admin.slots.status');
         Route::get('/delete-slot/{id}', [SlotController::class, 'DeleteSlots'])->name('admin.slots.delete');

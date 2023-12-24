@@ -42,14 +42,14 @@
                                                 <td>{{ $tran->amount }}</td>
                                                 <td>
                                                     @php
-                                                        $tran->status != 'confirmed' ? $value = 'Pending' : $value = '  Confirmed'
+                                                        $tran->status != 'confirmed' ? $value = 'Pending' : $value = ' Confirmed'
                                                     @endphp
                                                     <span class="badge {{ $value == 'Confirmed' ? 'badge-primary':'badge-danger' }} px-2">{{ $value }}</span>
                                                 </td>
-                                                <td>
+                                                <td style="text-align: center;">
                                                     <span><a href="{{ url('invoice_download/'.$tran->id) }}" data-toggle="tooltip" data-placement="top"
                                                             title="View" data-original-title="View"><i
-                                                                class="fa-regular fa-file color-muted m-r-5"></i> </a></span>
+                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"></i> </a></span>
                                                 </td>
                                             </tr>
                                         @endforeach

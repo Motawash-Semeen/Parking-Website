@@ -108,6 +108,9 @@ class PaymentController extends Controller
 
                 $updateSlot = Slots::where('slot_id', $request->slot_id)->where('slot_number', $request->slot_number)->first();
                 $updateSlot->occupied = 'yes';
+                $updateSlot->end_time = strtotime($request->leavingDateTime);
+                $updateSlot->user_id = Auth::user()->id;
+
                 $updateSlot->update();
 
                 return redirect('/service')->with($notification);

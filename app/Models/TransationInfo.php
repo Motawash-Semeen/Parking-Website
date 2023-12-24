@@ -16,4 +16,5 @@ class TransationInfo extends Model
     public function slots(){
         return $this->hasOne(ParkingSlots::class, 'id', 'slot_id');
     }
+
 }

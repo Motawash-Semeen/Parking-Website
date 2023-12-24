@@ -122,7 +122,7 @@
                                         <div class="form-group col-sm-6">
                                             <label>Opening Time</label>
                                             <div class="input-group">
-                                                <input type="time" class="form-control" value="05:00"
+                                                <input type="time" class="form-control" 
                                                     name="open_time" value="{{ $slot->open_time }}">
                                                 @error('open_time')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -147,7 +147,7 @@
                                     @php
                                         $selectedValues = explode(',', $slot->slot_type);
                                     @endphp
-                                    <h3>Images and Types {{ in_array('cng', $selectedValues) }}</h3>
+                                    <h3>Images and Types</h3>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label class="mb-4">Vehicle Type</label>

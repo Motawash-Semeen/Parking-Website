@@ -1119,27 +1119,32 @@ footer.footer .footer_last_icon i {
     text-transform: uppercase;
 }
 
-#addParking .form-group {
+#addParking .form-group,
+#upslot .form-group {
     margin-bottom: 20px;
 }
 
-#addParking input[type="checkbox"] {
+#addParking input[type="checkbox"],
+#upslot input[type="checkbox"] {
     accent-color: #ffde16;
 }
 
-#addParking .btn-primary {
+#addParking .btn-primary,
+#upslot .btn-primary {
     background-color: #ffde16;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
-#addParking .btn-primary:hover {
+#addParking .btn-primary:hover,
+#upslot .btn-primary:hover {
     background-color: #ffde16;
 }
 
 #addParking .mapboxgl-ctrl-geocoder,
-#inputLocation .mapboxgl-ctrl-geocoder {
+#inputLocation .mapboxgl-ctrl-geocoder,
+#upslot .mapboxgl-ctrl-geocoder {
     min-width: 100% !important;
     margin: 0px;
     border-radius: 0.375rem;
@@ -1149,7 +1154,8 @@ footer.footer .footer_last_icon i {
     -o-border-radius: 0.375rem;
 }
 
-#addParking .card {
+#addParking .card,
+#upslot .card {
     --background: #fff;
     --background-checkbox: #0082ff;
     --background-image: #fff, rgba(0, 107, 175, 0.2);
@@ -1168,21 +1174,24 @@ footer.footer .footer_last_icon i {
     user-select: none;
 }
 
-#addParking .card:nth-child(odd) .card__body-cover-image {
+#addParking .card:nth-child(odd) .card__body-cover-image,
+#upslot .card:nth-child(odd) .card__body-cover-image {
     --x-y1: 100% 90%;
     --x-y2: 67% 83%;
     --x-y3: 33% 90%;
     --x-y4: 0% 85%;
 }
 
-#addParking .card:nth-child(even) .card__body-cover-image {
+#addParking .card:nth-child(even) .card__body-cover-image,
+#upslot .card:nth-child(even) .card__body-cover-image {
     --x-y1: 100% 85%;
     --x-y2: 73% 93%;
     --x-y3: 25% 85%;
     --x-y4: 0% 90%;
 }
 
-#addParking .card__input {
+#addParking .card__input,
+#upslot .card__input {
     position: absolute;
     display: block;
     outline: none;
@@ -1192,43 +1201,52 @@ footer.footer .footer_last_icon i {
     margin: 0;
     -webkit-appearance: none;
 }
-.mapboxgl-ctrl-geocoder--icon {
+.mapboxgl-ctrl-geocoder--icon,
+#upslot .mapboxgl-ctrl-geocoder--icon {
     display: none !important;
 }
-#addParking .card__input:checked ~ .card__body {
+#addParking .card__input:checked ~ .card__body,
+#upslot .card__input:checked ~ .card__body {
     --shadow: 0 0 0 3px var(--card-shadow);
 }
 
-#addParking .card__input:checked ~ .card__body .card__body-cover-checkbox {
+#addParking .card__input:checked ~ .card__body .card__body-cover-checkbox,
+#upslot .card__input:checked ~ .card__body .card__body-cover-checkbox {
     --check-bg: var(--background-checkbox);
     --check-border: #fff;
     --check-scale: 1;
     --check-opacity: 1;
 }
 
-#addParking .card__input:checked ~ .card__body .card__body-cover-checkbox--svg {
+#addParking .card__input:checked ~ .card__body .card__body-cover-checkbox--svg,
+#upslot .card__input:checked ~ .card__body .card__body-cover-checkbox--svg {
     --stroke-color: #fff;
     --stroke-dashoffset: 0;
 }
 
-#addParking .card__input:checked ~ .card__body .card__body-cover:after {
+#addParking .card__input:checked ~ .card__body .card__body-cover:after,
+#upslot .card__input:checked ~ .card__body .card__body-cover:after {
     --opacity-bg: 0;
 }
 
-#addParking .card__input:checked ~ .card__body .card__body-cover-image {
+#addParking .card__input:checked ~ .card__body .card__body-cover-image,
+#upslot .card__input:checked ~ .card__body .card__body-cover-image {
     --filter-bg: grayscale(0);
 }
 
-#addParking .card__input:disabled ~ .card__body {
+#addParking .card__input:disabled ~ .card__body,
+#upslot .card__input:disabled ~ .card__body {
     cursor: not-allowed;
     opacity: 0.5;
 }
 
-#addParking .card__input:disabled ~ .card__body:active {
+#addParking .card__input:disabled ~ .card__body:active,
+#upslot .card__input:disabled ~ .card__body:active {
     --scale: 1;
 }
 
-#addParking .card__body {
+#addParking .card__body,
+#upslot .card__body {
     display: grid;
     grid-auto-rows: calc(var(--card-height) - var(--header-height)) auto;
     background: var(--background);
@@ -1250,11 +1268,13 @@ footer.footer .footer_last_icon i {
     transform: scale(var(--scale, 1)) translateZ(0);
 }
 
-#addParking .card__body:active {
+#addParking .card__body:active,
+#upslot .card__body:active {
     --scale: 0.96;
 }
 
-#addParking .card__body-cover {
+#addParking .card__body-cover,
+#upslot .card__body-cover {
     --c-border: var(--card-radius) var(--card-radius) 0 0;
     --c-width: 100%;
     --c-height: 100%;
@@ -1262,7 +1282,8 @@ footer.footer .footer_last_icon i {
     overflow: hidden;
 }
 
-#addParking .card__body-cover:after {
+#addParking .card__body-cover:after,
+#upslot .card__body-cover:after {
     content: "";
     position: absolute;
     left: 0;
@@ -1283,7 +1304,8 @@ footer.footer .footer_last_icon i {
     transition: opacity var(--transition) linear;
 }
 
-#addParking .card__body-cover-image {
+#addParking .card__body-cover-image,
+#upslot .card__body-cover-image {
     width: var(--c-width);
     height: var(--c-height);
     -o-object-fit: cover;
@@ -1309,7 +1331,8 @@ footer.footer .footer_last_icon i {
     );
 }
 
-#addParking .card__body-cover-checkbox {
+#addParking .card__body-cover-checkbox,
+#upslot .card__body-cover-checkbox {
     background: var(--check-bg, var(--background-checkbox));
     border: 2px solid var(--check-border, #fff);
     position: absolute;
@@ -1327,7 +1350,8 @@ footer.footer .footer_last_icon i {
     transform: scale(var(--check-scale, 0));
 }
 
-#addParking .card__body-cover-checkbox--svg {
+#addParking .card__body-cover-checkbox--svg,
+#upslot .card__body-cover-checkbox--svg {
     width: 13px;
     height: 11px;
     display: inline-block;
@@ -1344,31 +1368,36 @@ footer.footer .footer_last_icon i {
     transition: stroke-dashoffset 0.4s ease var(--transition);
 }
 
-#addParking .card__body-header {
+#addParking .card__body-header,
+#upslot .card__body-header {
     height: var(--header-height);
     background: var(--background);
     padding: 0 10px 10px 10px;
 }
 
-#addParking .card__body-header-title {
+#addParking .card__body-header-title,
+#upslot .card__body-header-title {
     color: var(--text-headline);
     font-weight: 700;
     margin-bottom: 8px;
 }
 
-#addParking .card__body-header-subtitle {
+#addParking .card__body-header-subtitle,
+#upslot .card__body-header-subtitle {
     color: var(--text-color);
     font-weight: 500;
     font-size: 13px;
 }
 
-#addParking .grid {
+#addParking .grid,
+#upslot .grid {
     display: grid;
     /* grid-template-columns: repeat(3, 1fr); */
     grid-gap: 1rem;
 }
 
-#addParking .upload__inputfile {
+#addParking .upload__inputfile,
+#upslot .upload__inputfile {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
@@ -1377,19 +1406,22 @@ footer.footer .footer_last_icon i {
     z-index: -1;
 }
 
-#addParking .upload__img-wrap {
+#addParking .upload__img-wrap,
+#upslot .upload__img-wrap {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -10px;
 }
 
-#addParking .upload__img-box {
+#addParking .upload__img-box,
+#upslot .upload__img-box {
     width: 200px;
     padding: 0 10px;
     margin-bottom: 12px;
 }
 
-#addParking .upload__btn {
+#addParking .upload__btn,
+#upslot .upload__btn {
     display: inline-block;
     font-weight: 600;
     color: #fff;
@@ -1405,7 +1437,8 @@ footer.footer .footer_last_icon i {
     font-size: 14px;
 }
 
-#addParking .upload__btn:hover {
+#addParking .upload__btn:hover,
+#upslot .upload__btn:hover {
     background-color: unset;
     color: #fff;
     background-color: #4045ba;
@@ -1413,7 +1446,8 @@ footer.footer .footer_last_icon i {
     transition: all 0.3s ease;
 }
 
-#addParking .upload__img-close {
+#addParking .upload__img-close,
+#upslot .upload__img-close {
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -1427,13 +1461,15 @@ footer.footer .footer_last_icon i {
     cursor: pointer;
 }
 
-#addParking .upload__img-close:after {
+#addParking .upload__img-close:after,
+#upslot .upload__img-close:after {
     content: "✖";
     font-size: 14px;
     color: white;
 }
 
-#addParking .img-bg {
+#addParking .img-bg,
+#upslot .img-bg {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -1441,13 +1477,15 @@ footer.footer .footer_last_icon i {
     padding-bottom: 100%;
 }
 
-#addParking .step-container {
+#addParking .step-container,
+#upslot .step-container {
     position: relative;
     text-align: center;
     transform: translateY(-43%);
 }
 
-#addParking .step-circle {
+#addParking .step-circle,
+#upslot .step-circle {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -1464,7 +1502,8 @@ footer.footer .footer_last_icon i {
     /* Added cursor pointer */
 }
 
-#addParking .step-line {
+#addParking .step-line,
+#upslot .step-line {
     position: absolute;
     top: 16px;
     left: 50px;
@@ -1474,7 +1513,18 @@ footer.footer .footer_last_icon i {
     z-index: -1;
 }
 
-#addParking #multi-step-form {
+#upslot .mapboxgl-ctrl-geocoder--input {
+    border: 1px solid #ced4da;
+    font-size: 14px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+#addParking #multi-step-form,
+#upslot #multi-step-form {
     overflow-x: hidden;
 }
 
@@ -1539,40 +1589,38 @@ input[type="radio"] {
     --bs-accordion-active-bg: #ffffff;
     --bs-accordion-active-color: #000000;
     --bs-accordion-btn-focus-box-shadow: none;
-  }
+}
 
-
-  .accordion-button:not(.collapsed) {
+.accordion-button:not(.collapsed) {
     box-shadow: none;
-  }
-  .accordion-collapse {
+}
+.accordion-collapse {
     transition: all 0.3s;
-  }
+}
 
+/* /////////////////////PRIVACY//////////////// */
 
-  /* /////////////////////PRIVACY//////////////// */
-
-  #privacy {
+#privacy {
     padding: 30px;
     margin: 50px auto;
     text-align: center;
-  }
+}
 
-  #privacy section {
+#privacy section {
     margin-bottom: 30px;
-  }
+}
 
-  #privacy h4 {
+#privacy h4 {
     color: #343a40;
     padding-bottom: 5px;
     margin-bottom: 20px;
-  }
+}
 
-  #privacy ul {
+#privacy ul {
     list-style-type: none;
     padding: 0;
-  }
+}
 
-  #privacy ul li {
+#privacy ul li {
     margin-bottom: 10px;
-  }
+}
