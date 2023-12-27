@@ -372,7 +372,7 @@
                                                         if (count($has_review->reviews) > 0) {
                                                         } else {
                                                             echo '<button id="' .
-                                                                $tran->id .
+                                                                $tran->id.','.$tran->slot_id .
                                                                 '" onclick="setId(this.id)"
                                                                     class="me-3 p-0 bg-transparent border border-0"
                                                                     data-toggle="tooltip" data-placement="top" title="Write Review"
@@ -642,7 +642,11 @@
         }
 
         function setId(id) {
-            document.querySelector('.review_form').action = "{{ url('write-review') }}/" + id;
+            var trans_id = id.split(',')[0];
+            var slot_id = id.split(',')[1];
+            document.querySelector('.review_form').action = "{{ url('write-review') }}/" + slot_id + "/" + trans_id;
+
+            //document.querySelector('.review_form').action = "{{ url('write-review') }}/"+ + id;
         }
         $("input:checkbox").on('click', function() {
             // in the handler, 'this' refers to the box clicked on

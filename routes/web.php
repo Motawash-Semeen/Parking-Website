@@ -41,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/direction/{id}', [LocationController::class, 'directionPage']);
     Route::get('/slot-value/{id}', [LocationController::class, 'getSlotValue']);
     Route::get('/slot-available/{id}', [LocationController::class, 'getAvailableSlot']);
+    Route::get('/get-review/{id}', [ReviewController::class, 'getReview']);
     Route::post('/paymemt', [PaymentController::class, 'paymentPage']);
     Route::get('/congratulation', [PaymentController::class, 'congrtsPage']);
     Route::post('/stripe/payment', [PaymentController::class, 'makePayment'])->name('stripe.payment');
@@ -53,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/addParking', [LocationController::class, 'addParking']);
     Route::post('/addParking', [LocationController::class, 'storeParking']);
     Route::get('invoice_download/{id}', [TransactionController::class, 'downloadInvoice'])->name('invoice.download');
-    Route::get('write-review/{id}', [ReviewController::class, 'writeReview'])->name('write.review');
+    Route::get('write-review/{slot_id}/{id}', [ReviewController::class, 'writeReview'])->name('write.review');
 
 });
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('transaction_id');
+            $table->unsignedBigInteger('slot_id');
             $table->string('review');
             $table->integer('rating');
             $table->integer('status')->default(0);

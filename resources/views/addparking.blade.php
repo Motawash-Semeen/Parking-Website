@@ -64,7 +64,7 @@
 
             </div>
             <div class="container-body bg-transparent" id="addParking">
-                <h2 class="my-4 text-center text-white header-text">Add Your spaces</h2>
+                <h2 class="my-4 text-center text-white header-text">Add Your <span style="color: #ffde16;">spaces</span></h2>
 
                 <!-- Add Parking Slot Form -->
                 <div class="mb-0 pb-0 bg-transparent shadow-none text-white" id="addParkingForm">

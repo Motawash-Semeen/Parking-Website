@@ -38,10 +38,11 @@ class ReviewController extends Controller
         );
         return redirect()->back()->with($notification);
     }
-    public function writeReview($id, Request $request){
+    public function writeReview($slot_id, $id, Request $request){
         $review = new Review;
         $review->user_id = Auth::user()->id;
         $review->transaction_id = $id;
+        $review->slot_id = $slot_id;
         $review->rating = $request->rating;
         $review->review = $request->review;
         $review->save();
@@ -50,5 +51,9 @@ class ReviewController extends Controller
             'alert-type' => 'warning'
         );
         return redirect()->route('dashboard')->with($notification);
+    }
+    public function getReview($id){
+        $review = Review::with('user')->where('slot_id', $id)->get();
+        return response()->json(['review' => $review]);
     }
 }

@@ -57,6 +57,9 @@
             transform: translateX(0);
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.2/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
     <div id="map"></div>
@@ -86,7 +89,7 @@
             </div>
             <hr>
             <div id="carouselExampleIndicators" class="carousel slide">
-                
+
                 <div class="carousel-inner" id="carousel-slot">
                     <div class="carousel-item active">
                         <img src="https://placehold.co/600x400" class="d-block w-100" alt="...">
@@ -119,23 +122,25 @@
                 <div id="dateTimeFields" style="display: none; margin-top: 20px;">
                     <form action="{{ url('/paymemt') }}" method="POST">
                         @csrf
-                    <div class="row justify-content-center">
-                        <input type="text" name="slot_id" id="slot-id" hidden>
-                        <input type="text" id="slot-number" hidden>
-                        <input type="text" name="coordinates_send" id="coordinates-send" hidden>
-                        <input type="text" name="coordinates_start" id="coordinates-start" hidden>
-                        <div class="col-md-6">
-                            <label for="arriveDateTime" class="form-label">Arrive Time:</label>
-                            <input type="datetime-local" class="form-control" id="arriveDateTime" name="arriveDateTime">
+                        <div class="row justify-content-center">
+                            <input type="text" name="slot_id" id="slot-id" hidden>
+                            <input type="text" id="slot-number" hidden>
+                            <input type="text" name="coordinates_send" id="coordinates-send" hidden>
+                            <input type="text" name="coordinates_start" id="coordinates-start" hidden>
+                            <div class="col-md-6">
+                                <label for="arriveDateTime" class="form-label">Arrive Time:</label>
+                                <input type="datetime-local" class="form-control" id="arriveDateTime"
+                                    name="arriveDateTime">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="leavingDateTime" class="form-label">Leaving Time:</label>
+                                <input type="datetime-local" class="form-control" id="leavingDateTime"
+                                    name="leavingDateTime">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="leavingDateTime" class="form-label">Leaving Time:</label>
-                            <input type="datetime-local" class="form-control" id="leavingDateTime" name="leavingDateTime">
+                        <div class="text-center mt-3">
+                            <button class="btn btn-primary" type="submit" id="payments">Proceed To payment</button>
                         </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-primary" type="submit" id="payments">Proceed To payment</button>
-                    </div>
                     </form>
                     <hr>
                 </div>
@@ -143,14 +148,78 @@
             <div class="d-none" id="hide-book">
                 <p class="text-danger text-center" style="font-size: 16px">No Slots Avaiable</p>
             </div>
-            
+
 
             <div class="features">
                 <p><strong>Review</strong></p>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
+                {{-- <div class="reviews">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                </div> --}}
+                <div id="carouselReview" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="card mb-4 ">
+                                <div class="card-body">
+                                    <h5 class="card-title">Customer Name</h5>
+                                    <div class="rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                    </div>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+                                        vehicula erat ut metus fermentum, a hendrerit tellus dictum.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card mb-4 ">
+                                <div class="card-body">
+                                    <h5 class="card-title">Customer Name</h5>
+                                    <div class="rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                    </div>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+                                        vehicula erat ut metus fermentum, a hendrerit tellus dictum.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card mb-4 ">
+                                <div class="card-body">
+                                    <h5 class="card-title">Customer Name</h5>
+                                    <div class="rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                    </div>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+                                        vehicula erat ut metus fermentum, a hendrerit tellus dictum.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselReview"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon bg-black" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselReview"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
 
             </div>
             <hr>
@@ -409,8 +478,9 @@
                         console.log(image.image)
                         var activeClass = index === 0 ? 'active' : '';
                         var imgHtml = '<div class="carousel-item ' + activeClass + '">';
-                        imgHtml += '<img class="d-block w-100" src="frontend/assets/img/previewSlot/' + image.image + '") alt="Image ' + (
-                            index + 1) + '">';
+                        imgHtml += '<img class="d-block w-100" src="frontend/assets/img/previewSlot/' +
+                            image.image + '") alt="Image ' + (
+                                index + 1) + '">';
                         imgHtml += '</div>';
                         carouselInner.append(imgHtml);
                     });
@@ -453,14 +523,13 @@
                 type: 'GET',
                 url: '/slot-available/' + id,
                 success: function(data) {
-                    if(data.$isHave == 0){
+                    if (data.$isHave == 0) {
                         document.getElementById('show-book').classList.remove('d-block');
                         document.getElementById('show-book').classList.add('d-none');
                         document.getElementById('hide-book').classList.remove('d-none');
                         document.getElementById('hide-book').classList.add('d-block');
-                        
-                    }
-                    else{
+
+                    } else {
                         document.getElementById('show-book').classList.remove('d-none');
                         document.getElementById('show-book').classList.add('d-block');
                         document.getElementById('hide-book').classList.remove('d-block');
@@ -470,7 +539,87 @@
                     }
                 },
             })
-            
-        }
+            // $.ajax({
+            //     type: 'GET',
+            //     url: '/get-review/' + id,
+            //     success: function(data) {
+            //         console.log(data);
+            //         var reviewContainer = document.querySelector('#carouselReview .carousel-inner');
+            //         if (reviewContainer) {
+            //             reviewContainer.innerHTML = '';
+            //             var msg = '';
+            //             for (var i = 0; i < data.review.length; i++) {
+            //                 var star = '';
+            //                 msg += '<div class="carousel-item ' + (i === 0 ? "active" : "") + '">' +
+            //                     '<div class="card mb-4 ">' +
+            //                     '<div class="card-body">' +
+            //                     '<h5 class="card-title">Customer Name</h5>' +
+            //                     '<div class="rating">' +
+            //                     '<i class="bi bi-star-fill"></i>' +
+            //                     '<i class="bi bi-star-fill"></i>' +
+            //                     '<i class="bi bi-star-fill"></i>' +
+            //                     '<i class="bi bi-star-fill"></i>' +
+            //                     '<i class="bi bi-star"></i>' +
+            //                     '</div>' +
+            //                     '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vehicula erat ut metus fermentum, a hendrerit tellus dictum.</p>' +
+            //                     '</div>' +
+            //                     '</div>' +
+            //                     '</div>';
+
+
+            //                 for (var j = 0; j < data.review[i].rating; j++) {
+            //                     star += '<i class="bi bi-star-fill"></i>';
+            //                 }
+            //                 star += '<br>';
+            //                 reviewContainer.innerHTML += star;
+            //             }
+            //         }
+            //     },
+            // })
+
+
+            // Fetch data using AJAX
+            $.ajax({
+                type: 'GET',
+                url: '/get-review/' + id, // Update the URL to your actual endpoint
+                success: function (data) {
+                    updateCarousel(data);
+                },
+                error: function (error) {
+                    console.error('Error fetching reviews:', error);
+                }
+            });
+
+            function updateCarousel(data) {
+                var carouselInner = $('#carouselReview .carousel-inner');
+                carouselInner.empty();
+
+                for (var i = 0; i < data.review.length; i++) {
+                    var activeClass = i === 0 ? 'active' : '';
+
+                    //console.log(data.review[i].user)
+                    var carouselItem =
+                        '<div class="carousel-item ' + activeClass + '">' +
+                            '<div class="card mb-4">' +
+                                '<div class="card-body">' +
+                                    '<h5 class="card-title">' + data.review[i].user.name + '</h5>' +
+                                    '<div class="rating">' + getStars(data.review[i].rating) + '</div>' +
+                                    '<p class="card-text">' + data.review[i].review + '</p>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+
+                    carouselInner.append(carouselItem);
+                }
+            }
+
+            function getStars(rating) {
+                var starIcons = '';
+                for (var j = 0; j < rating; j++) {
+                    starIcons += '<i class="bi bi-star-fill"></i>';
+                }
+                return starIcons;
+            }
+    }
     </script>
 @endsection

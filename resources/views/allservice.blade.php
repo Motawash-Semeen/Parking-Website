@@ -65,7 +65,7 @@
 
             </div>
             <div class="container-body bg-transparent" id="inputLocation">
-                <h2 class="my-4 text-center text-white header-text">Search Parking Slot</h2>
+                <h2 class="my-4 text-center text-white header-text">Search <span style="color: #ffde16;">Parking Space</span></h2>
 
                 <!-- Add Parking Slot Form -->
                 <div class="row align-items-center mt-5">
@@ -86,7 +86,7 @@
 
                 </div>
                 <h3 class="my-4 text-center text-white d-flex justify-content-center">OR</h3>
-                <h2 class="my-4 text-center text-white header-text">List your Space</h2>
+                <h2 class="my-4 text-center text-white header-text">List your <span style="color: #ffde16;">Spaces</span></h2>
                 <div class="button text-center mt-5">
                     <a href="{{ url('/addParking') }}" class="service-btn">Click Now</a>
                 </div>
