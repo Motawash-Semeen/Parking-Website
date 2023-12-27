@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/addParking', [LocationController::class, 'addParking']);
     Route::post('/addParking', [LocationController::class, 'storeParking']);
     Route::get('invoice_download/{id}', [TransactionController::class, 'downloadInvoice'])->name('invoice.download');
+    Route::get('write-review/{id}', [ReviewController::class, 'writeReview'])->name('write.review');
 
 });
 
@@ -86,5 +87,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/all-users', [UserController::class, 'showUsers'])->name('admin.show.users');
         Route::get('/user-status/{id}', [UserController::class, 'statusUser'])->name('admin.status.user');
         Route::get('/user-delete/{id}', [UserController::class, 'deleteUser'])->name('admin.delete.user');
+
+        Route::get('/get-chart-data', [AdminController::class, 'getCartData']);
     });
 });

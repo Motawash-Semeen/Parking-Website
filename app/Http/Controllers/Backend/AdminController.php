@@ -29,7 +29,13 @@ class AdminController extends Controller
         $percentage_cash = (TransationInfo::where('payment_method','Cash')->count()/  $total_trans) * 100;
         $percentage_online = (TransationInfo::where('payment_method','Online')->count()/ $total_trans) * 100;
 
-        return view('admin.admin_dashboard', compact('user','total_slots','total_price','total_user','total_empty','top_transaction','percentage_card','percentage_cash','percentage_online'));
+        
+        $daysearnings = TransationInfo::selectRaw('DATE(created_at) as date, SUM(amount) as total_amount')
+        ->groupBy('date')
+        ->orderBy('date', 'asc')
+        ->limit(5);
+
+        return view('admin.admin_dashboard', compact('user','total_slots','total_price','total_user','total_empty','top_transaction','percentage_card','percentage_cash','percentage_online','daysearnings'));
     }
     public function AdminProfile()
     {
@@ -75,6 +81,14 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+    public function getCartData(){
+        $daysearnings = TransationInfo::selectRaw('DATE(created_at) as y, SUM(amount) as a')
+        ->groupBy('y')
+        ->orderBy('y', 'asc')
+        ->limit(5)
+        ->get();
+        return $daysearnings;
     }
     
 }

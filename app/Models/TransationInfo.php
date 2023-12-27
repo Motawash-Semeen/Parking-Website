@@ -16,5 +16,8 @@ class TransationInfo extends Model
     public function slots(){
         return $this->hasOne(ParkingSlots::class, 'id', 'slot_id');
     }
+    public function reviews(){
+        return $this->hasMany(Review::class, 'transaction_id', 'id');
+    }
 
 }

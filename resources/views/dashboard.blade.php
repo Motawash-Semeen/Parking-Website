@@ -287,34 +287,46 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($active_books as $tran)
+                                    @if ($active_books->count() == 0)
                                         <tr>
-                                            <td style="color: #69707a;">{{ $tran->info->invoice_number }}</td>
-                                            <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}</td>
-                                            <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}</td>
-                                            <td style="color: #69707a;">{{ $tran->info->amount }}</td>
-                                            <td>
-                                                @php
-                                                    $tran->info->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
-                                                @endphp
-                                                <span
-                                                    class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span><a href="{{ url('direction/' . $tran->info->id) }}"
-                                                        data-toggle="tooltip" data-placement="top" title="Direction"
-                                                        data-original-title="Direction"><i
-                                                            class="fa-solid fa-route color-muted m-r-5"
-                                                            style="color:#69707a"></i> </a></span>
-                                                <span class="ms-3"><a
-                                                        href="{{ url('invoice_download/' . $tran->info->id) }}"
-                                                        data-toggle="tooltip" data-placement="top" title="View"
-                                                        data-original-title="View"><i
-                                                            class="fa-solid fa-file-arrow-down color-muted m-r-5"
-                                                            style="color:#69707a"></i> </a></span>
+                                            <td colspan="6" style="text-align: center; color: #69707a;">No Active Book
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @else
+                                        @foreach ($active_books as $tran)
+                                            <tr>
+                                                <td style="color: #69707a;">{{ $tran->info->invoice_number }}</td>
+                                                <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}
+                                                </td>
+                                                <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}
+                                                </td>
+                                                <td style="color: #69707a;">{{ $tran->info->amount }}</td>
+                                                <td>
+                                                    @php
+                                                        $tran->info->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
+                                                    @endphp
+                                                    <span
+                                                        class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <span><a href="{{ url('direction/' . $tran->info->id) }}"
+                                                            data-toggle="tooltip" data-placement="top" title="Direction"
+                                                            data-original-title="Direction"><i
+                                                                class="fa-solid fa-route color-muted m-r-5"
+                                                                style="color:#69707a"></i> </a></span>
+                                                    <span class="ms-3"><a
+                                                            href="{{ url('invoice_download/' . $tran->info->id) }}"
+                                                            data-toggle="tooltip" data-placement="top" title="View"
+                                                            data-original-title="View"><i
+                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"
+                                                                style="color:#69707a"></i> </a>
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
                                 </tbody>
                             </table>
                         </div>
@@ -351,11 +363,34 @@
                                                     class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
                                             </td>
                                             <td style="text-align: center;">
-                                                <span><a href="{{ url('invoice_download/' . $tran->id) }}"
+                                                <span>
+                                                    @php
+                                                        $has_review = App\Models\TransationInfo::with('reviews')
+                                                            ->where('id', $tran->id)
+                                                            ->where('user_id', Auth::user()->id)
+                                                            ->first();
+                                                        if (count($has_review->reviews) > 0) {
+                                                        } else {
+                                                            echo '<button id="' .
+                                                                $tran->id .
+                                                                '" onclick="setId(this.id)"
+                                                                    class="me-3 p-0 bg-transparent border border-0"
+                                                                    data-toggle="tooltip" data-placement="top" title="Write Review"
+                                                                    data-original-title="Write Review" data-bs-toggle="modal"
+                                                                    data-bs-target="#reviewModal"><i
+                                                                    class="fa-solid fa-file-pen color-muted m-r-5"
+                                                                    style="color:#69707a"></i>
+                                                                </button>';
+                                                        }
+                                                    @endphp
+
+                                                    <a href="{{ url('invoice_download/' . $tran->id) }}"
                                                         data-toggle="tooltip" data-placement="top" title="View"
                                                         data-original-title="View"><i
                                                             class="fa-solid fa-file-arrow-down color-muted m-r-5"
-                                                            style="color:#69707a"></i> </a></span>
+                                                            style="color:#69707a"></i>
+                                                    </a>
+                                                </span>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -539,6 +574,58 @@
             </div>
         </div>
     </div>
+    <!-- Review Writing Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">Write a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Review Form -->
+                    <form action="" method="GET" class="review_form">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label for="reviewContent" class="form-label">Your Review</label>
+                            <textarea class="form-control" id="reviewContent" rows="4" required name="review"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Rating</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio" type="checkbox" id="rating1" value="1"
+                                    name="rating">
+                                <label class="form-check-label" for="rating1">1</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio" type="checkbox" id="rating2" value="2"
+                                    name="rating">
+                                <label class="form-check-label" for="rating2">2</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio" type="checkbox" id="rating3" value="3"
+                                    name="rating">
+                                <label class="form-check-label" for="rating3">3</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio" type="checkbox" id="rating4" value="4"
+                                    name="rating">
+                                <label class="form-check-label" for="rating4">4</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio" type="checkbox" id="rating5" value="5"
+                                    name="rating">
+                                <label class="form-check-label" for="rating5">5</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                    <!-- End Review Form -->
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         function previewImage() {
             const inputProfileImage = document.getElementById('inputProfileImage');
@@ -553,5 +640,24 @@
                 reader.readAsDataURL(file);
             }
         }
+
+        function setId(id) {
+            document.querySelector('.review_form').action = "{{ url('write-review') }}/" + id;
+        }
+        $("input:checkbox").on('click', function() {
+            // in the handler, 'this' refers to the box clicked on
+            var $box = $(this);
+            if ($box.is(":checked")) {
+                // the name of the box is retrieved using the .attr() method
+                // as it is assumed and expected to be immutable
+                var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                // the checked state of the group/box on the other hand will change
+                // and the current value is retrieved using .prop() method
+                $(group).prop("checked", false);
+                $box.prop("checked", true);
+            } else {
+                $box.prop("checked", false);
+            }
+        });
     </script>
 @endsection

@@ -1,5 +1,5 @@
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend') }}/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend') }}/images/pk-logo.png">
 <!-- Pignose Calender -->
 <link href="{{ asset('backend') }}/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
 <!-- Chartist -->

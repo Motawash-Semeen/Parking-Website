@@ -70,26 +70,28 @@
                                 <h4>{{ $percentage_card }}</h4>
                                 <h6>Card Order <span class="pull-right">{{ $percentage_card }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-primary" style="width: {{ $percentage_card }}%;" role="progressbar"><span
-                                            class="sr-only">{{ $percentage_card }}% Order</span>
+                                    <div class="progress-bar bg-primary" style="width: {{ $percentage_card }}%;"
+                                        role="progressbar"><span class="sr-only">{{ $percentage_card }}% Order</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
                                 <h4>{{ $percentage_online }}</h4>
-                                <h6 class="m-t-10 text-muted">Online Order <span class="pull-right">{{ $percentage_online }}%</span></h6>
+                                <h6 class="m-t-10 text-muted">Online Order <span
+                                        class="pull-right">{{ $percentage_online }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-success" style="width: {{ $percentage_online }}%;" role="progressbar"><span
-                                            class="sr-only">{{ $percentage_online }}% Order</span>
+                                    <div class="progress-bar bg-success" style="width: {{ $percentage_online }}%;"
+                                        role="progressbar"><span class="sr-only">{{ $percentage_online }}% Order</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
                                 <h4>{{ $percentage_cash }}</h4>
-                                <h6 class="m-t-10 text-muted">Cash On Develery <span class="pull-right">{{ $percentage_cash }}%</span></h6>
+                                <h6 class="m-t-10 text-muted">Cash On Develery <span
+                                        class="pull-right">{{ $percentage_cash }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-warning" style="width: {{ $percentage_cash }}%;" role="progressbar"><span
-                                            class="sr-only">{{ $percentage_cash }}% Order</span>
+                                    <div class="progress-bar bg-warning" style="width: {{ $percentage_cash }}%;"
+                                        role="progressbar"><span class="sr-only">{{ $percentage_cash }}% Order</span>
                                     </div>
                                 </div>
                             </div>
@@ -105,12 +107,13 @@
                                 <div class="tdl-holder">
                                     <div class="tdl-content">
                                         <ul id="todo_list">
-                                            <li><label><input type="checkbox"><i></i><span>Check Transactions</span><a href='#'
-                                                        class="ti-trash"></a></label></li>
+                                            <li><label><input type="checkbox"><i></i><span>Check Transactions</span><a
+                                                        href='#' class="ti-trash"></a></label></li>
                                             <li><label><input type="checkbox"><i></i><span>Check Review</span><a
                                                         href='#' class="ti-trash"></a></label></li>
-                                            <li><label><input type="checkbox"><i></i><span>Check New User</span><a href='#' class="ti-trash"></a></label></li>
-                                            
+                                            <li><label><input type="checkbox"><i></i><span>Check New User</span><a
+                                                        href='#' class="ti-trash"></a></label></li>
+
                                         </ul>
                                     </div>
                                     <div class="px-4">
@@ -124,7 +127,7 @@
                 </div>
             </div>
 
-        
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -155,14 +158,17 @@
                                                     <td>{{ $tran->amount }}</td>
                                                     <td>
                                                         @php
-                                                            $tran->status != 'confirmed' ? $value = 'Pending' : $value = '  Confirmed'
+                                                            $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = '  Confirmed');
                                                         @endphp
-                                                        <span class="badge {{ $value == 'Confirmed' ? 'badge-primary':'badge-danger' }} px-2">{{ $value }}</span>
+                                                        <span
+                                                            class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
                                                     </td>
                                                     <td>
-                                                        <span><a href="{{ url('admin/edit-transaction/'.$tran->id) }}" data-toggle="tooltip" data-placement="top"
-                                                                title="View" data-original-title="View"><i
-                                                                    class="fa-regular fa-file color-muted m-r-5"></i> </a></span>
+                                                        <span><a href="{{ url('admin/edit-transaction/' . $tran->id) }}"
+                                                                data-toggle="tooltip" data-placement="top" title="View"
+                                                                data-original-title="View"><i
+                                                                    class="fa-regular fa-file color-muted m-r-5"></i>
+                                                            </a></span>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -264,4 +270,29 @@
         </div>
         <!-- #/ container -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $.ajax({
+            url: '/admin/get-chart-data',
+            method: 'GET',
+            success: function(data) {
+                Morris.Bar({
+                    element: 'morris-bar-chart',
+                    data: data,
+                    xkey: 'y',
+                    ykeys: ['a'],
+                    labels: ['A'],
+                    barColors: ['#FC6C8E'],
+                    hideHover: 'auto',
+                    gridLineColor: 'transparent',
+                    resize: true
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+        
+    </script>
 @endsection

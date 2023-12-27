@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -36,5 +37,18 @@ class ReviewController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+    public function writeReview($id, Request $request){
+        $review = new Review;
+        $review->user_id = Auth::user()->id;
+        $review->transaction_id = $id;
+        $review->rating = $request->rating;
+        $review->review = $request->review;
+        $review->save();
+        $notification = array(
+            'message' => 'Review submitted Successfully',
+            'alert-type' => 'warning'
+        );
+        return redirect()->route('dashboard')->with($notification);
     }
 }

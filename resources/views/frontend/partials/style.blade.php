@@ -1,5 +1,4 @@
-<link rel="shortcut icon" href="images/icon/logo.png" type="image/x-icon"> <!-- title bar icon -->
-<link rel="icon" href="images/icon/logo.png" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend') }}/images/pk-logo.png">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">

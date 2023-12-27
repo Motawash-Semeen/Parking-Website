@@ -75,54 +75,46 @@
 })(jQuery);
 
 
-(function($) {
-    "use strict"
+// (function($) {
+//     "use strict"
 
 
-     // LINE CHART
-      // Morris bar chart
- Morris.Bar({
-    element: 'morris-bar-chart',
-    data: [{
-        y: '2016',
-        a: 100,
-    }, {
-        y: '2017',
-        a: 75,
-    }, {
-        y: '2018',
-        a: 50,
-    }, {
-        y: '2019',
-        a: 75,
-    }, {
-        y: '2020',
-        a: 50,
-    }, {
-        y: '2021',
-        a: 75,
-    }, {
-        y: '2022',
-        a: 100,
-    }],
-    xkey: 'y',
-    ykeys: ['a'],
-    labels: ['A'],
-    barColors: ['#FC6C8E'],
-    hideHover: 'auto',
-    gridLineColor: 'transparent',
-    resize: true
-});
+//      // LINE CHART
+//       // Morris bar chart
+//  Morris.Bar({
+//     element: 'morris-bar-chart',
+//     data: [{
+//         y: '2016',
+//         a: 100,
+//     }, {
+//         y: '2017',
+//         a: 75,
+//     }, {
+//         y: '2018',
+//         a: 50,
+//     }, {
+//         y: '2019',
+//         a: 75,
+//     }, {
+//         y: '2020',
+//         a: 50,
+//     }, {
+//         y: '2021',
+//         a: 75,
+//     }, {
+//         y: '2022',
+//         a: 100,
+//     }],
+//     xkey: 'y',
+//     ykeys: ['a'],
+//     labels: ['A'],
+//     barColors: ['#FC6C8E'],
+//     hideHover: 'auto',
+//     gridLineColor: 'transparent',
+//     resize: true
+// });
 
-
-
-
-
-
-
-
-
-})(jQuery);
+// })(jQuery);
 
 
 (function($) {
