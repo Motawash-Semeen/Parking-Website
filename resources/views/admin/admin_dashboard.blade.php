@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h3 class="card-title text-white">Net Profit</h3>
                             <div class="d-inline-block">
-                                <h2 class="text-white">$ {{ $total_price }}</h2>
+                                <h2 class="text-white">$ {{ round($total_price) }}</h2>
                             </div>
                             <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
                         </div>
@@ -105,14 +105,12 @@
                                 <div class="tdl-holder">
                                     <div class="tdl-content">
                                         <ul id="todo_list">
-                                            <li><label><input type="checkbox"><i></i><span>Get up</span><a href='#'
+                                            <li><label><input type="checkbox"><i></i><span>Check Transactions</span><a href='#'
                                                         class="ti-trash"></a></label></li>
-                                            <li><label><input type="checkbox" checked><i></i><span>Stand up</span><a
+                                            <li><label><input type="checkbox"><i></i><span>Check Review</span><a
                                                         href='#' class="ti-trash"></a></label></li>
-                                            <li><label><input type="checkbox"><i></i><span>Don't give up the
-                                                        fight.</span><a href='#' class="ti-trash"></a></label></li>
-                                            <li><label><input type="checkbox" checked><i></i><span>Do something
-                                                        else</span><a href='#' class="ti-trash"></a></label></li>
+                                            <li><label><input type="checkbox"><i></i><span>Check New User</span><a href='#' class="ti-trash"></a></label></li>
+                                            
                                         </ul>
                                     </div>
                                     <div class="px-4">

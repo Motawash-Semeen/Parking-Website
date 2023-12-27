@@ -32,7 +32,7 @@ class BookMail extends Mailable
     {
         $order = $this->data;
 
-        return $this->from('thowdhury501@gmail.com')->view('emails.ordermail', compact('order'))->subject('Product Purchase Confirmation');
+        return $this->from(env('MAIL_FROM_ADDRESS'))->view('emails.ordermail', compact('order'))->subject('Slot Booked Confirmation');
     }
 
     // public function build(): self

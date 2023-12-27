@@ -21,35 +21,41 @@
                                 <table class="table table-striped table-bordered zero-configuration">
                                     <thead>
                                         <tr style="background-color: rgba(0, 0, 0, 0.05);">
-                                            <th>Invoice</th>
-                                            <th>Book Date</th>
-                                            <th>Contact Name</th>
-                                            <th>Contact Number</th>
-                                            <th>Slots Number</th>
-                                            <th>Price</th>
+                                            <th>Name</th>
+                                            <th>Eamil</th>
+                                            <th>Phone</th>
+                                            <th>NID</th>
+                                            <th>Photo</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($trans as $tran)
+                                        @foreach ($users as $user)
                                             <tr>
-                                                <td>{{ $tran->invoice_number }}</td>
-                                                <td>{{ date('Y-m-d H:i:s', $tran->order_date) }}</td>
-                                                <td>{{ $tran->name }}</td>
-                                                <td>{{ $tran->phone }}</td>
-                                                <td>{{ $tran->slot_number }}</td>
-                                                <td>{{ $tran->amount }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->number }}</td>
+                                                <td>{{ $user->nid }}</td>
+                                                <td>
+                                                  @if ($user->photo == NULL)
+                                                  <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" width="100">
+                                                  @else
+                                                  <img src="{{ asset('frontend/assets/img/user/'.$user->photo) }}" alt="" width="100">
+                                                  @endif
+                                                  </td>
+                                                
                                                 <td>
                                                     @php
-                                                        $tran->status != 'confirmed' ? $value = 'Pending' : $value = 'Confirmed'
+                                                        $user->status != 1 ? $value = 'Pending' : $value = 'Active'
                                                     @endphp
-                                                    <span class="badge {{ $value == 'Confirmed' ? 'badge-primary':'badge-danger' }} px-2">{{ $value }}</span>
+                                                    <a href="{{ url('admin/user-status/'.$user->id) }}" class="badge {{ $value == 'Active' ? 'badge-primary':'badge-danger' }} px-2">{{ $value }}</a>
                                                 </td>
                                                 <td style="text-align: center;">
-                                                    <span><a href="{{ url('invoice_download/'.$tran->id) }}" data-toggle="tooltip" data-placement="top"
-                                                            title="View" data-original-title="View"><i
-                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"></i> </a></span>
+                                                    <span><a
+                                                      href="{{ url('admin/user-delete/'.$user->id) }}" data-toggle="tooltip" data-placement="top"
+                                                      title="" data-original-title="Close"><i
+                                                          class="fa fa-close color-danger"></i></a></span>
                                                 </td>
                                             </tr>
                                         @endforeach

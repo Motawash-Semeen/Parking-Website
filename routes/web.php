@@ -4,10 +4,12 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\InvoiceController;
 use App\Http\Controllers\Backend\SlotController;
 use App\Http\Controllers\Backend\TransactionController;
+use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LocationController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\UserSlotController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -77,5 +79,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/edit-slot/{id}', [SlotController::class, 'UpdateSlots'])->name('admin.slots.update');
         Route::get('/slot/delete-img/{id}', [SlotController::class, 'ImageDelete'])->name('admin.slots.img-delete');
         Route::get('/all-transaction', [TransactionController::class, 'showTransaction'])->name('admin.show.transaction');
+        Route::get('/all-review', [ReviewController::class, 'showReviews'])->name('admin.show.reviews');
+        Route::get('/review-status/{id}', [ReviewController::class, 'statusReviews'])->name('admin.status.reviews');
+        Route::get('/review-delete/{id}', [ReviewController::class, 'deleteReview'])->name('admin.delete.reviews');
+
+        Route::get('/all-users', [UserController::class, 'showUsers'])->name('admin.show.users');
+        Route::get('/user-status/{id}', [UserController::class, 'statusUser'])->name('admin.status.user');
+        Route::get('/user-delete/{id}', [UserController::class, 'deleteUser'])->name('admin.delete.user');
     });
 });

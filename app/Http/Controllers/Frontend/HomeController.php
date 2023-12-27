@@ -20,12 +20,19 @@ class HomeController extends Controller
         $user = User::find($id);
         $trans = TransationInfo::where('user_id', $id)->get();
         $trans_amount = TransationInfo::where('user_id', $id)->sum('amount');
+        $trans_count = TransationInfo::where('user_id', $id)->count();
         $active_books = Slots::with('parkingSlots','info')->where('user_id', $id)->where('occupied', 'yes')->where('end_time', '>', time())->get();
         $slots = ParkingSlots::where('user_id', $id)->get();
-        $profit = TransationInfo::where('user_id', $id)->sum('amount');
-        $has_slot = TransationInfo::where('user_id', $id)->exists();
+        $profit = TransationInfo::with('slots')->get();
+        $total_profit=0;
+        foreach($profit as $p){
+            if($p->slots->user_id == $id){
+                $total_profit += $p->amount;
+            }
+        }
+        $has_slot = ParkingSlots::where('user_id', $id)->exists();
         //return $active_books;
-        return view('dashboard', compact('user','trans','slots','profit','has_slot','trans_amount','active_books'));
+        return view('dashboard', compact('user','trans','slots','total_profit','has_slot','trans_amount','active_books','trans_count'));
     }
     public function service(){
         return view('service');

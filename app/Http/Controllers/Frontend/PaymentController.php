@@ -82,7 +82,7 @@ class PaymentController extends Controller
                 'payment_id' => $charge->id,
             ];
             try {
-                Mail::to('noharahman0@gmail.com')->send(new BookMail($data));
+                Mail::to(Auth::user()->email)->send(new BookMail($data));
                 $notification = array(
                     'message' => 'Payment Successful',
                     'alert-type' => 'success'

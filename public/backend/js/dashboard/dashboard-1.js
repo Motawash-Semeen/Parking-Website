@@ -86,36 +86,29 @@
     data: [{
         y: '2016',
         a: 100,
-        b: 90,
     }, {
         y: '2017',
         a: 75,
-        b: 65,
     }, {
         y: '2018',
         a: 50,
-        b: 40,
     }, {
         y: '2019',
         a: 75,
-        b: 65,
     }, {
         y: '2020',
         a: 50,
-        b: 40,
     }, {
         y: '2021',
         a: 75,
-        b: 65,
     }, {
         y: '2022',
         a: 100,
-        b: 90,
     }],
     xkey: 'y',
-    ykeys: ['a', 'b', 'c'],
-    labels: ['A', 'B', 'C'],
-    barColors: ['#FC6C8E', '#7571f9'],
+    ykeys: ['a'],
+    labels: ['A'],
+    barColors: ['#FC6C8E'],
     hideHover: 'auto',
     gridLineColor: 'transparent',
     resize: true

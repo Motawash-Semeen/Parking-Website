@@ -1,6 +1,12 @@
 <!--**********************************
             Nav header start
         ***********************************-->
+<style>
+    .menu-toggle .custom_img{
+        width: 100% !important; 
+        height: 30px !important;
+    }
+</style>
 <div class="nav-header" style="background-color: #fff">
     <div class="brand-logo"   style="text-align: center">
         <a href="index.html">

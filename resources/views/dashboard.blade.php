@@ -11,11 +11,13 @@
             background-color: #ffde16;
             border-radius: 5px;
         }
-        a{
+
+        a {
             text-decoration: none;
 
         }
-        td{
+
+        td {
             color: #69707a !important;
         }
     </style>
@@ -173,15 +175,15 @@
                     <div class="col-lg-4 mb-4">
                         <!-- Billing card 2-->
                         @php
-                        $total_slot =0;
-                            foreach($slots as $slot){
+                            $total_slot = 0;
+                            foreach ($slots as $slot) {
                                 $total_slot += count(explode(',', $slot->slot_numbers));
                             }
                         @endphp
                         <div class="card h-100 border-start-lg border-start-secondary">
                             <div class="card-body">
-                                <div class="small text-muted">Total Slots</div>
-                                <div class="h3">{{  $total_slot }}</div>
+                                <div class="small text-muted">Total Transaction</div>
+                                <div class="h3">{{ $trans_count }}</div>
 
                             </div>
                         </div>
@@ -192,21 +194,23 @@
                             <div class="card-body">
                                 <div class="small text-muted">Net Profit</div>
                                 @if ($has_slot)
-                                <div class="h3">{{ number_format($profit, 2, '.', ',') }}</div>
+                                    <div class="h3">{{ number_format($total_profit, 2, '.', ',') }}</div>
                                 @else
-                                <div class="h3 d-flex align-items-center"><a class="text-arrow-icon small text-success"
-                                    href="{{ url('service') }}">
-                                    List Slot Now
-                                    <svg xmlns="" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-arrow-right">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </a>
-                            </div>
+                                    <div class="h3 d-flex align-items-center"><a
+                                            class="text-arrow-icon small text-success" href="{{ url('service') }}">
+                                            List Slot Now
+                                            <svg xmlns="" width="24" height="24" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-arrow-right">
+                                                <line x1="5" y1="12" x2="19" y2="12">
+                                                </line>
+                                                <polyline points="12 5 19 12 12 19"></polyline>
+                                            </svg>
+                                        </a>
+                                    </div>
                                 @endif
-                                
+
 
                             </div>
                         </div>
@@ -284,7 +288,6 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($active_books as $tran)
-                                    
                                         <tr>
                                             <td style="color: #69707a;">{{ $tran->info->invoice_number }}</td>
                                             <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}</td>
@@ -303,7 +306,8 @@
                                                         data-original-title="Direction"><i
                                                             class="fa-solid fa-route color-muted m-r-5"
                                                             style="color:#69707a"></i> </a></span>
-                                                <span class="ms-3"><a href="{{ url('invoice_download/' . $tran->info->id) }}"
+                                                <span class="ms-3"><a
+                                                        href="{{ url('invoice_download/' . $tran->info->id) }}"
                                                         data-toggle="tooltip" data-placement="top" title="View"
                                                         data-original-title="View"><i
                                                             class="fa-solid fa-file-arrow-down color-muted m-r-5"
@@ -444,54 +448,62 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Your Listed Slots</h4>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered zero-configuration">
-                                                <thead>
-                                                    <tr style="background-color: rgba(0, 0, 0, 0.05);">
-                                                        <th width="300px">Address</th>
-                                                        <th>Contact Number</th>
-                                                        <th>Slots Number</th>
-                                                        <th>Price/hr</th>
-                                                        <th>Status</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($slots as $slot)
-                                                        <tr>
-                                                            <td>{{ $slot->building_number . ',' . $slot->building_name . ',' . $slot->post_area . ',' . $slot->city }}
-                                                            </td>
-                                                            <td>{{ $slot->mobile }}</td>
-                                                            <td>{{ $slot->slot_numbers }}
-                                                                ({{ count(explode(',', $slot->slot_numbers)) }})
-                                                            </td>
-                                                            <td>{{ $slot->price }}</td>
-                                                            @php
-                                                                $slot_type = explode(',', $slot->slot_type);
-                                                            @endphp
-
-                                                            <td>
-                                                                @php
-                                                                    $slot->status != 0 ? ($value = 'Active') : ($value = 'Inactive');
-                                                                @endphp
-                                                                <a href="{{ url('user/update-satus/' . $slot->id) }}"
-                                                                    class="badge {{ $value == 'Active' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
-                                                            </td>
-                                                            <td>
-                                                                <span><a href="{{ url('user/edit-slot/' . $slot->id) }}"
-                                                                        data-toggle="tooltip" data-placement="top"
-                                                                        title="" data-original-title="Edit"><i
-                                                                            class="fa fa-pencil color-muted m-r-5"></i>
-                                                                    </a><a href="{{ url('user/delete-slot/' . $slot->id) }}"
-                                                                        data-toggle="tooltip" data-placement="top"
-                                                                        title="" data-original-title="Close"><i
-                                                                            class="fa fa-close color-danger"></i></a></span>
-                                                            </td>
+                                        @if ($has_slot)
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered zero-configuration">
+                                                    <thead>
+                                                        <tr style="background-color: rgba(0, 0, 0, 0.05);">
+                                                            <th width="300px">Address</th>
+                                                            <th>Contact Number</th>
+                                                            <th>Slots Number</th>
+                                                            <th>Price/hr</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($slots as $slot)
+                                                            <tr>
+                                                                <td>{{ $slot->building_number . ',' . $slot->building_name . ',' . $slot->post_area . ',' . $slot->city }}
+                                                                </td>
+                                                                <td>{{ $slot->mobile }}</td>
+                                                                <td>{{ $slot->slot_numbers }}
+                                                                    ({{ count(explode(',', $slot->slot_numbers)) }})
+                                                                </td>
+                                                                <td>{{ $slot->price }}</td>
+                                                                @php
+                                                                    $slot_type = explode(',', $slot->slot_type);
+                                                                @endphp
+
+                                                                <td>
+                                                                    @php
+                                                                        $slot->status != 0 ? ($value = 'Active') : ($value = 'Inactive');
+                                                                    @endphp
+                                                                    <a href="{{ url('user/update-satus/' . $slot->id) }}"
+                                                                        class="badge {{ $value == 'Active' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
+                                                                </td>
+                                                                <td>
+                                                                    <span><a href="{{ url('user/edit-slot/' . $slot->id) }}"
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            title="" data-original-title="Edit"><i
+                                                                                class="fa fa-pencil color-muted m-r-5"></i>
+                                                                        </a><a
+                                                                            href="{{ url('user/delete-slot/' . $slot->id) }}"
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            title="" data-original-title="Close"><i
+                                                                                class="fa fa-close color-danger"></i></a></span>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        @else
+                                            <div class="text-center">
+                                                <h3>You have no listed slot</h3>
+                                                <a href="{{ url('service') }}" class="btn btn-yellow">List Slot</a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

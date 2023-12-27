@@ -21,35 +21,38 @@
                                 <table class="table table-striped table-bordered zero-configuration">
                                     <thead>
                                         <tr style="background-color: rgba(0, 0, 0, 0.05);">
-                                            <th>Invoice</th>
-                                            <th>Book Date</th>
-                                            <th>Contact Name</th>
-                                            <th>Contact Number</th>
-                                            <th>Slots Number</th>
-                                            <th>Price</th>
+                                            <th>User Name</th>
+                                            <th>User Eamil</th>
+                                            <th>User Phone</th>
+                                            <th>Trnasaction ID</th>
+                                            <th>Review</th>
+                                            <th>Ratings</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($trans as $tran)
+                                        @foreach ($reviews as $review)
                                             <tr>
-                                                <td>{{ $tran->invoice_number }}</td>
-                                                <td>{{ date('Y-m-d H:i:s', $tran->order_date) }}</td>
-                                                <td>{{ $tran->name }}</td>
-                                                <td>{{ $tran->phone }}</td>
-                                                <td>{{ $tran->slot_number }}</td>
-                                                <td>{{ $tran->amount }}</td>
+                                                <td>{{ $review->user->name }}</td>
+                                                <td>{{ $review->user->email }}</td>
+                                                <td>{{ $review->user->number }}</td>
+                                                <td>{{ $review->transaction_id }}</td>
+                                                <td>{{ $review->review }}</td>
+                                                <td>@for ($i = 0; $i < $review->rating; $i++)
+                                                  <i class="fa-solid fa-star"></i>
+                                                @endfor</td>
                                                 <td>
                                                     @php
-                                                        $tran->status != 'confirmed' ? $value = 'Pending' : $value = 'Confirmed'
+                                                        $review->status != 1 ? $value = 'Pending' : $value = 'Active'
                                                     @endphp
-                                                    <span class="badge {{ $value == 'Confirmed' ? 'badge-primary':'badge-danger' }} px-2">{{ $value }}</span>
+                                                    <a href="{{ url('admin/review-status/'.$review->id) }}" class="badge {{ $value == 'Active' ? 'badge-primary':'badge-danger' }} px-2">{{ $value }}</a>
                                                 </td>
                                                 <td style="text-align: center;">
-                                                    <span><a href="{{ url('invoice_download/'.$tran->id) }}" data-toggle="tooltip" data-placement="top"
-                                                            title="View" data-original-title="View"><i
-                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"></i> </a></span>
+                                                    <span><a
+                                                      href="{{ url('admin/review-delete/'.$review->id) }}" data-toggle="tooltip" data-placement="top"
+                                                      title="" data-original-title="Close"><i
+                                                          class="fa fa-close color-danger"></i></a></span>
                                                 </td>
                                             </tr>
                                         @endforeach
