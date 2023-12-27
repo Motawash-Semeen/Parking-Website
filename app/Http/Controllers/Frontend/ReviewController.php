@@ -53,7 +53,7 @@ class ReviewController extends Controller
         return redirect()->route('dashboard')->with($notification);
     }
     public function getReview($id){
-        $review = Review::with('user')->where('slot_id', $id)->get();
+        $review = Review::with('user')->where('slot_id', $id)->where('status',1)->get();
         return response()->json(['review' => $review]);
     }
 }

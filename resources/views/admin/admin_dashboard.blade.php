@@ -271,7 +271,10 @@
         <!-- #/ container -->
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/morris.js@0.5.1/morris.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/raphael@2.3.0/raphael.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/morris.js@0.5.1/morris.min.js"></script>
     <script>
         $.ajax({
             url: '/admin/get-chart-data',
