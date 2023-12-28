@@ -39,6 +39,12 @@ class ReviewController extends Controller
         return redirect()->back()->with($notification);
     }
     public function writeReview($slot_id, $id, Request $request){
+        $request->validate([
+            'rating' => 'required',
+            'review' => 'required'
+        ],[
+            'rating.required' => 'Please give a rating',
+            'review.required' => 'Please write a review']);
         $review = new Review;
         $review->user_id = Auth::user()->id;
         $review->transaction_id = $id;
