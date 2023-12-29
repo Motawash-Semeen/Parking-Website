@@ -19,5 +19,8 @@ class TransationInfo extends Model
     public function reviews(){
         return $this->hasMany(Review::class, 'transaction_id', 'id');
     }
+    public function info(){
+        return $this->hasOne(Slots::class, 'id', 'slot_id');
+    }
 
 }

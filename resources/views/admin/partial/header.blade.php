@@ -49,7 +49,7 @@
         <div class="header-right">
             <ul class="clearfix">
                 <li class="icons">
-                    <a href="{{ url('/') }}" title="View Page">
+                    <a href="{{ url('/') }}" title="View Page" target="_blank">
                         <i class="fa-solid fa-display"></i>
                     </a>
                 </li>

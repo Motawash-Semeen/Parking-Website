@@ -17,18 +17,24 @@ class CheckUserId
      */
     public function handle(Request $request, Closure $next): Response
     {
-         // Get the user ID from the URL parameters
-         $urlId = $request->route('id');
-         $urlUserId = ParkingSlots::find($urlId)->user_id;
+        $optionalParameter = $request->route('slotid');
+        if ($optionalParameter) {
+            
+            $urlUserId = ParkingSlots::find($optionalParameter)->user_id;
+        } else {
+            // Get the user ID from the URL parameters
+            $urlId = $request->route('id');
+            $urlUserId = ParkingSlots::find($urlId)->user_id;
+        }
 
-         // Get the logged-in user ID
-         $loggedInUserId = Auth::id();
- 
-         // Check if the logged-in user ID matches the URL user ID
-         if ($urlUserId != $loggedInUserId) {
-             return redirect('/');
-         }
- 
-         return $next($request);
+        // Get the logged-in user ID
+        $loggedInUserId = Auth::id();
+
+        // Check if the logged-in user ID matches the URL user ID
+        if ($urlUserId != $loggedInUserId) {
+            return redirect('/');
+        }
+
+        return $next($request);
     }
 }

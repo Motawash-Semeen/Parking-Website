@@ -76,7 +76,7 @@ class PaymentController extends Controller
                 'coordinates_send' => $request->coordinates_send,
                 'arriveDateTime' => $request->arriveDateTime,
                 'leavingDateTime' => $request->leavingDateTime,
-                'price' => $request->price,
+                'price' => round($request->price),
                 'user_name' => Auth::user()->name,
                 'user_email' => Auth::user()->email,
                 'payment_id' => $charge->id,
@@ -98,11 +98,84 @@ class PaymentController extends Controller
                 $transation->payment_method = 'Stripe';
                 $transation->transaction_id = 'PK-' . Str::random(8);
                 $transation->invoice_number = $charge->id;
-                $transation->amount = $request->price;
+                $transation->amount = round($request->price);
                 $transation->order_date = time();
                 $transation->start_time = $request->arriveDateTime;
                 $transation->end_time = $request->leavingDateTime;
                 $transation->status = 'confirmed';
+
+                $transation->save();
+
+                $updateSlot = Slots::where('slot_id', $request->slot_id)->where('slot_number', $request->slot_number)->first();
+                $updateSlot->occupied = 'yes';
+                $updateSlot->end_time = strtotime($request->leavingDateTime);
+                $updateSlot->user_id = Auth::user()->id;
+
+                $updateSlot->update();
+
+                session()->put('id', $transation->id);
+
+                return redirect('/congratulation')->with($notification);
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+        } catch (\Exception $ex) {
+            $notification = array(
+                'message' => $ex->getMessage(),
+                'alert-type' => 'error'
+            );
+            return redirect('/')->with($notification);
+        }
+        //return $charge;
+    }
+    public function makeCashPayment(Request $request){
+        $request->validate([
+            'slot_id' => 'required',
+            'coordinates_send' => 'required',
+            'coordinates_start' => 'required',
+            'arriveDateTime' => 'required',
+            'leavingDateTime' => 'required',
+            'price' => 'required',
+        ]);
+
+        //return $request->all();
+        try {
+
+            $slot = ParkingSlots::where('id', $request->slot_id)->first();
+            $data = [
+                'slot_id' => $request->slot_id,
+                'slot_number' => $request->slot_number,
+                'slot_address' => $slot->building_name . ', ' . $slot->building_number . ', ' . $slot->post_area . ', ' . $slot->city . ', ' . $slot->zip,
+                'coordinates_send' => $request->coordinates_send,
+                'arriveDateTime' => $request->arriveDateTime,
+                'leavingDateTime' => $request->leavingDateTime,
+                'price' => round($request->price),
+                'user_name' => Auth::user()->name,
+                'user_email' => Auth::user()->email,
+                'payment_id' => 'Ch-' . Str::random(8),
+            ];
+            try {
+                Mail::to(Auth::user()->email)->send(new BookMail($data));
+                $notification = array(
+                    'message' => 'Payment Successful',
+                    'alert-type' => 'success'
+                );
+                $transation = new TransationInfo;
+                $transation->user_id = Auth::user()->id;
+                $transation->slot_id = $request->slot_id;
+                $transation->slot_number = $request->slot_number;
+                $transation->name = Auth::user()->name;
+                $transation->email = Auth::user()->email;
+                $transation->phone = Auth::user()->number;
+                $transation->payment_type = 'Cash';
+                $transation->payment_method = 'Cash';
+                $transation->transaction_id = 'PK-' . Str::random(8);
+                $transation->invoice_number = 'Ch-' . Str::random(8);
+                $transation->amount = round($request->price);
+                $transation->order_date = time();
+                $transation->start_time = $request->arriveDateTime;
+                $transation->end_time = $request->leavingDateTime;
+                $transation->status = 'pending';
 
                 $transation->save();
 

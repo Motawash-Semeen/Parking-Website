@@ -105,8 +105,10 @@
                                     data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" class="require-validation"
                                     data-cc-on-file="false" id="payment-form">
                                     @csrf
-                                    <input type="text" name="slot_number" id="slot-number" hidden value={{ $request->slot_number }}>
-                                    <input type="text" name="slot_id" id="slot-id" hidden value={{ $request->slot_id }}>
+                                    <input type="text" name="slot_number" id="slot-number" hidden
+                                        value={{ $request->slot_number }}>
+                                    <input type="text" name="slot_id" id="slot-id" hidden
+                                        value={{ $request->slot_id }}>
                                     <input type="text" name="coordinates_send" id="coordinates-send" hidden
                                         value="{{ $request->coordinates_send }}">
                                     <input type="text" name="coordinates_start" id="coordinates-start" hidden
@@ -117,11 +119,11 @@
                                         value="{{ $request->leavingDateTime }}">
                                     <input type="text" name="price" id="coordinates-start" hidden
                                         value="{{ $price }}">
-                                    
+
                                     <div class="form-group my-3 required">
                                         <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Name on Card</label> <input class='form-control card_name'
-                                                size='4' type='text'>
+                                            <label class='control-label'>Name on Card</label> <input
+                                                class='form-control card_name' size='4' type='text'>
                                         </div>
 
                                     </div>
@@ -186,12 +188,32 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- Paypal info -->
+                            <!-- Cash info -->
                             <div class="tab-pane fade text-center" id="paypal" role="tabpanel"
                                 aria-labelledby="paypal-tab" tabindex="0">
                                 <h6 class="pb-2">Do you want to pay with cash?</h6>
-                                <p> <button type="button" class="btn btn-primary "><i class="bi bi-cash-coin mr-2"></i>
-                                        Yes </button> </p>
+                                <p>
+                                <form action="{{ url('/cash/payment') }}" method="POST">
+                                    @csrf
+                                    <input type="text" name="slot_number" id="slot-number" hidden
+                                        value={{ $request->slot_number }}>
+                                    <input type="text" name="slot_id" id="slot-id" hidden
+                                        value={{ $request->slot_id }}>
+                                    <input type="text" name="coordinates_send" id="coordinates-send" hidden
+                                        value="{{ $request->coordinates_send }}">
+                                    <input type="text" name="coordinates_start" id="coordinates-start" hidden
+                                        value="{{ $request->coordinates_start }}">
+                                    <input type="text" name="arriveDateTime" id="coordinates-send" hidden
+                                        value="{{ $request->arriveDateTime }}">
+                                    <input type="text" name="leavingDateTime" id="coordinates-start" hidden
+                                        value="{{ $request->leavingDateTime }}">
+                                    <input type="text" name="price" id="coordinates-start" hidden
+                                        value="{{ $price }}">
+                                    <button type="submit" class="btn btn-primary "><i class="bi bi-cash-coin mr-2"></i>
+                                        Yes
+                                    </button>
+                                </form>
+                                </p>
                                 <p class="text-muted"> Note: After clicking on the button, you have to make payment upon
                                     entry. After completing the payment process, you will be redirected back
                                     to parking slots. </p>
@@ -233,72 +255,71 @@
     </div>
     <script src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
-$(function() {
-      
-      /*------------------------------------------
-      --------------------------------------------
-      Stripe Payment Code
-      --------------------------------------------
-      --------------------------------------------*/
-      
-      var $form = $(".require-validation");
-       
-      $('form.require-validation').bind('submit', function(e) {
-          var $form = $(".require-validation"),
-          inputSelector = ['input[type=email]', 'input[type=password]',
-                           'input[type=text]', 'input[type=file]',
-                           'textarea'].join(', '),
-          $inputs = $form.find('.required').find(inputSelector),
-          $errorMessage = $form.find('div.error'),
-          valid = true;
-          $errorMessage.addClass('hide');
-      
-          $('.has-error').removeClass('has-error');
-          $inputs.each(function(i, el) {
-            var $input = $(el);
-            if ($input.val() === '') {
-              $input.parent().addClass('has-error');
-              $errorMessage.removeClass('hide');
-              e.preventDefault();
-            }
-          });
-       
-          if (!$form.data('cc-on-file')) {
-            e.preventDefault();
-            Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-            Stripe.createToken({
-              number: $('.card_number').val(),
-              cvc: $('.card_cvc').val(),
-              exp_month: $('.card_month').val(),
-              exp_year: $('.card_year').val()
-            }, stripeResponseHandler);
-          }
-      
-      });
-        
-      /*------------------------------------------
-      --------------------------------------------
-      Stripe Response Handler
-      --------------------------------------------
-      --------------------------------------------*/
-      function stripeResponseHandler(status, response) {
-          if (response.error) {
-              $('.error')
-                  .removeClass('hide')
-                  .find('.alert')
-                  .text(response.error.message);
-          } else {
-              /* token contains id, last4, and card type */
-              var token = response['id'];
-                   
-              $form.find('input[type=text]').empty();
-              $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-              $form.get(0).submit();
-          }
-      }
-       
-  });
+        $(function() {
 
+            /*------------------------------------------
+            --------------------------------------------
+            Stripe Payment Code
+            --------------------------------------------
+            --------------------------------------------*/
+
+            var $form = $(".require-validation");
+
+            $('form.require-validation').bind('submit', function(e) {
+                var $form = $(".require-validation"),
+                    inputSelector = ['input[type=email]', 'input[type=password]',
+                        'input[type=text]', 'input[type=file]',
+                        'textarea'
+                    ].join(', '),
+                    $inputs = $form.find('.required').find(inputSelector),
+                    $errorMessage = $form.find('div.error'),
+                    valid = true;
+                $errorMessage.addClass('hide');
+
+                $('.has-error').removeClass('has-error');
+                $inputs.each(function(i, el) {
+                    var $input = $(el);
+                    if ($input.val() === '') {
+                        $input.parent().addClass('has-error');
+                        $errorMessage.removeClass('hide');
+                        e.preventDefault();
+                    }
+                });
+
+                if (!$form.data('cc-on-file')) {
+                    e.preventDefault();
+                    Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+                    Stripe.createToken({
+                        number: $('.card_number').val(),
+                        cvc: $('.card_cvc').val(),
+                        exp_month: $('.card_month').val(),
+                        exp_year: $('.card_year').val()
+                    }, stripeResponseHandler);
+                }
+
+            });
+
+            /*------------------------------------------
+            --------------------------------------------
+            Stripe Response Handler
+            --------------------------------------------
+            --------------------------------------------*/
+            function stripeResponseHandler(status, response) {
+                if (response.error) {
+                    $('.error')
+                        .removeClass('hide')
+                        .find('.alert')
+                        .text(response.error.message);
+                } else {
+                    /* token contains id, last4, and card type */
+                    var token = response['id'];
+
+                    $form.find('input[type=text]').empty();
+                    $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+                    $form.get(0).submit();
+                }
+            }
+
+        });
     </script>
-    
 @endsection

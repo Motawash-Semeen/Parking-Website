@@ -56,6 +56,10 @@
         .offcanvas.show {
             transform: translateX(0);
         }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.329);
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.2/font/bootstrap-icons.css">
@@ -211,12 +215,12 @@
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselReview"
                         data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon bg-black" aria-hidden="true"></span>
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselReview"
                         data-bs-slide="next">
-                        <span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>

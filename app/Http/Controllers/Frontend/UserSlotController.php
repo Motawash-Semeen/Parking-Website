@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ParkingImage;
 use App\Models\ParkingSlots;
 use App\Models\Slots;
+use App\Models\TransationInfo;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Image;
@@ -14,16 +15,26 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 class UserSlotController extends Controller
 {
-    public function UpdateStatus($id)
+    public function UpdateStatus($id, $slotid = null)
     {
-        
-        $slot = ParkingSlots::find($id);
-        if ($slot->status == 0) {
-            $slot->status = 1;
-        } else {
-            $slot->status = 0;
+        if($slotid){
+            $slot = TransationInfo::find($id);
+            if ($slot->status == 'pending') {
+                $slot->status = 'confirmed';
+            } else {
+                $slot->status = 'confirmed';
+            }
+            $slot->update();
+        }else{
+            $slot = ParkingSlots::find($id);
+            if ($slot->status == 0) {
+                $slot->status = 1;
+            } else {
+                $slot->status = 0;
+            }
+            $slot->update();
         }
-        $slot->update();
+        
         $notification = array(
             'message' => 'Slot Updated Successfully',
             'alert-type' => 'success'

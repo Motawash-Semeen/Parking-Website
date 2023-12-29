@@ -271,7 +271,84 @@
                 </div> --}}
                 <!-- Billing history card-->
                 <div class="card mb-4">
-                    <div class="card-header">Active Books</div>
+                    <div class="card-header">Cash Books</div>
+                    <div class="card-body p-0">
+                        <!-- Billing history table-->
+                        <div class="table-responsive table-billing-history">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr style="background-color: rgba(0, 0, 0, 0.05); ">
+                                        <th>Invoice</th>
+                                        <th>Book Date</th>
+                                        <th>Name</th>
+                                        <th>Number</th>
+                                        <th>Slots Number</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Invoice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($cash_books->count() == 0)
+                                        <tr>
+                                            <td colspan="6" style="text-align: center; color: #69707a;">No Cash Book
+                                            </td>
+                                        </tr>
+                                    @else
+                                        @foreach ($cash_books as $tran)
+                                        @if ($tran->slots->user_id == Auth::user()->id)
+                                            <tr>
+                                                <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
+                                                <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}
+                                                </td>
+                                                <td style="color: #69707a;">{{ $tran->slots->users->name }}</td>
+                                                <td style="color: #69707a;">{{ $tran->slots->users->number }}</td>
+                                                <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}
+                                                </td>
+                                                <td style="color: #69707a;">{{ $tran->amount }}</td>
+                                                <td>
+                                                    @php
+                                                        $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
+                                                    @endphp
+                                                    @if ($value == 'Pending')
+                                                    <a href="{{ url('user/update-satus/' . $tran->id.'/'.$tran->slots->id) }}"
+                                                    class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
+                                                    @else
+                                                    <span
+                                                        class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+                                                    @endif
+                                                    
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    
+                                                    <span class="ms-3"><a
+                                                            href="{{ url('invoice_download/' . $tran->id) }}"
+                                                            data-toggle="tooltip" data-placement="top" title="View"
+                                                            data-original-title="View"><i
+                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"
+                                                                style="color:#69707a"></i> </a>
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            
+                                        @else
+                                        <tr>
+                                            <td colspan="6" style="text-align: center; color: #69707a;">No Cash Book
+                                            </td>
+                                        </tr>
+                                        @endif
+                                            
+                                        @endforeach
+                                    @endif
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header">Your Active Books</div>
                     <div class="card-body p-0">
                         <!-- Billing history table-->
                         <div class="table-responsive table-billing-history">
@@ -542,6 +619,83 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header">Your Slot Booking History</div>
+                    <div class="card-body p-0">
+                        <!-- Billing history table-->
+                        <div class="table-responsive table-billing-history">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr style="background-color: rgba(0, 0, 0, 0.05); ">
+                                        <th>Invoice</th>
+                                        <th>Book Date</th>
+                                        <th>Name</th>
+                                        <th>Number</th>
+                                        <th>Slots Number</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Invoice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($your_slot_books->count() == 0)
+                                        <tr>
+                                            <td colspan="6" style="text-align: center; color: #69707a;">No Cash Book
+                                            </td>
+                                        </tr>
+                                    @else
+                                        @foreach ($your_slot_books as $tran)
+                                        @if ($tran->slots->user_id == Auth::user()->id)
+                                            <tr>
+                                                <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
+                                                <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}
+                                                </td>
+                                                <td style="color: #69707a;">{{ $tran->slots->users->name }}</td>
+                                                <td style="color: #69707a;">{{ $tran->slots->users->number }}</td>
+                                                <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}
+                                                </td>
+                                                <td style="color: #69707a;">{{ $tran->amount }}</td>
+                                                <td>
+                                                    @php
+                                                        $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
+                                                    @endphp
+                                                    @if ($value == 'Pending')
+                                                    <a href="{{ url('user/update-satus/' . $tran->id.'/'.$tran->slots->id) }}"
+                                                    class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
+                                                    @else
+                                                    <span
+                                                        class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+                                                    @endif
+                                                    
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    
+                                                    <span class="ms-3"><a
+                                                            href="{{ url('invoice_download/' . $tran->id) }}"
+                                                            data-toggle="tooltip" data-placement="top" title="View"
+                                                            data-original-title="View"><i
+                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"
+                                                                style="color:#69707a"></i> </a>
+
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            
+                                        @else
+                                        <tr>
+                                            <td colspan="6" style="text-align: center; color: #69707a;">No Cash Book
+                                            </td>
+                                        </tr>
+                                        @endif
+                                            
+                                        @endforeach
+                                    @endif
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -20,10 +20,12 @@ class HomeController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::find($id);
-        $trans = TransationInfo::where('user_id', $id)->get();
+        $trans = TransationInfo::where('user_id', $id)->orderBy('id', 'desc')->limit(5)->get();
         $trans_amount = TransationInfo::where('user_id', $id)->sum('amount');
         $trans_count = TransationInfo::where('user_id', $id)->count();
         $active_books = Slots::with('parkingSlots', 'info')->where('user_id', $id)->where('occupied', 'yes')->where('end_time', '>', time())->get();
+        $cash_books = TransationInfo::with('info','users','slots')->where('payment_method', 'cash')->orderBy('id', 'desc')->limit(5)->get();
+        $your_slot_books = TransationInfo::with('info','users','slots')->orderBy('id', 'desc')->limit(5)->get();
     
         $slots = ParkingSlots::where('user_id', $id)->get();
         $profit = TransationInfo::with('slots')->get();
@@ -35,7 +37,7 @@ class HomeController extends Controller
         }
         $has_slot = ParkingSlots::where('user_id', $id)->exists();
         
-        return view('dashboard', compact('user','trans','slots','total_profit','has_slot','trans_amount','active_books','trans_count'));
+        return view('dashboard', compact('user','trans','slots','total_profit','has_slot','trans_amount','active_books','trans_count','cash_books','your_slot_books'));
     }
     public function service()
     {

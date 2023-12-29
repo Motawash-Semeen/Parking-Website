@@ -45,6 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/paymemt', [PaymentController::class, 'paymentPage']);
     Route::get('/congratulation', [PaymentController::class, 'congrtsPage']);
     Route::post('/stripe/payment', [PaymentController::class, 'makePayment'])->name('stripe.payment');
+    Route::post('/cash/payment', [PaymentController::class, 'makeCashPayment'])->name('cash.payment');
 });
 
 Route::middleware('auth')->group(function () {
@@ -59,7 +60,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['checkUserId', 'auth'])->group(function () {
-    Route::get('user/update-satus/{id}', [UserSlotController::class, 'UpdateStatus'])->name('user.slots.status');
+    Route::get('user/update-satus/{id}/{slotid?}', [UserSlotController::class, 'UpdateStatus'])->name('user.slots.status');
     Route::get('user/delete-slot/{id}', [UserSlotController::class, 'DeleteSlots'])->name('user.slots.delete');
     Route::get('user/edit-slot/{id}', [UserSlotController::class, 'EditSlots'])->name('user.slots.edit');
     Route::post('user/edit-slot/{id}', [UserSlotController::class, 'UpdateSlots'])->name('user.slots.update');
