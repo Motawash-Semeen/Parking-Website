@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\UserSlotController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/congratulation', [PaymentController::class, 'congrtsPage']);
     Route::post('/stripe/payment', [PaymentController::class, 'makePayment'])->name('stripe.payment');
     Route::post('/cash/payment', [PaymentController::class, 'makeCashPayment'])->name('cash.payment');
+
+    Route::post('/sslcommerz/pay2', [SslCommerzPaymentController::class, 'index2']);
+
+});
+
+Route::group(['middleware'=>[config('sslcommerz.middleware','web')]], function () {
+    // Route::get('/sslcommerz/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+    // Route::get('/sslcommerz/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+    Route::post('/sslcommerz/pay', [SslCommerzPaymentController::class, 'index']);
+    Route::post('/sslcommerz/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+    Route::post('/sslcommerz/success', [SslCommerzPaymentController::class, 'success']);
+    Route::post('/sslcommerz/fail', [SslCommerzPaymentController::class, 'fail']);
+    Route::post('/sslcommerz/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+    Route::post('/sslcommerz/ipn', [SslCommerzPaymentController::class, 'ipn']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -56,7 +74,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/addParking', [LocationController::class, 'storeParking']);
     Route::get('invoice_download/{id}', [TransactionController::class, 'downloadInvoice'])->name('invoice.download');
     Route::get('write-review/{slot_id}/{id}', [ReviewController::class, 'writeReview'])->name('write.review');
-
 });
 
 Route::middleware(['checkUserId', 'auth'])->group(function () {

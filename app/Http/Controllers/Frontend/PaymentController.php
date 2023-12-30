@@ -14,6 +14,7 @@ use Stripe\Charge;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use DGvai\SSLCommerz\SSLCommerz;
 
 class PaymentController extends Controller
 {
@@ -205,4 +206,6 @@ class PaymentController extends Controller
     {
         return view('afterpayment')->with('delay', 5000);
     }
+
+
 }

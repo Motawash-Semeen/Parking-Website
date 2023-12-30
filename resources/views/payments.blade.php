@@ -91,7 +91,7 @@
                                     <a data-bs-toggle="pill" class="nav-link" id="net-banking-tab"
                                         data-bs-target="#net-banking" type="button" role="tab"
                                         aria-controls="net-banking" aria-selected="false">
-                                        <i class="bi bi-phone mr-2"></i> Net Banking
+                                        <i class="bi bi-phone mr-2"></i> Bkash
                                     </a>
                                 </li>
                             </ul>
@@ -221,31 +221,30 @@
                             <!-- Net Banking info -->
                             <div class="tab-pane fade" id="net-banking" role="tabpanel"
                                 aria-labelledby="net-banking-tab" tabindex="0">
-                                <div class="form-group mb-3">
-                                    <label for="Select Your Bank">
-                                        <h6>Select your Bank</h6>
-                                    </label>
-                                    <select class="form-control" id="ccmonth">
-                                        <option value="" selected disabled>--Please select your Bank--</option>
-                                        <option>Bank 1</option>
-                                        <option>Bank 2</option>
-                                        <option>Bank 3</option>
-                                        <option>Bank 4</option>
-                                        <option>Bank 5</option>
-                                        <option>Bank 6</option>
-                                        <option>Bank 7</option>
-                                        <option>Bank 8</option>
-                                        <option>Bank 9</option>
-                                        <option>Bank 10</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <p> <button type="button" class="btn btn-primary "><i
-                                                class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button> </p>
-                                </div>
+                                <form method="post" action="{{ url('/sslcommerz/pay2') }}">
+                                    @csrf
+                                    <input type="text" name="slot_number" id="slot-number" hidden
+                                        value={{ $request->slot_number }}>
+                                    <input type="text" name="slot_id" id="slot-id" hidden
+                                        value={{ $request->slot_id }}>
+                                    <input type="text" name="coordinates_send" id="coordinates-send" hidden
+                                        value="{{ $request->coordinates_send }}">
+                                    <input type="text" name="coordinates_start" id="coordinates-start" hidden
+                                        value="{{ $request->coordinates_start }}">
+                                    <input type="text" name="arriveDateTime" id="coordinates-send" hidden
+                                        value="{{ $request->arriveDateTime }}">
+                                    <input type="text" name="leavingDateTime" id="coordinates-start" hidden
+                                        value="{{ $request->leavingDateTime }}">
+                                    <input type="text" name="price" id="coordinates-start" hidden
+                                        value="{{ $price }}" id="total_amount">
+                                    <div class="form-group">
+                                        <p class="text-center"> <button type="submit" class="btn btn-primary "><i
+                                                    class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button> </p>
+                                    </div>
+                                </form>
                                 <p class="text-muted">Note: After clicking on the button, you will be directed to a secure
                                     gateway for payment. After completing the payment process, you will be redirected back
-                                    to the website to view details of your order. </p>
+                                    to the website to view details of your book. </p>
                             </div>
                         </div> <!-- End -->
                     </div>
@@ -322,4 +321,5 @@
 
         });
     </script>
+    
 @endsection
