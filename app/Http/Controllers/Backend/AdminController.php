@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
+use App\Models\FAQ;
 use App\Models\ParkingImage;
 use App\Models\ParkingSlots;
 use App\Models\Slots;
+use App\Models\SocialLinks;
 use App\Models\TransationInfo;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -89,6 +92,91 @@ class AdminController extends Controller
         ->limit(5)
         ->get();
         return $daysearnings;
+    }
+    public function getLinkData(){
+        $links = SocialLinks::where('id',1)->first();
+        return view('admin.show_links',compact('links'));
+    }
+    public function storeLinkData(Request $request){
+        $links = SocialLinks::where('id',1)->first();
+        $links->facebook = $request->facebook;
+        $links->twitter = $request->twitter;
+        $links->instagram = $request->instagram;
+        $links->linkedin = $request->linkedin;
+        $links->youtube = $request->youtube;
+        $links->behance = $request->behance;
+        $links->dribbble = $request->dribbble;
+        $links->update();
+        $notification = array(
+            'message' => 'Links Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function getContactData(){
+        $messages = Contact::orderBy('id','desc')->get();
+        return view('admin.show_contacts',compact('messages'));
+    }
+    public function deleteContactData($id){
+        $message = Contact::find($id);
+        $message->delete();
+        $notification = array(
+            'message' => 'Message Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function getFAQData(){
+        $faqs = FAQ::orderBy('id','desc')->get();
+        return view('admin.show_faqs',compact('faqs'));
+    }
+    public function storeFAQData(Request $request, $id=null){
+        $validator = Validator::make($request->all(), [
+            'question' => 'required',
+            'answer' => 'required',
+        ]);
+        //return $request->all();
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        if($id != null){
+            $faq = FAQ::find($request->id);
+            $faq->question = $request->question;
+            $faq->answer = $request->answer;
+            $faq->update();
+            $notification = array(
+                'message' => 'FAQ Updated Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect('admin/all-faq')->with($notification);
+        }
+        $faq = new FAQ();
+        $faq->question = $request->question;
+        $faq->answer = $request->answer;
+        $faq->save();
+        $notification = array(
+            'message' => 'FAQ Added Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect('admin/all-faq')->with($notification);
+    }
+    public function updateFAQData($id=null){
+        if($id == null){
+            return view('admin.update_faq');
+        }
+        $faq = FAQ::find($id);
+        return view('admin.update_faq',compact('faq'));
+    }
+    
+    
+    public function deleteFAQData($id){
+        $faq = FAQ::find($id);
+        $faq->delete();
+        $notification = array(
+            'message' => 'FAQ Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
     
 }

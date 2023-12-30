@@ -19,3 +19,4 @@
 <link rel="stylesheet"
     href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css"
     type="text/css">
+    <link href="{{ asset('backend') }}/plugins/summernote/dist/summernote.css" rel="stylesheet">

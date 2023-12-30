@@ -30,6 +30,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/service', [LocationController::class, 'inputPage']);
 Route::get('/faq', [HomeController::class, 'faqPage']);
 Route::get('/privacy', [HomeController::class, 'privacyPage']);
+Route::post('/contact', [HomeController::class, 'contactPage']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -108,5 +109,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/user-delete/{id}', [UserController::class, 'deleteUser'])->name('admin.delete.user');
 
         Route::get('/get-chart-data', [AdminController::class, 'getCartData']);
+        Route::get('/all-links', [AdminController::class, 'getLinkData']);
+        Route::post('/all-links', [AdminController::class, 'storeLinkData']);
+        Route::get('/all-message', [AdminController::class, 'getContactData']);
+        Route::get('contact-delete/{id}', [AdminController::class, 'deleteContactData']);
+
+        Route::get('all-faq', [AdminController::class, 'getFAQData']);
+        //Route::get('store-faq', [AdminController::class, 'storeFAQData']);
+        Route::get('store-faq/{id?}', [AdminController::class, 'updateFAQData']);
+        Route::get('edit-faq/{id?}', [AdminController::class, 'updateFAQData']);
+        Route::post('store-faq/{id?}', [AdminController::class, 'storeFAQData']);
     });
 });

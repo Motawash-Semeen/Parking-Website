@@ -45,13 +45,13 @@ class DashboardController extends Controller
     }
     public function deleteUser(Request $request){
         $user = User::find(Auth::user()->id);
-        if (Hash::check($request->passowrd, $user->passowrd)) {
+        if (Hash::check($request->password, $user->password)) {
             $user->delete();
             $notification = array(
                 'message' => 'User deleted successfully',
                 'alert-type' => 'success'
             );
-            return redirect()->route('/')->with($notification);
+            return redirect('/')->with($notification);
         }
         else{
             $notification = array(

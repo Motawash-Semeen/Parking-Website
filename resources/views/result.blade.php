@@ -56,6 +56,7 @@
         .offcanvas.show {
             transform: translateX(0);
         }
+
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
             background-color: rgba(0, 0, 0, 0.329);
@@ -156,12 +157,7 @@
 
             <div class="features">
                 <p><strong>Review</strong></p>
-                {{-- <div class="reviews">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                </div> --}}
+
                 <div id="carouselReview" class="carousel slide">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -586,10 +582,10 @@
             $.ajax({
                 type: 'GET',
                 url: '/get-review/' + id, // Update the URL to your actual endpoint
-                success: function (data) {
+                success: function(data) {
                     updateCarousel(data);
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching reviews:', error);
                 }
             });
@@ -598,22 +594,27 @@
                 var carouselInner = $('#carouselReview .carousel-inner');
                 carouselInner.empty();
 
-                for (var i = 0; i < data.review.length; i++) {
-                    var activeClass = i === 0 ? 'active' : '';
+                if (data.review != null) {
+                    for (var i = 0; i < data.review.length; i++) {
+                        var activeClass = i === 0 ? 'active' : '';
 
-                    //console.log(data.review[i].user)
-                    var carouselItem =
-                        '<div class="carousel-item ' + activeClass + '">' +
+                        //console.log(data.review[i].user)
+                        var carouselItem =
+                            '<div class="carousel-item ' + activeClass + '">' +
                             '<div class="card mb-4">' +
-                                '<div class="card-body">' +
-                                    '<h5 class="card-title">' + data.review[i].user.name + '</h5>' +
-                                    '<div class="rating">' + getStars(data.review[i].rating) + '</div>' +
-                                    '<p class="card-text">' + data.review[i].review + '</p>' +
-                                '</div>' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title">' + data.review[i].user.name + '</h5>' +
+                            '<div class="rating">' + getStars(data.review[i].rating) + '</div>' +
+                            '<p class="card-text">' + data.review[i].review + '</p>' +
                             '</div>' +
-                        '</div>';
+                            '</div>' +
+                            '</div>';
 
-                    carouselInner.append(carouselItem);
+                        carouselInner.append(carouselItem);
+                    }
+                }
+                else{
+                    document.getElementById('carouselReview').innerHTML = '<p class="text-danger text-center" style="font-size: 16px">No Review Found</p>';
                 }
             }
 
@@ -624,6 +625,6 @@
                 }
                 return starIcons;
             }
-    }
+        }
     </script>
 @endsection

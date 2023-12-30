@@ -719,7 +719,7 @@
                         @csrf
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Re-enter Password:</label>
-                            <input type="password" class="form-control" id="recipient-name" name="passowrd">
+                            <input type="password" class="form-control" id="recipient-name" name="password">
                         </div>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger">Confirm</button>

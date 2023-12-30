@@ -23,6 +23,9 @@
 <script src="{{ asset('backend') }}/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script src="{{ asset('backend') }}/plugins/summernote/dist/summernote.min.js"></script>
+<script src="{{ asset('backend') }}/plugins/summernote/dist/summernote-init.js"></script>
+
 <script src="{{ asset('backend') }}/js/custom.min.js"></script>
 <script src="{{ asset('backend') }}/js/dashboard/dashboard-1.js"></script>
 <script src="https://kit.fontawesome.com/4a3cf85510.js" crossorigin="anonymous"></script>

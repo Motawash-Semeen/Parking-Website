@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
+use App\Models\Contact;
+use App\Models\FAQ;
 use App\Models\ParkingSlots;
 use App\Models\Slots;
 use App\Models\TransationInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -49,10 +53,43 @@ class HomeController extends Controller
     }
     public function faqPage()
     {
-        return view('faqPage');
+        $faqs = FAQ::all();
+        return view('faqPage', compact('faqs'));
     }
     public function privacyPage()
     {
         return view('privacy');
+    }
+    public function contactPage(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'phone_no' => 'required',
+            'message' => 'required',
+        ]);
+        $contact = new Contact;
+        $contact->f_name = $request->first_name;
+        $contact->l_name = $request->last_name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone_no;
+        $contact->message = $request->message;
+        $contact->save();
+
+        $data = [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone_no' => $request->phone_no,
+            'message' => $request->message,
+        ];
+        Mail::to($request->email)->send(new ContactMail($data));
+        $notification = array(
+            'message' => 'Your message has been sent successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
     }
 }

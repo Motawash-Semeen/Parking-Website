@@ -60,6 +60,9 @@ class ReviewController extends Controller
     }
     public function getReview($id){
         $review = Review::with('user')->where('slot_id', $id)->where('status',1)->get();
+        if($review->isEmpty()){
+            return response()->json(['review' => null]);
+        }
         return response()->json(['review' => $review]);
     }
 }
