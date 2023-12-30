@@ -37,8 +37,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center mb-3">
-                                    <img class="mr-3" src="{{ asset('frontend/assets/img/user/' . Auth::user()->photo) }}"
-                                        width="80" height="80" alt="">
+                                    
+                                    @if (Auth::user()->photo != null)
+                                        <img class="mr-3" src="{{ asset('frontend/assets/img/user/' . Auth::user()->photo) }}" width="80" height="80" alt="">
+                                    @else
+                                    <img class="mr-3" src="{{ asset('backend') }}/images/user/1.png" width="80" height="80" alt="">
+                                    @endif
                                     <div class="media-body">
                                         <h3 class="mb-0">{{ Auth::user()->name }}</h3>
                                     </div>
@@ -138,7 +142,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <input type="password" class="form-control" id="password" name="password"
-                                             value="{{ old('password') }}">
+                                            value="{{ old('password') }}">
                                         @error('password')
                                             <div id="val-username-error" class="invalid-feedback animated fadeInDown"
                                                 style="display: block">{{ $message }}</div>
@@ -150,7 +154,8 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="password" class="form-control" id="newPassword" name="newPassword" value="{{ old('newPassword') }}">
+                                        <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                            value="{{ old('newPassword') }}">
                                         @error('newPassword')
                                             <div id="val-username-error" class="invalid-feedback animated fadeInDown"
                                                 style="display: block">{{ $message }}</div>
@@ -162,7 +167,8 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value="{{ old('confirmPassword') }}">
+                                        <input type="password" class="form-control" id="confirmPassword"
+                                            name="confirmPassword" value="{{ old('confirmPassword') }}">
                                         @error('confirmPassword')
                                             <div id="val-username-error" class="invalid-feedback animated fadeInDown"
                                                 style="display: block">{{ $message }}</div>
@@ -178,5 +184,4 @@
         </div>
         <!-- #/ container -->
     </div>
-
 @endsection

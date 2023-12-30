@@ -622,7 +622,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-4">
+                <div class="card my-4">
                     <div class="card-header">Your Slot Booking History</div>
                     <div class="card-body p-0">
                         <!-- Billing history table-->

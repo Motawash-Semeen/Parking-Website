@@ -67,31 +67,31 @@
                             <h2 class="mt-4">{{ $total_price }}</h2>
                             <span>Total Revenue</span>
                             <div class="mt-4">
-                                <h4>{{ $percentage_card }}</h4>
-                                <h6>Card Order <span class="pull-right">{{ $percentage_card }}%</span></h6>
+                                <h4>{{ round($percentage_card) }}</h4>
+                                <h6>Card Order <span class="pull-right">{{ round($percentage_card) }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-primary" style="width: {{ $percentage_card }}%;"
-                                        role="progressbar"><span class="sr-only">{{ $percentage_card }}% Order</span>
+                                    <div class="progress-bar bg-primary" style="width: {{ round($percentage_card) }}%;"
+                                        role="progressbar"><span class="sr-only">{{ round($percentage_card) }}% Order</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <h4>{{ $percentage_online }}</h4>
+                                <h4>{{ round($percentage_online) }}</h4>
                                 <h6 class="m-t-10 text-muted">Online Order <span
-                                        class="pull-right">{{ $percentage_online }}%</span></h6>
+                                        class="pull-right">{{ round($percentage_online) }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-success" style="width: {{ $percentage_online }}%;"
-                                        role="progressbar"><span class="sr-only">{{ $percentage_online }}% Order</span>
+                                    <div class="progress-bar bg-success" style="width: {{ round($percentage_online) }}%;"
+                                        role="progressbar"><span class="sr-only">{{ round($percentage_online) }}% Order</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <h4>{{ $percentage_cash }}</h4>
+                                <h4>{{ round($percentage_cash) }}</h4>
                                 <h6 class="m-t-10 text-muted">Cash On Develery <span
-                                        class="pull-right">{{ $percentage_cash }}%</span></h6>
+                                        class="pull-right">{{ round($percentage_cash) }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
-                                    <div class="progress-bar bg-warning" style="width: {{ $percentage_cash }}%;"
-                                        role="progressbar"><span class="sr-only">{{ $percentage_cash }}% Order</span>
+                                    <div class="progress-bar bg-warning" style="width: {{ round($percentage_cash) }}%;"
+                                        role="progressbar"><span class="sr-only">{{ round($percentage_cash) }}% Order</span>
                                     </div>
                                 </div>
                             </div>

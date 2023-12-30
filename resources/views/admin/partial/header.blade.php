@@ -72,8 +72,14 @@
                         
                         <div class="position-relative mr-2">
                             <span class="activity active"></span>
+                            @if (Auth::user()->photo != NULL)
+                                <img src="{{ asset('frontend/assets/img/user/' . Auth::user()->photo) }}" height="40" width="40"
+                                alt="">
+                            @else
                             <img src="{{ asset('backend') }}/images/user/1.png" height="40" width="40"
                             alt="">
+                            @endif
+                            
                         </div>
                             <div>{{ Auth::user()->name }}</div>
                     </div>
