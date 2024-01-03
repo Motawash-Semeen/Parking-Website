@@ -31,6 +31,8 @@ Route::get('/service', [LocationController::class, 'inputPage']);
 Route::get('/faq', [HomeController::class, 'faqPage']);
 Route::get('/privacy', [HomeController::class, 'privacyPage']);
 Route::post('/contact', [HomeController::class, 'contactPage']);
+Route::get('/google', [HomeController::class, 'googleService']);
+Route::get('/google/callback', [HomeController::class, 'handleGoogleCallback']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

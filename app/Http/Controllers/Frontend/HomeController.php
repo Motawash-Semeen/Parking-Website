@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Socialite\Facades\Socialite;
 
 class HomeController extends Controller
 {
@@ -28,9 +29,9 @@ class HomeController extends Controller
         $trans_amount = TransationInfo::where('user_id', $id)->sum('amount');
         $trans_count = TransationInfo::where('user_id', $id)->count();
         $active_books = Slots::with('parkingSlots', 'info')->where('user_id', $id)->where('occupied', 'yes')->where('end_time', '>', time())->get();
-        $cash_books = TransationInfo::with('info','users','slots')->where('payment_method', 'cash')->orderBy('id', 'desc')->limit(5)->get();
-        $your_slot_books = TransationInfo::with('info','users','slots')->orderBy('id', 'desc')->limit(5)->get();
-    
+        $cash_books = TransationInfo::with('info', 'users', 'slots')->where('payment_method', 'cash')->orderBy('id', 'desc')->limit(5)->get();
+        $your_slot_books = TransationInfo::with('info', 'users', 'slots')->orderBy('id', 'desc')->limit(5)->get();
+
         $slots = ParkingSlots::where('user_id', $id)->get();
         $profit = TransationInfo::with('slots')->get();
         $total_profit = 0;
@@ -40,8 +41,8 @@ class HomeController extends Controller
             }
         }
         $has_slot = ParkingSlots::where('user_id', $id)->exists();
-        
-        return view('dashboard', compact('user','trans','slots','total_profit','has_slot','trans_amount','active_books','trans_count','cash_books','your_slot_books'));
+
+        return view('dashboard', compact('user', 'trans', 'slots', 'total_profit', 'has_slot', 'trans_amount', 'active_books', 'trans_count', 'cash_books', 'your_slot_books'));
     }
     public function service()
     {
@@ -84,12 +85,42 @@ class HomeController extends Controller
             'phone_no' => $request->phone_no,
             'message' => $request->message,
         ];
-        Mail::to($request->email)->send(new ContactMail($data));
+        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactMail($data));
         $notification = array(
             'message' => 'Your message has been sent successfully',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+    public function googleService(Request $request)
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    public function handleGoogleCallback()
+    {
+        $user = Socialite::driver('google')->user();
+        //print_r($user);   
+        // Check if the user already exists in the database
+        $existingUser = User::where('email', $user->email)->first();
 
+        if ($existingUser) {
+            auth()->login($existingUser, true);
+        } else {
+            // Create a new user in the database
+            $newUser = User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'nid' => '0-'.uniqid(),
+                'photo' => $user->avatar,
+                'email_verified_at' => now(),
+                'password' => bcrypt(''),
+
+                // Additional fields as needed
+            ]);
+
+            auth()->login($newUser, true);
+        }
+
+        return redirect('/'); // Adjust the redirect URL as needed
     }
 }

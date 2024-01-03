@@ -59,7 +59,7 @@
                                 <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
 
                                 <div class="social-login">
-                                    <a href="#" class="google btn d-flex justify-content-center align-items-center">
+                                    <a href="{{ url('/google') }}" class="google btn d-flex justify-content-center align-items-center">
                                         <span class="icon-google me-3"></span> Login with Google
                                     </a>
                                 </div>
@@ -131,7 +131,7 @@
                                 <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
 
                                 <div class="social-login">
-                                    <a href="#" class="google btn d-flex justify-content-center align-items-center">
+                                    <a href="{{ url('/google') }}" class="google btn d-flex justify-content-center align-items-center">
                                         <span class="icon-google me-3"></span> Signup with Google
                                     </a>
                                 </div>
