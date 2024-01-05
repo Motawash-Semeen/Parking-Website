@@ -327,5 +327,21 @@ class SslCommerzPaymentController extends Controller
 
     }
 
+    public function refund($id)
+    {
+        $refund = SSLCommerzPayment::refund($id,);
+
+        if($refund->status)
+        {
+            $state  = $refund->refund_state;
+            $refID  = $refund->ref_id;
+            dd($refund->output);
+        }
+        else 
+        {
+            return $refund->message;
+        }
+    }
+
 
 }

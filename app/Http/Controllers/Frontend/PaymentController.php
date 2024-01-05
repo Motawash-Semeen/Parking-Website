@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use DGvai\SSLCommerz\SSLCommerz;
 use Stripe\PaymentIntent;
 use Stripe\Refund;
+use Karim007\SslcommerzLaravel\Facade\SSLCommerzPayment;
 
 class PaymentController extends Controller
 {
@@ -237,7 +238,7 @@ class PaymentController extends Controller
                     $updateSlot->update();
 
                     $notification = array(
-                        'message' => 'Refund successful',
+                        'message' => 'Refund Request Send successful',
                         'alert-type' => 'success'
                     );
                     return redirect()->back()->with($notification);
@@ -256,6 +257,21 @@ class PaymentController extends Controller
                 return redirect()->back()->with($notification);
             }
         } else if($trans->user_id == Auth::user()->id && $trans->payment_method == 'Online') {
+            
+            $trans->return_date = time();
+            $trans->status = 'cancel';
+            $trans->update();
+            $updateSlot = Slots::where('slot_id', $trans->slot_id)->where('slot_number', $trans->slot_number)->first();
+            $updateSlot->occupied = 'no';
+            $updateSlot->end_time = null;
+            $updateSlot->user_id = null;
+            $updateSlot->update();
+
+            $notification = array(
+                'message' => 'Refund Request Send successful',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
         }
         else{
             $notification = array(
