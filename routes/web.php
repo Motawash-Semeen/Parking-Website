@@ -35,7 +35,7 @@ Route::get('/google', [HomeController::class, 'googleService']);
 Route::get('/google/callback', [HomeController::class, 'handleGoogleCallback']);
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified','checkNID'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::post('/changePassword', [DashboardController::class, 'changePassword'])->name('password.change');
     Route::post('/deleteUser', [DashboardController::class, 'deleteUser'])->name('user.delete');
@@ -69,7 +69,7 @@ Route::group(['middleware'=>[config('sslcommerz.middleware','web')]], function (
     Route::post('/sslcommerz/ipn', [SslCommerzPaymentController::class, 'ipn']);
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','checkNID'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -78,8 +78,12 @@ Route::middleware('auth')->group(function () {
     Route::get('invoice_download/{id}', [TransactionController::class, 'downloadInvoice'])->name('invoice.download');
     Route::get('write-review/{slot_id}/{id}', [ReviewController::class, 'writeReview'])->name('write.review');
 });
+Route::middleware(['auth','checkNID'])->group(function () {
+    Route::get('/store-nid', [HomeController::class, 'nidStorePage']);
+    Route::post('/store-nid', [HomeController::class, 'nidStore']);
+});
 
-Route::middleware(['checkUserId', 'auth'])->group(function () {
+Route::middleware(['checkUserId', 'auth','checkNID'])->group(function () {
     Route::get('user/update-satus/{id}/{slotid?}', [UserSlotController::class, 'UpdateStatus'])->name('user.slots.status');
     Route::get('user/delete-slot/{id}', [UserSlotController::class, 'DeleteSlots'])->name('user.slots.delete');
     Route::get('user/edit-slot/{id}', [UserSlotController::class, 'EditSlots'])->name('user.slots.edit');

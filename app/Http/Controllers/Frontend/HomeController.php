@@ -12,6 +12,7 @@ use App\Models\TransationInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -99,6 +100,7 @@ class HomeController extends Controller
     public function handleGoogleCallback()
     {
         $user = Socialite::driver('google')->user();
+        //return $user->avatar;
         //print_r($user);   
         // Check if the user already exists in the database
         $existingUser = User::where('email', $user->email)->first();
@@ -107,20 +109,57 @@ class HomeController extends Controller
             auth()->login($existingUser, true);
         } else {
             // Create a new user in the database
-            $newUser = User::create([
-                'name' => $user->name,
-                'email' => $user->email,
-                'nid' => '0-'.uniqid(),
-                'photo' => $user->avatar,
-                'email_verified_at' => now(),
-                'password' => bcrypt(''),
+            // $newUser = User::create([
+            //     'name' => $user->name,
+            //     'email' => $user->email,
+            //     'nid' => '0-'.uniqid(),
+            //     'photo' => $user->avatar,
+            //     'email_verified_at' => now(),
+            //     'password' => bcrypt(''),
 
-                // Additional fields as needed
-            ]);
+            //     // Additional fields as needed
+            // ]);
+            $newUser = new User;
+            $newUser->name = $user->name;
+            $newUser->email = $user->email;
+            $newUser->nid = '0-' . uniqid();
+            $newUser->photo = $user->avatar;
+            $newUser->email_verified_at = now();
+            $newUser->password = bcrypt('');
+            $newUser->save();
+            
 
             auth()->login($newUser, true);
         }
 
         return redirect('/'); // Adjust the redirect URL as needed
+    }
+    public function nidStorePage()
+    {
+        return view('user_authentication');
+    }
+    public function nidStore(Request $request)
+    {
+        $request->validate([
+            'nid' => 'required',
+            'password' => 'required|same:confirm_password',
+            'confirm_password' => 'required',
+        ],[
+            'nid.required' => 'NID is required',
+            'password.required' => 'Password is required',
+            'confirm_password.required' => 'Confirm Password is required',
+            'password.same' => 'Password and Confirm Password must be same',
+        
+        ]);
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $user->nid = $request->nid;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        $notification = array(
+            'message' => 'Your Info has been stored successfully',
+            'alert-type' => 'success'
+        );
+        return redirect('profile')->with($notification);
     }
 }

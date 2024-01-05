@@ -48,9 +48,23 @@
                             <div class="card-header">Profile Picture</div>
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
+                                @if ($user->photo != null)
+                                @if (strpos($user->photo, 'http') !== false)
                                 <img class="img-account-profile rounded-circle mb-2"
-                                    src="{{ $user->photo != null ? 'frontend/assets/img/user/' . $user->photo : 'http://bootdey.com/img/Content/avatar/avatar1.png' }}"
-                                    alt="" id="profile-picture">
+                                src="{{ $user->photo }}"
+                                alt="" id="profile-picture">
+                                @else
+                                <img class="img-account-profile rounded-circle mb-2"
+                                src="{{ 'frontend/assets/img/user/' . $user->photo }}"
+                                alt="" id="profile-picture">
+                                @endif
+                                
+                                @else
+                                <img class="img-account-profile rounded-circle mb-2"
+                                src="{{ 'http://bootdey.com/img/Content/avatar/avatar1.png' }}"
+                                alt="" id="profile-picture">
+                                @endif
+                                
                                 <!-- Profile picture help block-->
                                 <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                                 <!-- Profile picture upload button-->
