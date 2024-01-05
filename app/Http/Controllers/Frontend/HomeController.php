@@ -29,7 +29,9 @@ class HomeController extends Controller
         $trans = TransationInfo::where('user_id', $id)->orderBy('id', 'desc')->limit(5)->get();
         $trans_amount = TransationInfo::where('user_id', $id)->sum('amount');
         $trans_count = TransationInfo::where('user_id', $id)->count();
-        $active_books = Slots::with('parkingSlots', 'info')->where('user_id', $id)->where('occupied', 'yes')->where('end_time', '>', time())->get();
+        
+        $active_books = Slots::with('parkingSlots')->where('user_id', $id)->where('occupied', 'yes')->where('end_time', '>=', time())->orderBy('id', 'desc')->get();
+        // $active_books = TransationInfo::with('slots', 'info')->where('user_id', $id)->where('end_time', '>=', $formattedDate)->orderBy('id', 'desc')->get();
         $cash_books = TransationInfo::with('info', 'users', 'slots')->where('payment_method', 'cash')->orderBy('id', 'desc')->limit(5)->get();
         $your_slot_books = TransationInfo::with('info', 'users', 'slots')->orderBy('id', 'desc')->limit(5)->get();
 
@@ -44,6 +46,7 @@ class HomeController extends Controller
         $has_slot = ParkingSlots::where('user_id', $id)->exists();
 
         return view('dashboard', compact('user', 'trans', 'slots', 'total_profit', 'has_slot', 'trans_amount', 'active_books', 'trans_count', 'cash_books', 'your_slot_books'));
+        //return $active_books;
     }
     public function service()
     {
@@ -127,7 +130,7 @@ class HomeController extends Controller
             $newUser->email_verified_at = now();
             $newUser->password = bcrypt('');
             $newUser->save();
-            
+
 
             auth()->login($newUser, true);
         }
@@ -144,12 +147,12 @@ class HomeController extends Controller
             'nid' => 'required',
             'password' => 'required|same:confirm_password',
             'confirm_password' => 'required',
-        ],[
+        ], [
             'nid.required' => 'NID is required',
             'password.required' => 'Password is required',
             'confirm_password.required' => 'Confirm Password is required',
             'password.same' => 'Password and Confirm Password must be same',
-        
+
         ]);
         $id = Auth::user()->id;
         $user = User::find($id);

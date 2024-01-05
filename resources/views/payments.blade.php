@@ -221,7 +221,7 @@
                             <!-- Net Banking info -->
                             <div class="tab-pane fade" id="net-banking" role="tabpanel"
                                 aria-labelledby="net-banking-tab" tabindex="0">
-                                <form method="post" action="{{ url('/sslcommerz/pay2') }}">
+                                <form method="post" action="{{ url('/sslcommerz/pay') }}">
                                     @csrf
                                     <input type="text" name="slot_number" id="slot-number" hidden
                                         value={{ $request->slot_number }}>

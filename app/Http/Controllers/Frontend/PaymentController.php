@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use DGvai\SSLCommerz\SSLCommerz;
+use Stripe\PaymentIntent;
+use Stripe\Refund;
 
 class PaymentController extends Controller
 {
@@ -129,7 +131,8 @@ class PaymentController extends Controller
         }
         //return $charge;
     }
-    public function makeCashPayment(Request $request){
+    public function makeCashPayment(Request $request)
+    {
         $request->validate([
             'slot_id' => 'required',
             'coordinates_send' => 'required',
@@ -206,6 +209,60 @@ class PaymentController extends Controller
     {
         return view('afterpayment')->with('delay', 5000);
     }
+    public function cancelPaymentStripe($id)
+    {
+        $timestamp = time();
+        $formattedDate = date('Y-m-d\TH:i', $timestamp);
+        $trans = TransationInfo::where('id', $id)->where('status','confirmed')->where('start_time','>=',$formattedDate)->first();
 
+        if ($trans->user_id == Auth::user()->id && $trans->payment_method == 'Stripe') {
+            Stripe::setApiKey(env('STRIPE_SECRET'));
 
+            try {
+                $chargeId = $trans->invoice_number;
+                $charge = Charge::retrieve($chargeId);
+                //return $charge;
+                if ($charge && $charge->status == 'succeeded') {
+                    // Refund the charge
+                    Refund::create([
+                        'charge' => $chargeId
+                    ]);
+                    $trans->return_date = time();
+                    $trans->status = 'cancel';
+                    $trans->update();
+                    $updateSlot = Slots::where('slot_id', $trans->slot_id)->where('slot_number', $trans->slot_number)->first();
+                    $updateSlot->occupied = 'no';
+                    $updateSlot->end_time = null;
+                    $updateSlot->user_id = null;
+                    $updateSlot->update();
+
+                    $notification = array(
+                        'message' => 'Refund successful',
+                        'alert-type' => 'success'
+                    );
+                    return redirect()->back()->with($notification);
+                } else {
+                    $notification = array(
+                        'message' => 'Some Issue Occured',
+                        'alert-type' => 'error'
+                    );
+                    return redirect()->back()->with($notification);
+                }
+            } catch (\Exception $e) {
+                $notification = array(
+                    'message' => 'Some Issue Occured',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        } else if($trans->user_id == Auth::user()->id && $trans->payment_method == 'Online') {
+        }
+        else{
+            $notification = array(
+                'message' => 'Some Issue Occured',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
 }

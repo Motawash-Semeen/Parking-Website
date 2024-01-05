@@ -49,22 +49,20 @@
                             <div class="card-body text-center">
                                 <!-- Profile picture image-->
                                 @if ($user->photo != null)
-                                @if (strpos($user->photo, 'http') !== false)
-                                <img class="img-account-profile rounded-circle mb-2"
-                                src="{{ $user->photo }}"
-                                alt="" id="profile-picture">
+                                    @if (strpos($user->photo, 'http') !== false)
+                                        <img class="img-account-profile rounded-circle mb-2" src="{{ $user->photo }}"
+                                            alt="" id="profile-picture">
+                                    @else
+                                        <img class="img-account-profile rounded-circle mb-2"
+                                            src="{{ 'frontend/assets/img/user/' . $user->photo }}" alt=""
+                                            id="profile-picture">
+                                    @endif
                                 @else
-                                <img class="img-account-profile rounded-circle mb-2"
-                                src="{{ 'frontend/assets/img/user/' . $user->photo }}"
-                                alt="" id="profile-picture">
+                                    <img class="img-account-profile rounded-circle mb-2"
+                                        src="{{ 'http://bootdey.com/img/Content/avatar/avatar1.png' }}" alt=""
+                                        id="profile-picture">
                                 @endif
-                                
-                                @else
-                                <img class="img-account-profile rounded-circle mb-2"
-                                src="{{ 'http://bootdey.com/img/Content/avatar/avatar1.png' }}"
-                                alt="" id="profile-picture">
-                                @endif
-                                
+
                                 <!-- Profile picture help block-->
                                 <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                                 <!-- Profile picture upload button-->
@@ -305,54 +303,55 @@
                                 <tbody>
                                     @if ($cash_books->count() == 0)
                                         <tr>
-                                            <td colspan="6" style="text-align: center; color: #69707a;">No Cash Book
+                                            <td colspan="8" style="text-align: center; color: #69707a;">No Cash Book
                                             </td>
                                         </tr>
                                     @else
                                         @foreach ($cash_books as $tran)
-                                        @if ($tran->slots->user_id == Auth::user()->id)
-                                            <tr>
-                                                <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
-                                                <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}
-                                                </td>
-                                                <td style="color: #69707a;">{{ $tran->slots->users->name }}</td>
-                                                <td style="color: #69707a;">{{ $tran->slots->users->number }}</td>
-                                                <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}
-                                                </td>
-                                                <td style="color: #69707a;">{{ $tran->amount }}</td>
-                                                <td>
-                                                    @php
-                                                        $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
-                                                    @endphp
-                                                    @if ($value == 'Pending')
-                                                    <a href="{{ url('user/update-satus/' . $tran->id.'/'.$tran->slots->id) }}"
-                                                    class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
-                                                    @else
-                                                    <span
-                                                        class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
-                                                    @endif
-                                                    
-                                                </td>
-                                                <td style="text-align: center;">
-                                                    
-                                                    <span class="ms-3"><a
-                                                            href="{{ url('invoice_download/' . $tran->id) }}"
-                                                            data-toggle="tooltip" data-placement="top" title="View"
-                                                            data-original-title="View"><i
-                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"
-                                                                style="color:#69707a"></i> </a>
+                                            @if ($tran->slots->user_id == Auth::user()->id)
+                                                <tr>
+                                                    <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
+                                                    <td style="color: #69707a;">
+                                                        {{ date('Y-m-d H:i:s', $tran->order_date) }}
+                                                    </td>
+                                                    <td style="color: #69707a;">{{ $tran->slots->users->name }}</td>
+                                                    <td style="color: #69707a;">{{ $tran->slots->users->number }}</td>
+                                                    <td style="color: #69707a; text-align: center;">
+                                                        {{ $tran->slot_number }}
+                                                    </td>
+                                                    <td style="color: #69707a;">{{ $tran->amount }}</td>
+                                                    <td>
+                                                        @php
+                                                            $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
+                                                        @endphp
+                                                        @if ($value == 'Pending')
+                                                            <a href="{{ url('user/update-satus/' . $tran->id . '/' . $tran->slots->id) }}"
+                                                                class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
+                                                        @else
+                                                            <span
+                                                                class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+                                                        @endif
 
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            
-                                        @else
-                                        <tr>
-                                            <td colspan="6" style="text-align: center; color: #69707a;">No Cash Book
-                                            </td>
-                                        </tr>
-                                        @endif
-                                            
+                                                    </td>
+                                                    <td style="text-align: center;">
+
+                                                        <span class="ms-3"><a
+                                                                href="{{ url('invoice_download/' . $tran->id) }}"
+                                                                data-toggle="tooltip" data-placement="top" title="View"
+                                                                data-original-title="View"><i
+                                                                    class="fa-solid fa-file-arrow-down color-muted m-r-5"
+                                                                    style="color:#69707a"></i> </a>
+
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @else
+                                                <tr>
+                                                    <td colspan="8" style="text-align: center; color: #69707a;">No Cash
+                                                        Book
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     @endif
 
@@ -385,28 +384,43 @@
                                         </tr>
                                     @else
                                         @foreach ($active_books as $tran)
+                                            @php
+                                                $slot = App\Models\TransationInfo::where('slot_id', $tran->slot_id)
+                                                    ->where('user_id', $tran->user_id)
+                                                    ->orderBy('id', 'desc')
+                                                    ->first();
+                                            @endphp
                                             <tr>
-                                                <td style="color: #69707a;">{{ $tran->info->invoice_number }}</td>
+                                                <td style="color: #69707a;">{{ $slot->invoice_number }}</td>
                                                 <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}
                                                 </td>
                                                 <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}
                                                 </td>
-                                                <td style="color: #69707a;">{{ $tran->info->amount }}</td>
+                                                <td style="color: #69707a;">{{ $slot->amount }}</td>
                                                 <td>
-                                                    @php
-                                                        $tran->info->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
-                                                    @endphp
-                                                    <span
-                                                        class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+
+                                                    <span class="badge badge-primary">{{ $slot->status }}</span>
                                                 </td>
+                                                @php
+                                                    $timestamp = time();
+                                                    $formattedDate = date('Y-m-d\TH:i', $timestamp);
+                                                @endphp
                                                 <td style="text-align: center;">
-                                                    <span><a href="{{ url('direction/' . $tran->info->id) }}"
+                                                    @if ($slot->status == 'confirmed' && $slot->start_time >= $formattedDate)
+                                                        <span class="me-2"><a href="{{ url('book-cancel/' . $slot->id) }}"
+                                                                data-toggle="tooltip" data-placement="top" title="Cancel"
+                                                                data-original-title="Cancel"><i
+                                                                    class="fa-regular fa-circle-xmark m-r-5"
+                                                                    style="color:#69707a"></i> </a></span>
+                                                    @endif
+                                                    <span><a href="{{ url('direction/' . $slot->id) }}"
                                                             data-toggle="tooltip" data-placement="top" title="Direction"
                                                             data-original-title="Direction"><i
                                                                 class="fa-solid fa-route color-muted m-r-5"
                                                                 style="color:#69707a"></i> </a></span>
+
                                                     <span class="ms-3"><a
-                                                            href="{{ url('invoice_download/' . $tran->info->id) }}"
+                                                            href="{{ url('invoice_download/' . $slot->id) }}"
                                                             data-toggle="tooltip" data-placement="top" title="View"
                                                             data-original-title="View"><i
                                                                 class="fa-solid fa-file-arrow-down color-muted m-r-5"
@@ -440,31 +454,40 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($trans as $tran)
+                                    @if ($trans->count() == 0)
                                         <tr>
-                                            <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
-                                            <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}</td>
-                                            <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}</td>
-                                            <td style="color: #69707a;">{{ $tran->amount }}</td>
-                                            <td>
-                                                @php
-                                                    $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
-                                                @endphp
-                                                <span
-                                                    class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+                                            <td colspan="8" style="text-align: center; color: #69707a;">No Billing
+                                                History
                                             </td>
-                                            <td style="text-align: center;">
-                                                <span>
-                                                    @php
-                                                        $has_review = App\Models\TransationInfo::with('reviews')
-                                                            ->where('id', $tran->id)
-                                                            ->where('user_id', Auth::user()->id)
-                                                            ->first();
-                                                        if (count($has_review->reviews) > 0) {
-                                                        } else {
-                                                            echo '<button id="' .
-                                                                $tran->id.','.$tran->slot_id .
-                                                                '" onclick="setId(this.id)"
+                                        </tr>
+                                    @else
+                                        @foreach ($trans as $tran)
+                                            <tr>
+                                                <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
+                                                <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}
+                                                </td>
+                                                <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}
+                                                </td>
+                                                <td style="color: #69707a;">{{ $tran->amount }}</td>
+                                                <td>
+                                                    
+                                                    <span
+                                                        class="badge badge-primary px-2">{{ $tran->status }}</span>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <span>
+                                                        @php
+                                                            $has_review = App\Models\TransationInfo::with('reviews')
+                                                                ->where('id', $tran->id)
+                                                                ->where('user_id', Auth::user()->id)
+                                                                ->first();
+                                                            if (count($has_review->reviews) > 0) {
+                                                            } else {
+                                                                echo '<button id="' .
+                                                                    $tran->id .
+                                                                    ',' .
+                                                                    $tran->slot_id .
+                                                                    '" onclick="setId(this.id)"
                                                                     class="me-3 p-0 bg-transparent border border-0"
                                                                     data-toggle="tooltip" data-placement="top" title="Write Review"
                                                                     data-original-title="Write Review" data-bs-toggle="modal"
@@ -472,19 +495,20 @@
                                                                     class="fa-solid fa-file-pen color-muted m-r-5"
                                                                     style="color:#69707a"></i>
                                                                 </button>';
-                                                        }
-                                                    @endphp
+                                                            }
+                                                        @endphp
 
-                                                    <a href="{{ url('invoice_download/' . $tran->id) }}"
-                                                        data-toggle="tooltip" data-placement="top" title="View"
-                                                        data-original-title="View"><i
-                                                            class="fa-solid fa-file-arrow-down color-muted m-r-5"
-                                                            style="color:#69707a"></i>
-                                                    </a>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                        <a href="{{ url('invoice_download/' . $tran->id) }}"
+                                                            data-toggle="tooltip" data-placement="top" title="View"
+                                                            data-original-title="View"><i
+                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"
+                                                                style="color:#69707a"></i>
+                                                        </a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -661,51 +685,55 @@
                                             </td>
                                         </tr>
                                     @else
-                                        @foreach ($your_slot_books as $tran)
-                                        @if ($tran->slots->user_id == Auth::user()->id)
-                                            <tr>
-                                                <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
-                                                <td style="color: #69707a;">{{ date('Y-m-d H:i:s', $tran->order_date) }}
-                                                </td>
-                                                <td style="color: #69707a;">{{ $tran->slots->users->name }}</td>
-                                                <td style="color: #69707a;">{{ $tran->slots->users->number }}</td>
-                                                <td style="color: #69707a; text-align: center;">{{ $tran->slot_number }}
-                                                </td>
-                                                <td style="color: #69707a;">{{ $tran->amount }}</td>
-                                                <td>
-                                                    @php
-                                                        $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
-                                                    @endphp
-                                                    @if ($value == 'Pending')
-                                                    <a href="{{ url('user/update-satus/' . $tran->id.'/'.$tran->slots->id) }}"
-                                                    class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
-                                                    @else
-                                                    <span
-                                                        class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
-                                                    @endif
-                                                    
-                                                </td>
-                                                <td style="text-align: center;">
-                                                    
-                                                    <span class="ms-3"><a
-                                                            href="{{ url('invoice_download/' . $tran->id) }}"
-                                                            data-toggle="tooltip" data-placement="top" title="View"
-                                                            data-original-title="View"><i
-                                                                class="fa-solid fa-file-arrow-down color-muted m-r-5"
-                                                                style="color:#69707a"></i> </a>
+                                        @php $hasUserSlotBook = false; @endphp
 
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            
-                                        @else
-                                        <tr>
-                                            <td colspan="6" style="text-align: center; color: #69707a;">No Cash Book
-                                            </td>
-                                        </tr>
-                                        @endif
-                                            
+                                        @foreach ($your_slot_books as $tran)
+                                            @if ($tran->slots->user_id == Auth::user()->id)
+                                                @php $hasUserSlotBook = true; @endphp
+                                                <tr>
+                                                    <td style="color: #69707a;">{{ $tran->invoice_number }}</td>
+                                                    <td style="color: #69707a;">
+                                                        {{ date('Y-m-d H:i:s', $tran->order_date) }}
+                                                    </td>
+                                                    <td style="color: #69707a;">{{ $tran->slots->users->name }}</td>
+                                                    <td style="color: #69707a;">{{ $tran->slots->users->number }}</td>
+                                                    <td style="color: #69707a; text-align: center;">
+                                                        {{ $tran->slot_number }}
+                                                    </td>
+                                                    <td style="color: #69707a;">{{ $tran->amount }}</td>
+                                                    <td>
+                                                        @php
+                                                            $tran->status != 'confirmed' ? ($value = 'Pending') : ($value = 'Confirmed');
+                                                        @endphp
+                                                        @if ($value == 'Pending')
+                                                            <a href="{{ url('user/update-satus/' . $tran->id . '/' . $tran->slots->id) }}"
+                                                                class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</a>
+                                                        @else
+                                                            <span
+                                                                class="badge {{ $value == 'Confirmed' ? 'badge-primary' : 'badge-danger' }} px-2">{{ $value }}</span>
+                                                        @endif
+
+                                                    </td>
+                                                    <td style="text-align: center;">
+
+                                                        <span class="ms-3"><a
+                                                                href="{{ url('invoice_download/' . $tran->id) }}"
+                                                                data-toggle="tooltip" data-placement="top" title="View"
+                                                                data-original-title="View"><i
+                                                                    class="fa-solid fa-file-arrow-down color-muted m-r-5"
+                                                                    style="color:#69707a"></i> </a>
+
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
+                                        @if (!$hasUserSlotBook)
+                                            <tr>
+                                                <td colspan="8" style="text-align: center; color: #69707a;">No Slot
+                                                    Book</td>
+                                            </tr>
+                                        @endif
                                     @endif
 
                                 </tbody>
