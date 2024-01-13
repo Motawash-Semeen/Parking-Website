@@ -158,7 +158,7 @@ class LocationController extends Controller
     public function getAvailableSlot($id)
     {
 
-        $slot = Slots::where('slot_id', $id)->where('occupied', 'no')->orWhere('end_time','<=', time())->get();
+        $slot = Slots::where('slot_id', $id)->where('occupied', 'no')->orWhere('end_time','<=', time())->orWhere('end_time', null)->get();
         if($slot->count() == 0){
             $isHave = 0;
             return response()->json(['slots'=>$slot, 'isHave'=>$isHave]);
@@ -166,7 +166,7 @@ class LocationController extends Controller
         }
         else{
             $isHave = 1;
-            $single_slot = Slots::where('slot_id', $id)->where('occupied', 'no')->orWhere('end_time','<=', time())->first();
+            $single_slot = Slots::where('slot_id', $id)->where('occupied', 'no')->orWhere('end_time','<=', time())->orWhere('end_time', null)->first();
             return response()->json(['slots'=>$slot, 'isHave'=>$isHave, 'single_slot'=>$single_slot->slot_number]);
             //return $single_slot->id;
             //return $slot;
