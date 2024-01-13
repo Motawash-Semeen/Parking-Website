@@ -21,9 +21,7 @@
         @endif
         
     </div>
-
     @include('frontend.partials.custom')
-
 </body>
 
 </html>

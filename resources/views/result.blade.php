@@ -125,7 +125,7 @@
                 </div>
                 <hr>
                 <div id="dateTimeFields" style="display: none; margin-top: 20px;">
-                    <form action="{{ url('/paymemt') }}" method="POST">
+                    <form action="{{ url('/payment') }}" method="POST">
                         @csrf
                         <div class="row justify-content-center">
                             <input type="text" name="slot_id" id="slot-id" hidden>
@@ -523,7 +523,7 @@
                 type: 'GET',
                 url: '/slot-available/' + id,
                 success: function(data) {
-                    if (data.$isHave == 0) {
+                    if (data.isHave == 0) {
                         document.getElementById('show-book').classList.remove('d-block');
                         document.getElementById('show-book').classList.add('d-none');
                         document.getElementById('hide-book').classList.remove('d-none');
@@ -537,6 +537,7 @@
                         document.getElementById('slot-number').value = data.single_slot;
                         document.getElementById('slot-number').name = 'slot_number';
                     }
+                    console.log(data);
                 },
             })
             // $.ajax({

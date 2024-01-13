@@ -33,6 +33,7 @@ Route::get('/privacy', [HomeController::class, 'privacyPage']);
 Route::post('/contact', [HomeController::class, 'contactPage']);
 Route::get('/google', [HomeController::class, 'googleService']);
 Route::get('/google/callback', [HomeController::class, 'handleGoogleCallback']);
+Route::get('/getAvailableSlot/{id}', [LocationController::class, 'getAvailableSlot']);
 
 
 Route::middleware(['auth', 'verified','checkNID'])->group(function () {
@@ -46,7 +47,7 @@ Route::middleware(['auth', 'verified','checkNID'])->group(function () {
     Route::get('/slot-value/{id}', [LocationController::class, 'getSlotValue']);
     Route::get('/slot-available/{id}', [LocationController::class, 'getAvailableSlot']);
     Route::get('/get-review/{id}', [ReviewController::class, 'getReview']);
-    Route::post('/paymemt', [PaymentController::class, 'paymentPage']);
+    Route::post('/payment', [PaymentController::class, 'paymentPage']);
     Route::get('/congratulation', [PaymentController::class, 'congrtsPage']);
     Route::post('/stripe/payment', [PaymentController::class, 'makePayment'])->name('stripe.payment');
     Route::post('/cash/payment', [PaymentController::class, 'makeCashPayment'])->name('cash.payment');

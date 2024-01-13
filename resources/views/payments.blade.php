@@ -177,7 +177,8 @@
 
                                         </div>
                                     </div>
-                                    <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm
+                                    <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm"
+                                        onclick="buttonStatus()" id="myButton"> Confirm
                                         Payment
                                     </button>
                                     <div class='form-row'>
@@ -221,7 +222,7 @@
                             <!-- Net Banking info -->
                             <div class="tab-pane fade" id="net-banking" role="tabpanel"
                                 aria-labelledby="net-banking-tab" tabindex="0">
-                                <form method="post" action="{{ url('/sslcommerz/pay') }}">
+                                <form method="post" action="{{ url('/sslcommerz/pay') }}" id="stripeForm">
                                     @csrf
                                     <input type="text" name="slot_number" id="slot-number" hidden
                                         value={{ $request->slot_number }}>
@@ -238,13 +239,14 @@
                                     <input type="text" name="price" id="coordinates-start" hidden
                                         value="{{ $price }}" id="total_amount">
                                     <div class="form-group">
-                                        <p class="text-center"> <button type="submit" class="btn btn-primary "><i
+                                        <p class="text-center"> <button type="submit" class="btn btn-primary"><i
                                                     class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button> </p>
                                     </div>
                                 </form>
                                 <p class="text-muted">Note: After clicking on the button, you will be directed to a secure
                                     gateway for payment. After completing the payment process, you will be redirected back
                                     to the website to view details of your book. </p>
+                                {{ session('test') }}
                             </div>
                         </div> <!-- End -->
                     </div>
@@ -319,6 +321,29 @@
                 }
             }
 
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.getElementById('payment-form');
+            var submitButton = document.getElementById('myButton');
+            var submitted = false;
+    
+            form.addEventListener('submit', function(event) {
+                if (!submitted) {
+                    // Disable the button to prevent multiple submissions
+                    submitButton.disabled = true;
+                        submitted = true;
+                    var delay = 30000; // 5000 milliseconds (5 seconds)
+                    setTimeout(function() {
+                        submitButton.disabled = false;
+    
+                        submitted = false;
+                    }, delay);
+                } else {
+                    event.preventDefault();
+                }
+            });
         });
     </script>
     
