@@ -7,8 +7,8 @@
 }
 
 @media (min-width: 1180px) and (max-width: 1399px) {
-    header.header .text h3 {
-        font-size: 40px;
+    header.header .text h3, .header-text {
+        font-size: 40px !important;
         letter-spacing: 0;
         line-height: 50px;
     }
@@ -49,8 +49,8 @@
         padding-right: 85px;
     }
 
-    header.header .text h3 {
-        font-size: 30px;
+    header.header .text h3, .header-text {
+        font-size: 30px !important;
         letter-spacing: 0;
         line-height: 40px;
     }
@@ -133,6 +133,9 @@
     }
 }
 @media (max-width: 767px) {
+    #inputLocation .service-btn{
+        font-size: 14px;
+    }
     .body {
         width: 100%;
         overflow: hidden;
@@ -141,7 +144,7 @@
         font-size: 60px;
         color: #b388ff;
     }
-    header.header .text h3 {
+    header.header .text h3, .header-text {
         margin-top: 15px;
     }
     header.header .logo {
@@ -150,8 +153,8 @@
     header.header .menu ul.nav.navbar-nav {
         float: none;
     }
-    header.header .text h3 {
-        font-size: 40px;
+    header.header .text h3, .header-text {
+        font-size: 40px !important;
         line-height: 50px;
     }
     header.header .menu ul li a {
@@ -233,8 +236,8 @@
 }
 
 @media only screen and (max-width: 500px) {
-    header.header .text h3 {
-        font-size: 24px;
+    header.header .text h3, .header-text {
+        font-size: 24px !important;
         line-height: 30px;
     }
     header.header .text h6 {
