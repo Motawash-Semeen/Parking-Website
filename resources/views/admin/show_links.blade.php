@@ -34,13 +34,7 @@
                                                 <input type="text" class="form-control" id="val-email" name="twitter" placeholder="Enter your twitter Link.." value="{{ $links->twitter }}">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-password">Instagram <span class="text-danger">*</span>
-                                            </label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="val-password" name="instagram" placeholder="Enter your instagram Link.." value="{{ $links->instagram }}">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-confirm-password">LinkedIn <span class="text-danger">*</span>
                                             </label>
@@ -48,13 +42,7 @@
                                                 <input type="text" class="form-control" id="val-confirm-password" name="linkedin" placeholder="Enter your linkedin Link.." value="{{ $links->linkedin }}">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-email">Youtube <span class="text-danger">*</span>
-                                            </label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="val-email" name="youtube" placeholder="Enter your youtube Link.." value="{{ $links->youtube }}">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-password">Behance <span class="text-danger">*</span>
                                             </label>

@@ -25,12 +25,15 @@ class AdminController extends Controller
         $total_slots = Slots::count();
         $total_price = TransationInfo::sum('amount');
         $total_user = User::count();
-        $total_empty = Slots::where('occupied','no')->count();
+        $total_empty = Slots::where('occupied','no')->orWhere('end_time','<=', time())->orWhere('end_time', null)->count();
         $top_transaction = TransationInfo::orderBy('id','desc')->take(5)->get();
         $total_trans = TransationInfo::count();
         $percentage_card = (TransationInfo::where('payment_method','Stripe')->count()/ $total_trans) * 100;
         $percentage_cash = (TransationInfo::where('payment_method','Cash')->count()/  $total_trans) * 100;
         $percentage_online = (TransationInfo::where('payment_method','Online')->count()/ $total_trans) * 100;
+        $count_card = TransationInfo::where('payment_method','Stripe')->count();
+        $count_cash = TransationInfo::where('payment_method','Cash')->count();
+        $count_online = TransationInfo::where('payment_method','Online')->count();
 
         
         $daysearnings = TransationInfo::selectRaw('DATE(created_at) as date, SUM(amount) as total_amount')
@@ -38,7 +41,7 @@ class AdminController extends Controller
         ->orderBy('date', 'asc')
         ->limit(5);
 
-        return view('admin.admin_dashboard', compact('user','total_slots','total_price','total_user','total_empty','top_transaction','percentage_card','percentage_cash','percentage_online','daysearnings'));
+        return view('admin.admin_dashboard', compact('user','total_slots','total_price','total_user','total_empty','top_transaction','percentage_card','percentage_cash','percentage_online','daysearnings','count_card','count_cash','count_online'));
     }
     public function AdminProfile()
     {

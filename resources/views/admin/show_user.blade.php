@@ -51,12 +51,17 @@
                                                     @endphp
                                                     <a href="{{ url('admin/user-status/'.$user->id) }}" class="badge {{ $value == 'Active' ? 'badge-primary':'badge-danger' }} px-2">{{ $value }}</a>
                                                 </td>
+                                                @if ($user->id == Auth::user()->id)
+                                                    
+                                                @else
                                                 <td style="text-align: center;">
                                                     <span><a
                                                       href="{{ url('admin/user-delete/'.$user->id) }}" data-toggle="tooltip" data-placement="top"
                                                       title="" data-original-title="Close"><i
                                                           class="fa fa-close color-danger"></i></a></span>
                                                 </td>
+                                                @endif
+                                                
                                             </tr>
                                         @endforeach
                                     </tbody>

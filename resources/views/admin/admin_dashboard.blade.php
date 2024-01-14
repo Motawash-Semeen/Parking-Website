@@ -67,7 +67,7 @@
                             <h2 class="mt-4">{{ $total_price }}</h2>
                             <span>Total Revenue</span>
                             <div class="mt-4">
-                                <h4>{{ round($percentage_card) }}</h4>
+                                <h4>{{ round($count_card) }}</h4>
                                 <h6>Card Order <span class="pull-right">{{ round($percentage_card) }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
                                     <div class="progress-bar bg-primary" style="width: {{ round($percentage_card) }}%;"
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <h4>{{ round($percentage_online) }}</h4>
+                                <h4>{{ round($count_online) }}</h4>
                                 <h6 class="m-t-10 text-muted">Online Order <span
                                         class="pull-right">{{ round($percentage_online) }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <h4>{{ round($percentage_cash) }}</h4>
+                                <h4>{{ round($count_cash) }}</h4>
                                 <h6 class="m-t-10 text-muted">Cash On Develery <span
                                         class="pull-right">{{ round($percentage_cash) }}%</span></h6>
                                 <div class="progress mb-3" style="height: 7px">
@@ -181,7 +181,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="card">
                         <div class="social-graph-wrapper widget-facebook">
@@ -266,7 +266,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- #/ container -->
     </div>
