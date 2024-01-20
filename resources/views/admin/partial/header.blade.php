@@ -9,7 +9,7 @@
 </style>
 <div class="nav-header" style="background-color: #fff">
     <div class="brand-logo"   style="text-align: center">
-        <a href="index.html">
+        <a href="{{ url('/admin/dashboard') }}">
             <img src="{{ asset('backend') }}/images/pk-logo.png" alt="Logo" style="width: 35%; height: 53px" class="custom_img">
             <span class="brand-title">
                 <img src="{{ asset('backend') }}/images/pk-logo.png" alt="Logo" style="width: 100%; height: 50px" >

@@ -20,7 +20,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $total_slots = Slots::count();
+        $total_price = TransationInfo::sum('amount');
+        $total_trans = TransationInfo::count();
+        $total_user = User::where('role','=','user')->where('status','=','1')->count();
+        
+        return view('welcome', compact('total_slots','total_price','total_user','total_trans'));
     }
     public function dashboard()
     {

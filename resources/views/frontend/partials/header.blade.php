@@ -54,14 +54,14 @@
       
       </div>
 
-      <div class="row my-3 my-lg-5">
-          <div class="col-md-6 pe-lg-5 px-4">
-              <div class="banner-img">
-                  <a href="#"><img src="{{ asset('frontend') }}/assets/img/driver.jpg"
-                          alt="Driver image" class="w-100"></a>
+      <div class="row my-3 my-lg-4">
+          <div class="col-md-6 pe-lg-5 px-4" data-aos="zoom-in-right" data-aos-duration="2000">
+              <div class="banner-img" style="max-height: 350px; overflow: hidden; border-radius: 10px;">
+                  <a href="#" class="d-block w-100 h-100"><img src="{{ asset('frontend') }}/assets/img/driver.jpg"
+                          alt="Driver image" class="w-100 h-100"></a>
               </div>
           </div>
-          <div class="col-md-6 ps-lg-5 px-4">
+          <div class="col-md-6 ps-lg-5 px-4" data-aos="zoom-in-left" data-aos-duration="2000">
               <div class="text">
                   <h3>Want to enjoy easy parking? </h3>
                   <h6>
@@ -75,24 +75,29 @@
       </div>
 
       <div class="row my-5">
-          <div class="col-md-6 pe-lg-5 px-4">
-              <div class="banner-img">
-                  <a href="#"><img src="{{ asset('frontend') }}/assets/landowner/img/park_1.jpg"
-                          alt="Parking space image" class="w-100"></a>
+          {{-- <div class="col-md-6 pe-lg-5 px-4" data-aos="zoom-in-right" data-aos-duration="2000">
+              <div class="banner-img" style="max-height: 350px; overflow: hidden; border-radius: 10px;">
+                  <a href="#" class="d-block w-100 h-100"><img src="{{ asset('frontend') }}/assets/landowner/img/park_1.jpg"
+                          alt="Parking space image" class="w-100 h-100"></a>
               </div>
-          </div>
-          <div class="col-md-6 ps-lg-5 px-4">
+          </div> --}}
+          <div class="col-md-6 pe-lg-5 px-4" data-aos="zoom-in-right" data-aos-duration="2000">
               <div class="text">
                   <h3>Ready to earn from your bare land?</h3>
                   <h6>
-                      <p>Have a bare land of no use?</p>
-                      <p>Earn a thousands of rupees a year by renting out your empty land as a parking space
+                      <p>Earn a thousands of taka a year by renting out your empty land as a parking space
                       </p>
                   </h6>
                   <a class="button white" href="{{ url('/faq') }}">F A Q <sub>s</sub></a>
                   <a class="button" href="{{ url('/service') }}" background-color="yellow">Get Started</a>
               </div>
           </div>
+          <div class="col-md-6 ps-lg-5 px-4" data-aos="zoom-in-left" data-aos-duration="2000">
+            <div class="banner-img" style="max-height: 350px; overflow: hidden; border-radius: 10px;">
+                <a href="#" class="d-block w-100 h-100"><img src="{{ asset('frontend') }}/assets/landowner/img/park_1.jpg"
+                        alt="Parking space image" class="w-100 h-100"></a>
+            </div>
+        </div>
       </div>
 
   </div>

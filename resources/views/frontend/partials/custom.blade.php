@@ -10,6 +10,7 @@
 <script src="{{ asset('frontend') }}/assets/js/jquery-ui.js"></script>
 <script src="{{ asset('frontend') }}/assets/js/active.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
     @if (Session::has('message'))
@@ -32,4 +33,7 @@
                 break;
         }
     @endif
+</script>
+<script>
+    AOS.init();
 </script>

@@ -1,7 +1,7 @@
 @extends('master')
 @section('frontend.content')
 
-    <header class="header">
+    <header class="header pb-5">
         <div class="container-lg">
             <div class="row nav-design">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-transparent p-3">

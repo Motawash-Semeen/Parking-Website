@@ -18,11 +18,6 @@ $(".verticalCarousel").verticalCarousel({
  });
 
 
-
-
-
-
-
  var icons = {
      header: "ui-icon-circle-plus",
      activeHeader: "ui-icon-circle-minus"

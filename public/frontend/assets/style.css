@@ -5,7 +5,7 @@ header.header {
     background-image: url("landowner/img/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 30px 0 175px;
+    padding: 30px 0 20px;
 }
 
 header.header .logo {
@@ -70,10 +70,10 @@ header.header .sign_up p a {
 header.header .text h3 {
     color: #fff;
     font-family: "Raleway", sans-serif;
-    font-size: 55px;
+    font-size: 45px;
     font-weight: 800;
     letter-spacing: 1px;
-    line-height: 65px;
+    line-height: 55px;
     text-transform: uppercase;
 }
 .bg-yellow {
@@ -119,6 +119,10 @@ header .btn-nav {
     display: flex;
     justify-content: center;
 }
+.wrapper a.button.white:hover {
+    background-color: rgb(255, 222, 22);
+    color: #fff;
+}
 
 header .nav-link {
     text-align: center;
@@ -148,11 +152,25 @@ header .banner-img a img {
     text-decoration: none;
     text-transform: uppercase;
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+.wrapper a.button:hover {
+    background: #fff;
+    color: #061e37;
 }
 
 .wrapper a.button.white {
     background: #fff none repeat scroll 0 0;
     color: #061e37;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
 }
 
 header.header .header_video {
@@ -728,6 +746,10 @@ section.contact_area .form_area input[type="submit"] {
     font-weight: 500;
     padding: 15px 50px;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+}
+.btn-primary-outline:hover{
+    background-color: #dbc113;
+    color: white;
 }
 footer.footer {
     background: #061e37 none repeat scroll 0 0;

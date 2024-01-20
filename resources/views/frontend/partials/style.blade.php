@@ -28,5 +28,6 @@
 <link rel="stylesheet"
     href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css"
     type="text/css">
-    <script src="https://js.stripe.com/v2/"></script>
-    <script src="{{ asset('frontend') }}/assets/js/jquery-3.1.1.min.js"></script>
+<script src="https://js.stripe.com/v2/"></script>
+<script src="{{ asset('frontend') }}/assets/js/jquery-3.1.1.min.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">

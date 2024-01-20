@@ -1,7 +1,7 @@
 @extends('master')
 @section('frontend.content')
 @include('frontend.partials.header')
-<section class="project" id="about">
+<section class="project" id="about" data-aos="fade-up" data-aos-duration="1500">
     <div class="text">
         <h2>Parking Made Easy</h2>
         <h4>Best Parking Management, Searching and Reservation Tool</h4>
@@ -41,7 +41,7 @@
         </div>
     </div>
 </section>
-<section class="user_part">
+<section class="user_part" data-aos="fade-up" data-aos-duration="1500">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -63,7 +63,7 @@
                                     <i class="bi bi-pin-map"></i>
                                 </div>
                                 <div class="col-8">
-                                    <h4><span class="counter-install">30000+ </span><br>Parking Listed</h4>
+                                    <h4><span class="counter-install">{{ $total_slots.'+' }} </span><br>Parking Listed</h4>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                                     <i class="bi bi-download"></i>
                                 </div>
                                 <div class="col-8">
-                                    <h4><span class="counter-download">60000+ </span><br> Downloads</h4>
+                                    <h4><span class="counter-download">{{$total_trans}}+ </span><br>Transaction</h4>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                     <i class="bi bi-people"></i>
                                 </div>
                                 <div class="col-8">
-                                    <h4><span class="counter-user">40000+ </span><br> Users</h4>
+                                    <h4><span class="counter-user">{{ $total_user.'+' }} </span><br>Users</h4>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
         </div>
     </div>
 </section>
-<section class="services">
+<section class="services" data-aos="fade-up" data-aos-duration="1500">
     <div class="text">
         <h2>Services</h2>
         <p> We provides matching platform service for vehicle drivers who need parking service and parking lot
@@ -222,7 +222,7 @@
         </div>
     </div>
 </section>
-<section class="customer_area">
+{{-- <section class="customer_area">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-12 col-xs-12">
@@ -330,7 +330,7 @@
 
         </div>
     </div>
-</section>
+</section> --}}
 
 @include('frontend.partials.contact')
 @endsection
