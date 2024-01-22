@@ -23,7 +23,7 @@ class LocationController extends Controller
     public function resultPage(Request $request)
     {
         $location = $request->input('location');
-        $slots = ParkingSlots::where('status', 1)->get();
+        $slots = ParkingSlots::where('status', 1)->where('admin_approval', 1)->get();
         return view('result', compact('location','slots'));
     }
     public function directionPage($id)

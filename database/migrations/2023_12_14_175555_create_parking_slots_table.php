@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('mainroad')->default(0)->comment('0 = no, 1 = yes');
             $table->tinyInteger('user_id');
             $table->string('status')->default(0)->comment('0 = inactive, 1 = active');
+            $table->string('admin_approval')->default(0)->comment('0 = inactive, 1 = active');
 
             $table->timestamps();
         });

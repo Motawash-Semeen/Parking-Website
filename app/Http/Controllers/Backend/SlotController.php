@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SlotApproveMail;
 use Illuminate\Http\Request;
 use App\Models\ParkingImage;
 use App\Models\ParkingSlots;
 use App\Models\Slots;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Image;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -22,11 +24,21 @@ class SlotController extends Controller
     }
     public function UpdateStatus($id)
     {
-        $slot = ParkingSlots::find($id);
-        if ($slot->status == 0) {
-            $slot->status = 1;
+        $slot = ParkingSlots::with('users')->find($id);
+        if ($slot->status == '0') {
+            if($slot->admin_approval == '0'){
+                $slot->status = '1';
+                $slot->admin_approval = '1';
+                $data = [                    
+                ];
+                Mail::to($slot->users->email)->send(new SlotApproveMail($data));
+            }
+            else{
+                $slot->status = '1';
+            }
+            
         } else {
-            $slot->status = 0;
+            $slot->status = '0';
         }
         $slot->update();
         $notification = array(

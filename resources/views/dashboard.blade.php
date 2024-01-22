@@ -815,7 +815,7 @@
                                 <label class="form-check-label" for="rating5">5</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: #ffde16; color: #fff; border: none;">Submit Review</button>
                     </form>
                     <!-- End Review Form -->
                 </div>

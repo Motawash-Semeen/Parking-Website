@@ -27,12 +27,21 @@ class UserSlotController extends Controller
             $slot->update();
         }else{
             $slot = ParkingSlots::find($id);
-            if ($slot->status == 0) {
-                $slot->status = 1;
+            if ($slot && $slot->admin_approval == '1') {
+                if ($slot->status == 0) {
+                    $slot->status = '1';
+                } else {
+                    $slot->status = '0';
+                }
+                $slot->update();
             } else {
-                $slot->status = 0;
+                $notification = array(
+                    'message' => 'Admin Approval Pending',
+                    'alert-type' => 'warning'
+                );
+                return redirect()->back()->with($notification);
             }
-            $slot->update();
+            
         }
         
         $notification = array(
