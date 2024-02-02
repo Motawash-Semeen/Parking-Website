@@ -104,9 +104,7 @@ class AdminController extends Controller
         $links = SocialLinks::where('id',1)->first();
         $links->facebook = $request->facebook;
         $links->twitter = $request->twitter;
-        $links->instagram = $request->instagram;
         $links->linkedin = $request->linkedin;
-        $links->youtube = $request->youtube;
         $links->behance = $request->behance;
         $links->dribbble = $request->dribbble;
         $links->update();

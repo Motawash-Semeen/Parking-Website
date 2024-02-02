@@ -18,11 +18,17 @@
                         <div class="card-body">
                             <h4 class="card-title">Social Links</h4>
                                 <div class="form-validation">
-                                    <form class="form-valide" action="{{ url('admin/all-links') }}" method="post" novalidate="novalidate">
-                                        @csrf
+                                    {{-- <form class="form-valide" action="{{ url('admin/all-links') }}" method="post" novalidate="novalidate"> --}}
+                                        {!! Form::open([
+                                            'url' => 'admin/all-links',
+                                            'method' => 'post',
+                                            'class' => 'form-valide',
+                                            'nonvalidate' => 'nonvalidate',
+                                            ]) 
+                                        !!}
+
                                         <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label" for="val-username">Fcaebook <span class="text-danger">*</span>
-                                            </label>
+                                            <label class="col-lg-4 col-form-label" for="val-username">Fcaebook <span class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" id="val-username" name="facebook" placeholder="Enter your facebook Link.." value="{{ $links->facebook }}">
                                             </div>
@@ -57,13 +63,15 @@
                                                 <input type="text" class="form-control" id="val-confirm-password" name="dribbble" placeholder="Enter your dribbble Link.." value="{{ $links->dribbble }}">
                                             </div>
                                         </div>
-                                        
                                         <div class="form-group row">
                                             <div class="col-lg-8 ml-auto">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+                                                {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                                             </div>
                                         </div>
-                                    </form>
+                                    {{-- </form> --}}
+                                    {!! Form::close() !!}
+
                                 </div>
                             </div>
                     </div>
